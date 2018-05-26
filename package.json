@@ -1,0 +1,34 @@
+{
+  "name": "filecatalog",
+  "version": "1.0.0",
+  "description": "cli tool for scan folders and generate file metadata in database",
+  "main": "src/index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "dependencies": {
+    "chalk": "^2.4.1",
+    "clui": "^0.3.6",
+    "figlet": "^1.2.0",
+    "inquirer": "^5.2.0",
+    "knex": "^0.14.6",
+    "mysql2": "^1.5.3"
+  },
+  "devDependencies": {
+    "standard": "^11.0.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nghiaqh/filecatalog.git"
+  },
+  "author": "nathanquach8x@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nghiaqh/filecatalog/issues"
+  },
+  "homepage": "https://github.com/nghiaqh/filecatalog#readme"
+}

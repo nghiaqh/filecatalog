@@ -8,7 +8,7 @@ const chalk = require('chalk')
 const figlet = require('figlet')
 const inquirer = require('inquirer')
 const fs = require('fs')
-const comic = require('./comic')
+const manga = require('./manga')
 
 function start () {
   console.log(chalk.yellow(figlet.textSync(
@@ -34,7 +34,7 @@ async function askQuestions () {
       name: 'contentType',
       type: 'list',
       message: 'What type of content is in this folder?',
-      choices: [ 'comic' ]
+      choices: [ 'manga' ]
     },
     {
       name: 'includeSubFolder',
@@ -60,8 +60,8 @@ async function askQuestions () {
 }
 
 function process (input) {
-  if (input.contentType === 'comic') {
-    comic.scanContent(input.path, input.includeSubFolder)
+  if (input.contentType === 'manga') {
+    manga.scanContent(input.path, input.includeSubFolder)
   }
 
   console.log(chalk.green('Completed!\n'))

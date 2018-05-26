@@ -19,7 +19,10 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/index.js"
+    "start": "node src/index.js",
+    "kml": "./node_modules/.bin/knex migrate:latest --cwd ./src/components/knex",
+    "krb": "./node_modules/.bin/knex migrate:rollback --cwd ./src/components/knex",
+    "kmk": "./node_modules/.bin/knex migrate:make --cwd ./src/components/knex"
   },
   "repository": {
     "type": "git",

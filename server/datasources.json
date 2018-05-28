@@ -1,0 +1,16 @@
+{
+  "db": {
+    "name": "db",
+    "connector": "memory"
+  },
+  "mysqlIDs": {
+    "host": "localhost",
+    "port": 3306,
+    "url": "mysql://root:it1mysql!@localhost/filecatalog",
+    "database": "filecatalog",
+    "password": "it1mysql!",
+    "name": "mysqlIDs",
+    "user": "root",
+    "connector": "mysql"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "_meta": {
+    "sources": [
+      "loopback/common/models",
+      "loopback/server/models",
+      "../common/models",
+      "./models"
+    ],
+    "mixins": [
+      "loopback/common/mixins",
+      "loopback/server/mixins",
+      "../common/mixins",
+      "./mixins"
+    ]
+  },
+  "Series": {
+    "dataSource": "mysqlIDs",
+    "public": true
+  },
+  "Manga": {
+    "dataSource": "mysqlIDs",
+    "public": true
+  },
+  "Page": {
+    "dataSource": "mysqlIDs",
+    "public": true
+  },
+  "Author": {
+    "dataSource": "mysqlIDs",
+    "public": true
+  },
+  "Genre": {
+    "dataSource": "mysqlIDs",
+    "public": true
+  }
+}

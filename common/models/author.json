@@ -6,9 +6,12 @@
     "validateUpsert": true
   },
   "properties": {
-    "title": {
+    "name": {
       "type": "string",
-      "required": true
+      "required": true,
+      "index": {
+        "unique": true
+      }
     },
     "coverPicture": {
       "type": "string"

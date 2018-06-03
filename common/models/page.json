@@ -12,7 +12,13 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "manga": {
+      "type": "belongsTo",
+      "model": "Manga",
+      "foreignKey": "mangaId"
+    }
+  },
   "acls": [],
   "methods": {}
 }

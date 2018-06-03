@@ -13,24 +13,43 @@
       "./mixins"
     ]
   },
+  "User": {
+    "dataSource": "db"
+  },
+  "AccessToken": {
+    "dataSource": "db",
+    "public": false
+  },
+  "ACL": {
+    "dataSource": "db",
+    "public": false
+  },
+  "RoleMapping": {
+    "dataSource": "db",
+    "public": false
+  },
+  "Role": {
+    "dataSource": "db",
+    "public": false
+  },
   "Series": {
-    "dataSource": "mysqlIDs",
+    "dataSource": "mysqlDs",
     "public": true
   },
   "Manga": {
-    "dataSource": "mysqlIDs",
+    "dataSource": "mysqlDs",
     "public": true
   },
   "Page": {
-    "dataSource": "mysqlIDs",
+    "dataSource": "mysqlDs",
     "public": true
   },
   "Author": {
-    "dataSource": "mysqlIDs",
+    "dataSource": "mysqlDs",
     "public": true
   },
   "Genre": {
-    "dataSource": "mysqlIDs",
+    "dataSource": "mysqlDs",
     "public": true
   }
 }

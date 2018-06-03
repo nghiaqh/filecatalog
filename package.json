@@ -3,18 +3,22 @@
   "version": "1.0.0",
   "main": "server/server.js",
   "engines": {
-    "node": ">=4"
+    "node": ">=8"
   },
   "scripts": {
     "lint": "eslint .",
     "start": "node .",
-    "posttest": "npm run lint && nsp check"
+    "posttest": "npm run lint && nsp check",
+    "cli": "node bin/cli.js"
   },
   "dependencies": {
+    "chalk": "^2.4.1",
     "compression": "^1.0.3",
     "cors": "^2.5.2",
+    "figlet": "^1.2.0",
     "helmet": "^3.10.0",
     "ieee754": "^1.1.11",
+    "inquirer": "^5.2.0",
     "loopback": "^3.19.0",
     "loopback-boot": "^2.6.5",
     "loopback-component-explorer": "^6.0.0",
@@ -28,9 +32,9 @@
     "nsp": "^3.2.1"
   },
   "repository": {
-    "type": "",
-    "url": ""
+    "type": "git",
+    "url": "git@github.com:nghiaqh/filecatalog.git"
   },
-  "license": "UNLICENSED",
+  "license": "MIT",
   "description": "filecatalog"
 }

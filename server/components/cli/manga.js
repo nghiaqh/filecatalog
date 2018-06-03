@@ -47,17 +47,31 @@ async function importContent(folderPath, callback) {
     `${chalk.bold('Author:')} ${authorName}. ` +
     `${chalk.bold('Manga:')} ${bookName}`);
 
+  const files = folder.getChildren(folderPath).files;
+  const imgRe = /.*\.(jpg|jpeg|png|gif)$/;
+  let images = files.filter(file => imgRe.exec(file));
+
   try {
     const author = await createAuthor(authorName);
     if (author[1]) console.log(`  Author ${author[0].name} created!`);
     else console.log(chalk.gray(
       '  Author already exists in database.'));
+
     const manga = await createManga(bookName, author[0].id);
     if (manga[1]) console.log(`  Manga ${manga[0].title} created!`);
     else console.log(chalk.gray(
       '  Manga already exists in database.'));
+
+    for (let i = 0; i < images.length; i++) {
+      const title = path.parse(images[i]).base.split('/').pop();
+      const uri = images[i];
+      const page = await createPage(title, uri, manga[0].id);
+      if (page[1]) console.log(`  Page ${page[0].title} created!`);
+      else console.log(chalk.gray(
+      `  Page ${page[0].title} already exists in database.`));
+    }
   } catch (err) {
-    console.log(err.sqlMessage);
+    console.log(err);
   }
 }
 
@@ -72,6 +86,13 @@ function createManga(bookTitle, authorId) {
   return Manga.findOrCreate(
     {where: {title: bookTitle, authorId: authorId}},
     {title: bookTitle, authorId: authorId}
+  );
+}
+
+function createPage(title, uri, mangaId) {
+  return Page.findOrCreate(
+    {where: {title: title, uri: uri, mangaId: mangaId}},
+    {title: title, uri: uri, mangaId: mangaId}
   );
 }
 

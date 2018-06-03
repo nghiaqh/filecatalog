@@ -12,7 +12,7 @@ function getChildren(folderPath) {
       const itemPath = path.join(folderPath, item);
       if (fs.statSync(itemPath).isDirectory()) {
         folders.push(itemPath);
-      } else {
+      } else if (fs.statSync(itemPath).isFile()) {
         files.push(itemPath);
       }
     } catch (error) {

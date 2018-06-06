@@ -1,0 +1,55 @@
+{
+  "_meta": {
+    "sources": [
+      "loopback/common/models",
+      "loopback/server/models",
+      "../common/models",
+      "./models"
+    ],
+    "mixins": [
+      "loopback/common/mixins",
+      "loopback/server/mixins",
+      "../common/mixins",
+      "./mixins"
+    ]
+  },
+  "User": {
+    "dataSource": "db"
+  },
+  "AccessToken": {
+    "dataSource": "db",
+    "public": false
+  },
+  "ACL": {
+    "dataSource": "db",
+    "public": false
+  },
+  "RoleMapping": {
+    "dataSource": "db",
+    "public": false
+  },
+  "Role": {
+    "dataSource": "db",
+    "public": false
+  },
+  "Series": {
+    "dataSource": "mysqlDs",
+    "public": true
+  },
+  "Manga": {
+    "dataSource": "mysqlDs",
+    "public": true
+  },
+  "Page": {
+    "dataSource": "mysqlDs",
+    "public": true
+  },
+  "Author": {
+    "dataSource": "mysqlDs",
+    "public": true
+  },
+  "Genre": {
+    "dataSource": "mysqlDs",
+    "public": true
+  }
+}

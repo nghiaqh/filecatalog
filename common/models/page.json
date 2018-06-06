@@ -1,0 +1,28 @@
+{
+  "name": "Page",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "uri": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "manga": {
+      "type": "belongsTo",
+      "model": "Manga",
+      "foreignKey": "mangaId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

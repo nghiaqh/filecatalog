@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import AuthorList from './AuthorList';
-import SearchBox from './SearchBox';
 import Pagination from './Pagination';
 import { fetchItems, countItems } from './Datasource';
 
@@ -11,18 +10,13 @@ export default class AuthorsPanel extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      filterText: '',
       authors: [],
       total: 0,
       current: 0
     };
-    this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
+
     this.handleAuthorClick = this.handleAuthorClick.bind(this);
     this.handlePagination = this.handlePagination.bind(this);
-  }
-
-  handleFilterTextChange(filterText) {
-    this.setState({filterText: filterText});
   }
 
   handleAuthorClick(author) {
@@ -45,14 +39,9 @@ export default class AuthorsPanel extends Component {
   render() {
     return (
       <div>
-        <h2>{this.constructor.name}</h2>
-        <SearchBox
-          filterText={this.state.filterText}
-          onFilterTextChange={this.handleFilterTextChange}
-        />
         <AuthorList
           authors={this.state.authors}
-          filterText={this.state.filterText}
+          filterText={this.props.filterText}
           onAuthorClick={this.handleAuthorClick}
         />
 

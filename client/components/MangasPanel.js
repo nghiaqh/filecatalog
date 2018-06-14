@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import MangaList from './MangaList';
-import SearchBox from './SearchBox';
 import Pagination from './Pagination';
 import { fetchItems, countItems } from './Datasource';
 
@@ -11,18 +10,12 @@ export default class MangasPanel extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      filterText: '',
       mangas: [],
       total: 0,
       current: 0
     };
-    this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
     this.handleMangaClick = this.handleMangaClick.bind(this);
     this.handlePagination = this.handlePagination.bind(this);
-  }
-
-  handleFilterTextChange(filterText) {
-    this.setState({filterText: filterText});
   }
 
   handleMangaClick(manga) {
@@ -77,17 +70,11 @@ export default class MangasPanel extends Component {
 
     return (
       <div>
-        <h2>{this.constructor.name}</h2>
-        <SearchBox
-          filterText={this.state.filterText}
-          onFilterTextChange={this.handleFilterTextChange}
-        />
-
         {author ? (<h3>Mangas by {author.name}</h3>) : ''}
 
         <MangaList
           mangas={this.state.mangas}
-          filterText={this.state.filterText}
+          filterText={this.props.filterText}
           author={this.props.author}
           onMangaClick={this.handleMangaClick}
         />

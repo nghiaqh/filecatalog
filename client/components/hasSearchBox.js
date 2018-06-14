@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import SearchBox from './SearchBox';
 
-const withSearchBox = (WrappedComponent) => {
-  class HOC extends Component {
+const hasSearchBox = (WrappedComponent) => {
+  class HasSearchBox extends Component {
     constructor(props) {
       super(props);
       this.state = {
@@ -18,8 +18,6 @@ const withSearchBox = (WrappedComponent) => {
     render() {
       return (
         <div>
-          <h2>{WrappedComponent.name}</h2>
-
           <SearchBox
             filterText={this.state.filterText}
             onFilterTextChange={this.handleFilterTextChange}
@@ -34,7 +32,7 @@ const withSearchBox = (WrappedComponent) => {
     }
   }
 
-  return HOC;
+  return HasSearchBox;
 }
 
-export default withSearchBox;
+export default hasSearchBox;

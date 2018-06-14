@@ -7,13 +7,11 @@ export default class Manga extends Component {
   }
 
   render() {
-    const id = this.props.match.params.mangaId;
-    const title = this.props.location.state.manga.title;
+    const title = this.props.manga.title;
 
     return (
       <div>
           <h1>manga {title}</h1>
-          <PageList mangaId={id}/>
       </div>
     );
   }

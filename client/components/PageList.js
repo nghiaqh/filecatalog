@@ -1,36 +1,46 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import TextList from './TextList';
+import hasClickableItems from './hasClickableItems';
+
+const ClickableTextList = hasClickableItems(TextList);
 
 export default class PageList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentPage: null
+      currentPage: -1
     }
     this.handleClick = this.handleClick.bind(this);
     this.handleArrowKey = this.handleArrowKey.bind(this);
   }
 
+  // Overwrite handleClick of ClickableTextList to add key listener
   handleClick(e) {
     e.preventDefault();
-    const pages = this.props.pages;
-    const i = parseInt(e.target.getAttribute('page-index'));
-    const page = pages[i];
-    this.props.onPageClick(page);
+    const i = parseInt(e._targetInst.key);
+    const item = this.props.items[i];
+    this.props.onItemClick(item);
     this.setState({currentPage: i});
-
     document.addEventListener('keydown', this.handleArrowKey);
   }
 
   handleArrowKey(e) {
     let i = this.state.currentPage;
-    const pages = this.props.pages
+    const items = this.props.items
     // left arrow || right arrow
     if ((e.keyCode === 37 && --i >= 0) ||
-       (e.keyCode === 39 && ++i < pages.length)) {
+       (e.keyCode === 39 && ++i < items.length)) {
       e.preventDefault();
-      this.props.onPageClick(pages[i]);
+      this.props.onItemClick(items[i]);
       this.setState({currentPage: i});
+    }
+
+    if (e.keyCode === 37 && i < 0) {
+      // check pagespanel to see if there is prev pagination
+    }
+
+    if (e.keyCode === 39 && i === items.length) {
+      // check pagespanel to see if there is next pagination
     }
   }
 
@@ -39,21 +49,12 @@ export default class PageList extends Component {
   }
 
   render() {
-    const pages = [];
-    this.props.pages.forEach((page, index) => {
-      pages.push(
-        <li key={index}>
-          <a page-index={index} onClick={this.handleClick}>
-            {page.title}
-          </a>
-        </li>
-      );
-    });
-
     return (
-      <div>
-        <ul>{pages}</ul>
-      </div>
+      <ClickableTextList
+        displayAttribute='title'
+        handleClick={this.handleClick}
+        {...this.props}
+      />
     );
   }
 }

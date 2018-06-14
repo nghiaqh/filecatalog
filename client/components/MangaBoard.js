@@ -3,7 +3,6 @@ import AuthorsPanel from './AuthorsPanel';
 import MangasPanel from './MangasPanel';
 import PagesPanel from './PagesPanel';
 import PagePanel from './PagePanel';
-import withSearchBox from './withSearchBox';
 
 export default class MangaBoard extends Component {
   constructor(props) {
@@ -27,9 +26,7 @@ export default class MangaBoard extends Component {
   }
 
   handlePageSelect(page) {
-    this.setState({
-      selectedPage: page
-    });
+    this.setState({selectedPage: page});
   }
 
   render() {
@@ -37,16 +34,16 @@ export default class MangaBoard extends Component {
       <div>
         <h1>{this.constructor.name}</h1>
         <div>
-          <AuthorsPanelWithSearchBox
-            onAuthorSelect={this.handleAuthorSelect}
+          <AuthorsPanel
+            onItemClick={this.handleAuthorSelect}
           />
-          <MangasPanelWithSearchBox
-            onMangaSelect={this.handleMangaSelect}
+          <MangasPanel
+            onItemClick={this.handleMangaSelect}
             author={this.state.selectedAuthor}
           />
           <PagesPanel
             manga={this.state.selectedManga}
-            onPageSelect={this.handlePageSelect}
+            onItemClick={this.handlePageSelect}
           />
           <PagePanel page={this.state.selectedPage} />
         </div>
@@ -54,6 +51,3 @@ export default class MangaBoard extends Component {
     );
   }
 }
-
-const AuthorsPanelWithSearchBox = withSearchBox(AuthorsPanel);
-const MangasPanelWithSearchBox = withSearchBox(MangasPanel);

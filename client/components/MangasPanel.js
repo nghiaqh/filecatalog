@@ -1,16 +1,24 @@
 import React, { Component } from 'react';
 import MangaList from './MangaList';
 import SearchBox from './SearchBox';
+import Pagination from './Pagination';
+import { fetchItems, countItems } from './Datasource';
+
+const ITEM_PER_PAGE = 12;
+const api = '/api/Mangas';
 
 export default class MangasPanel extends Component {
   constructor(props) {
     super(props);
     this.state = {
       filterText: '',
-      mangas: []
+      mangas: [],
+      total: 0,
+      current: 0
     };
     this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
     this.handleMangaClick = this.handleMangaClick.bind(this);
+    this.handlePagination = this.handlePagination.bind(this);
   }
 
   handleFilterTextChange(filterText) {
@@ -21,14 +29,37 @@ export default class MangasPanel extends Component {
     this.props.onMangaSelect(manga);
   }
 
+  handlePagination(index) {
+    this.setState({current: index});
+    const author = this.props.author;
+    const skip = (index - 1) * ITEM_PER_PAGE;
+    const where = author ? {authorId: author.id} : {};
+    fetchItems(api, where, skip, ITEM_PER_PAGE)
+      .then(mangas => this.setState({ mangas: mangas }));
+  }
+
   componentDidMount() {
-    let api = '/api/Mangas';
-    if (this.props.author) {
-      api += `?filter=%7B"where"%3A%7B"authorId"%3A${this.props.author.id}%7D%7D`;
+    const author = this.props.author;
+    let property = null;
+    let value = null;
+    if (author) {
+      property = 'authorId';
+      value = author.id;
     }
 
-    fetch(api)
-      .then(res => res.json())
+    countItems(api, property, value)
+      .then(result => {
+        if (result.count > 0) {
+          this.setState({
+            total: Math.ceil(result.count / ITEM_PER_PAGE),
+            current: 1
+          });
+        }
+      });
+
+    const skip = (this.state.current - 1) * ITEM_PER_PAGE;
+    const where = author ? {authorId: author.id} : {};
+    fetchItems(api, where, skip, ITEM_PER_PAGE)
       .then(mangas => this.setState({ mangas: mangas }));
   }
 
@@ -50,6 +81,12 @@ export default class MangasPanel extends Component {
           filterText={this.state.filterText}
           author={this.props.author}
           onMangaClick={this.handleMangaClick}
+        />
+
+        <Pagination
+          total={this.state.total}
+          current={this.state.current}
+          handlePagination={this.handlePagination}
         />
       </div>
     );

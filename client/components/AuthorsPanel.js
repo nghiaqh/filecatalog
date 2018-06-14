@@ -1,17 +1,25 @@
 import React, { Component } from 'react';
 import AuthorList from './AuthorList';
 import SearchBox from './SearchBox';
+import Pagination from './Pagination';
+import { fetchItems, countItems } from './Datasource';
+
+const ITEM_PER_PAGE = 12;
+const api = '/api/Authors';
 
 export default class AuthorsPanel extends Component {
   constructor(props) {
     super(props);
     this.state = {
       filterText: '',
-      authors: []
+      authors: [],
+      total: 0,
+      current: 0
     };
 
     this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
     this.handleAuthorClick = this.handleAuthorClick.bind(this);
+    this.handlePagination = this.handlePagination.bind(this);
   }
 
   handleFilterTextChange(filterText) {
@@ -22,9 +30,16 @@ export default class AuthorsPanel extends Component {
     this.props.onAuthorSelect(author);
   }
 
+  handlePagination(index) {
+    this.setState({current: index});
+    const skip = (index - 1) * ITEM_PER_PAGE;
+    fetchItems(api, {}, skip, ITEM_PER_PAGE)
+      .then(authors => this.setState({ authors: authors }));
+  }
+
   componentDidMount() {
-    fetch('/api/Authors')
-      .then(res => res.json())
+    const skip = (this.state.current - 1) * ITEM_PER_PAGE;
+    fetchItems(api, {}, skip, ITEM_PER_PAGE)
       .then(authors => this.setState({ authors: authors }));
   }
 

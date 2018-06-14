@@ -16,7 +16,6 @@ export default class AuthorsPanel extends Component {
       total: 0,
       current: 0
     };
-
     this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
     this.handleAuthorClick = this.handleAuthorClick.bind(this);
     this.handlePagination = this.handlePagination.bind(this);
@@ -55,6 +54,12 @@ export default class AuthorsPanel extends Component {
           authors={this.state.authors}
           filterText={this.state.filterText}
           onAuthorClick={this.handleAuthorClick}
+        />
+
+        <Pagination
+          total={this.state.total}
+          current={this.state.current}
+          handlePagination={this.handlePagination}
         />
       </div>
     );

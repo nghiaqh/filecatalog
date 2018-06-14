@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Link, Switch } from 'react-router-dom';
-import Dashboard from './Dashboard';
+import MangaBoard from './components/MangaBoard';
 
 export default class App extends Component {
   constructor(props) {
@@ -11,10 +11,10 @@ export default class App extends Component {
     return (
       <div>
         <nav>
-          <Link to='/'>Dashboard</Link>
+          <Link to='/'>Manga Dashboard</Link>{' '}
         </nav>
         <Switch>
-          <Route path='/' component={Dashboard}/>
+          <Route exact path='/' component={MangaBoard}/>
         </Switch>
       </div>
     );

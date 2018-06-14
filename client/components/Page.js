@@ -6,13 +6,12 @@ export default class Page extends Component {
   }
 
   render() {
-    const id = this.props.match.params.pageId;
-    let uri = this.props.location.state.page.uri;
+    let uri = this.props.page.uri;
     uri = uri.replace('/mnt/d', 'http://localhost/img');
 
     return (
       <div>
-        <h1>image {this.props.location.state.page.title}</h1>
+        <h3>image {this.props.page.title}</h3>
         <img src={uri}/>
       </div>
     );

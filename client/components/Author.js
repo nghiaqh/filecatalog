@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import MangaList from './MangaList';
 
 export default class Author extends Component {
   constructor(props) {
@@ -20,8 +19,7 @@ export default class Author extends Component {
 
     return (
       <div>
-          <b>author:</b> {author.name}
-          <MangaList mangas={this.state.mangas}/>
+        {author.name}
       </div>
     );
   }

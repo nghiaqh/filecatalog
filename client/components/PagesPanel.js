@@ -14,12 +14,14 @@ export default class PagesPanel extends Component {
     this.props.onPageSelect(page);
   }
 
-  componentDidUpdate() {
-    const manga = this.props.manga;
-    if (manga) {
-      fetch(`/api/Pages?filter=%7B"where"%3A%7B"mangaId"%3A${manga.id}%7D%7D`)
-        .then(res => res.json())
-        .then(pages => this.setState({ pages: pages }));
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (this.props.manga !== prevProps.manga) {
+      const manga = this.props.manga;
+      if (manga) {
+        fetch(`/api/Pages?filter=%7B"where"%3A%7B"mangaId"%3A${manga.id}%7D%7D`)
+          .then(res => res.json())
+          .then(pages => this.setState({ pages: pages }));
+      }
     }
   }
 

@@ -38,14 +38,10 @@ export default class MangasPanel extends Component {
       .then(mangas => this.setState({ mangas: mangas }));
   }
 
-  componentDidMount() {
+  updateState() {
     const author = this.props.author;
-    let property = null;
-    let value = null;
-    if (author) {
-      property = 'authorId';
-      value = author.id;
-    }
+    const property = author ? 'authorId' : null;
+    const value = author ? author.id : null;
 
     countItems(api, property, value)
       .then(result => {
@@ -61,6 +57,19 @@ export default class MangasPanel extends Component {
     const where = author ? {authorId: author.id} : {};
     fetchItems(api, where, skip, ITEM_PER_PAGE)
       .then(mangas => this.setState({ mangas: mangas }));
+  }
+
+  componentDidMount() {
+    this.updateState();
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (this.props.author !== prevProps.author) {
+      this.setState({
+        total: 0,
+        current: 0
+      }, () => this.updateState());
+    }
   }
 
   render() {

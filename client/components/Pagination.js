@@ -10,6 +10,12 @@ const Pagination = (props) => {
     props.handlePagination(i);
   }
 
+  if (total === 1) {
+    return (
+      <div></div>
+    );
+  }
+
   return (
     <div>
       { current > 1 ? (

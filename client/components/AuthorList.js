@@ -13,7 +13,8 @@ export default class AuthorList extends PureComponent {
     return (
       <ClickableTextList
         displayAttribute='name'
-        {...this.props}
+        items={this.props.items}
+        onItemClick={this.props.onItemClick}
       />
     );
   }

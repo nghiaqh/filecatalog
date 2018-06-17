@@ -6,8 +6,9 @@
 
 2. SearchBox to fetch data from db instead of filter current pagination
 
-- Done the basic
 - Need to validate and escape form input
 
 
 3. Keyboard event that load/click next page: implement pagination on first and last item reach.
+
+- Done

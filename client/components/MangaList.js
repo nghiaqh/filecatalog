@@ -13,7 +13,8 @@ export default class MangaList extends PureComponent {
     return (
       <ClickableTextList
         displayAttribute='title'
-        {...this.props}
+        items={this.props.items}
+        onItemClick={this.props.onItemClick}
       />
     );
   }

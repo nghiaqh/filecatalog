@@ -10,18 +10,16 @@ export default class PageList extends PureComponent {
     this.state = {
       currentPage: -1
     }
-    this.handleClick = this.handleClick.bind(this);
+    this.onItemClick = this.onItemClick.bind(this);
     this.handleArrowKey = this.handleArrowKey.bind(this);
   }
 
-  // Overwrite handleClick of ClickableTextList to add key listener
-  handleClick(e) {
-    e.preventDefault();
-    const i = parseInt(e._targetInst.key);
-    const item = this.props.items[i];
-    this.props.onItemClick(item);
+  // Overwrite onItemClick of ClickableTextList to add key listener
+  onItemClick(item) {
+    const i = this.props.items.indexOf(item);
     this.setState({currentPage: i});
     document.addEventListener('keydown', this.handleArrowKey);
+    this.props.onItemClick(item);
   }
 
   handleArrowKey(e) {
@@ -37,10 +35,16 @@ export default class PageList extends PureComponent {
 
     if (e.keyCode === 37 && i < 0) {
       // check pagespanel to see if there is prev pagination
+      this.props.loadPrevList().then(() => {
+        this.onItemClick(this.props.items[this.props.items.length - 1]);
+      });
     }
 
     if (e.keyCode === 39 && i === items.length) {
       // check pagespanel to see if there is next pagination
+      this.props.loadNextList().then(() => {
+        this.onItemClick(this.props.items[0]);
+      });
     }
   }
 
@@ -52,8 +56,8 @@ export default class PageList extends PureComponent {
     return (
       <ClickableTextList
         displayAttribute='title'
-        handleClick={this.handleClick}
-        {...this.props}
+        items={this.props.items}
+        onItemClick={this.onItemClick}
       />
     );
   }

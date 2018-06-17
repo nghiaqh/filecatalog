@@ -13,13 +13,27 @@ const hasPagination = (WrappedComponent, itemsPerPage = 12) => {
       };
       this.handlePagination = this.handlePagination.bind(this);
       this.fetchData = this.fetchData.bind(this);
+      this.loadPrevList = this.loadPrevList.bind(this);
+      this.loadNextList = this.loadNextList.bind(this);
     }
 
     handlePagination(index) {
       this.setState({current: index});
       const skip = (index - 1) * this.state.itemsPerPage;
-      this.props.fetchItems(skip, this.state.itemsPerPage)
+      return this.props.fetchItems(skip, this.state.itemsPerPage)
         .then(items => this.setState({ items: items }));
+    }
+
+    loadPrevList() {
+      if (this.state.current - 1 > 0) {
+        return this.handlePagination(this.state.current - 1);
+      }
+    }
+
+    loadNextList() {
+      if (this.state.current + 1 < this.state.total) {
+        return this.handlePagination(this.state.current + 1);
+      }
     }
 
     fetchData() {
@@ -58,6 +72,9 @@ const hasPagination = (WrappedComponent, itemsPerPage = 12) => {
           <WrappedComponent
             items={this.state.items}
             onItemClick={this.props.onItemClick}
+            loadPrevList={this.loadPrevList}
+            loadNextList={this.loadNextList}
+            {...this.props}
           />
 
           <Pagination

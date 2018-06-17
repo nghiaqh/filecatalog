@@ -12,7 +12,7 @@ const Page = app.models.Page;
 const Series = app.models.Series;
 const mTables = ['Author', 'Genre', 'Series', 'Manga', 'Page'];
 
-mysqlDs.autoupdate(mTables, function(er) {
+mysqlDs.automigrate(mTables, function(er) {
   if (er) throw er;
   console.log('Loopback tables [' + mTables + '] created in ',
     mysqlDs.adapter.name);

@@ -3,6 +3,10 @@ import AuthorsPanel from './AuthorsPanel';
 import MangasPanel from './MangasPanel';
 import PagesPanel from './PagesPanel';
 import PagePanel from './PagePanel';
+import hasSearchBox from './hasSearchBox';
+
+const AuthorsPanelWithSearch = hasSearchBox(AuthorsPanel);
+const MangasPanelWithSearch = hasSearchBox(MangasPanel);
 
 export default class MangaBoard extends PureComponent {
   constructor(props) {
@@ -34,10 +38,10 @@ export default class MangaBoard extends PureComponent {
       <div>
         <h1>{this.constructor.name}</h1>
         <div>
-          <AuthorsPanel
+          <AuthorsPanelWithSearch
             onItemClick={this.handleAuthorSelect}
           />
-          <MangasPanel
+          <MangasPanelWithSearch
             onItemClick={this.handleMangaSelect}
             author={this.state.selectedAuthor}
           />

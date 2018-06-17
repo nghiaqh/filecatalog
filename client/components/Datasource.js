@@ -11,10 +11,10 @@ const fetchItems = (api, where = {}, skip = 0, limit = ITEM_PER_PAGE) => {
     .then(res => res.json());
 };
 
-const countItems = (api, property = null, value = null) => {
+const countItems = (api, where = null) => {
   let url = `${api}/count`;
-  if (property !== null) {
-    url += `?where[${property}]=${value}`
+  if (where !== null) {
+    url += '?where=' + JSON.stringify(where);
   }
 
   return fetch(url).then(res => res.json());

@@ -12,8 +12,6 @@ const hasClickableItems = (WrappedComponent) => {
       const i = parseInt(e._targetInst.key);
       const item = this.props.items[i];
       this.props.onItemClick(item);
-
-      if (this.props.handleClick) this.props.handleClick(i);
     }
 
     render() {

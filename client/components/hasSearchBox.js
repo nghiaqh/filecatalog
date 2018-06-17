@@ -8,20 +8,19 @@ const hasSearchBox = (WrappedComponent) => {
       this.state = {
         filterText: ''
       };
-      this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
+      this.handleSearch = this.handleSearch.bind(this);
     }
 
-    handleFilterTextChange(filterText) {
+    handleSearch(filterText) {
       this.setState({filterText: filterText});
     }
 
     render() {
       return (
         <div>
-          <SearchBox
-            filterText={this.state.filterText}
-            onFilterTextChange={this.handleFilterTextChange}
-          />
+          <h2>{WrappedComponent.name}</h2>
+
+          <SearchBox onSearch={this.handleSearch} />
 
           <WrappedComponent
             filterText={this.state.filterText}

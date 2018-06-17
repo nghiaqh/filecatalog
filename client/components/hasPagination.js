@@ -12,7 +12,7 @@ const hasPagination = (WrappedComponent, itemsPerPage = 12) => {
         itemsPerPage: itemsPerPage
       };
       this.handlePagination = this.handlePagination.bind(this);
-      this.updateState = this.updateState.bind(this);
+      this.fetchData = this.fetchData.bind(this);
     }
 
     handlePagination(index) {
@@ -22,7 +22,7 @@ const hasPagination = (WrappedComponent, itemsPerPage = 12) => {
         .then(items => this.setState({ items: items }));
     }
 
-    updateState() {
+    fetchData() {
       this.props.countItems()
         .then(result => {
           if (result && result.count > 0) {
@@ -39,16 +39,16 @@ const hasPagination = (WrappedComponent, itemsPerPage = 12) => {
     }
 
     componentDidMount() {
-      this.updateState();
+      this.fetchData();
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-      const stateNeedsReset = this.props.stateNeedsReset;
-      if (stateNeedsReset && stateNeedsReset(prevProps, prevState, snapshot)) {
+      const shouldReset = this.props.shouldResetPagination;
+      if (shouldReset && shouldReset(prevProps)) {
         this.setState({
           total: 0,
           current: 0
-        }, this.updateState());
+        }, this.fetchData());
       }
     }
 
@@ -57,7 +57,7 @@ const hasPagination = (WrappedComponent, itemsPerPage = 12) => {
         <div>
           <WrappedComponent
             items={this.state.items}
-            {...this.props}
+            onItemClick={this.props.onItemClick}
           />
 
           <Pagination

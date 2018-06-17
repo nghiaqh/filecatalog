@@ -3,22 +3,27 @@ import React, { PureComponent } from 'react';
 export default class SearchBox extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
+    this.state = {
+      filterText: ''
+    };
+    this.onInitialSearch = this.onInitialSearch.bind(this);
   }
 
-  handleFilterTextChange(e) {
-    this.props.onFilterTextChange(e.target.value);
+  onInitialSearch(e) {
+    e.preventDefault();
+    const value = e.target[0].value;
+    if (value.trim() === '') return;
+    this.props.onSearch(value);
   }
 
   render() {
     return (
-      <form>
+      <form type="submit" onSubmit={this.onInitialSearch}>
         <input
           type="text"
           placeholder="Search..."
-          value={this.props.filterText}
-          onChange={this.handleFilterTextChange}
         />
+        <button type="submit">Search</button>
       </form>
     );
   }

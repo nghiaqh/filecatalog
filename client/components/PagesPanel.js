@@ -4,14 +4,14 @@ import PageList from './PageList';
 import hasPagination from './hasPagination';
 
 const api = '/api/Pages';
-const ListHasPagination = hasPagination(PageList);
+const ListHasPagination = hasPagination(PageList, 20);
 
 export default class PagesPanel extends PureComponent {
   constructor(props) {
     super(props);
     this.countItems = this.countItems.bind(this);
     this.fetchItems = this.fetchItems.bind(this);
-    this.stateNeedsReset = this.stateNeedsReset.bind(this);
+    this.shouldResetPagination = this.shouldResetPagination.bind(this);
   }
 
   countItems() {
@@ -21,9 +21,9 @@ export default class PagesPanel extends PureComponent {
         resolve();
       });
     }
-    const property = manga ? 'mangaId' : null;
-    const value = manga ? manga.id : null;
-    return countItems(api, property, value);
+
+    const where = {mangaId: manga.id};
+    return countItems(api, where);
   }
 
   fetchItems(skip, itemPerPage) {
@@ -33,11 +33,16 @@ export default class PagesPanel extends PureComponent {
         resolve();
       });
     }
-    const where = manga ? {mangaId: manga.id} : {};
+
+    const where = {mangaId: manga.id};
     return fetchItems(api, where, skip, itemPerPage);
   }
 
-  stateNeedsReset(prevProps, prevState, snapshot) {
+  shouldResetPagination(prevProps) {
+    if (typeof prevProps === 'undefined') {
+      return false;
+    }
+
     return this.props.manga !== prevProps.manga;
   }
 
@@ -55,7 +60,7 @@ export default class PagesPanel extends PureComponent {
           onItemClick={this.props.onItemClick}
           fetchItems={this.fetchItems}
           countItems={this.countItems}
-          stateNeedsReset={this.stateNeedsReset}
+          shouldResetPagination={this.shouldResetPagination}
         />
       </div>
     );

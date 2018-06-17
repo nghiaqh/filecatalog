@@ -39,8 +39,8 @@ function hasValidName(folderPath) {
 
 async function importContent(folderPath, callback) {
   const folderName = path.parse(folderPath).base.split('/').pop();
-  const authorName = folderName.split(',')[0];
-  const bookName = folderName.split(authorName + ',')[1];
+  const authorName = folderName.split(',')[0].trim();
+  const bookName = folderName.split(authorName + ',')[1].trim();
   const timeStamp = new Date().toISOString().replace(/T/, ' ')
     .replace(/\..+/, '');
   console.log(`${chalk.yellow(timeStamp)} - ` +
@@ -63,7 +63,7 @@ async function importContent(folderPath, callback) {
       '  Manga already exists in database.'));
 
     for (let i = 0; i < images.length; i++) {
-      const title = path.parse(images[i]).base.split('/').pop();
+      const title = path.parse(images[i]).base.split('/').pop().trim();
       const uri = images[i];
       const page = await createPage(title, uri, manga[0].id);
       if (page[1]) console.log(`  Page ${page[0].title} created!`);

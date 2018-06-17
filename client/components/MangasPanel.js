@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { fetchItems, countItems } from './Datasource';
 import MangaList from './MangaList';
 import hasSearchBox from './hasSearchBox';
@@ -7,7 +7,7 @@ import hasPagination from './hasPagination';
 const api = '/api/Mangas';
 const ListHasSearchAndPagination = hasPagination(hasSearchBox(MangaList));
 
-export default class MangasPanel extends Component {
+export default class MangasPanel extends PureComponent {
   constructor(props) {
     super(props);
     this.countItems = this.countItems.bind(this);

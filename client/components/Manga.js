@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PageList from './PageList';
 
-export default class Manga extends Component {
+export default class Manga extends PureComponent {
   constructor(props) {
     super(props);
   }

@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import Page from './Page';
 
-export default class PagePanel extends Component {
+export default class PagePanel extends PureComponent {
   constructor(props) {
     super(props);
   }

@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import Pagination from './Pagination';
 
 const hasPagination = (WrappedComponent, itemsPerPage = 12) => {
-  class HasPagination extends Component {
+  class HasPagination extends PureComponent {
     constructor(props) {
       super(props);
       this.state = {

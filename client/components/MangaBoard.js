@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import AuthorsPanel from './AuthorsPanel';
 import MangasPanel from './MangasPanel';
 import PagesPanel from './PagesPanel';
 import PagePanel from './PagePanel';
 
-export default class MangaBoard extends Component {
+export default class MangaBoard extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {

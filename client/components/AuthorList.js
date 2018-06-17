@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import TextList from './TextList';
 import hasClickableItems from './hasClickableItems';
 
 const ClickableTextList = hasClickableItems(TextList);
 
-export default class AuthorList extends Component {
+export default class AuthorList extends PureComponent {
   constructor(props) {
     super(props);
   }

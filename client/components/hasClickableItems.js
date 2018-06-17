@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 const hasClickableItems = (WrappedComponent) => {
-  class HasClickableItems extends Component {
+  class HasClickableItems extends PureComponent {
     constructor(props) {
       super(props);
       this.handleClick = this.handleClick.bind(this);

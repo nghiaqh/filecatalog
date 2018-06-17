@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import SearchBox from './SearchBox';
 
 const hasSearchBox = (WrappedComponent) => {
-  class HasSearchBox extends Component {
+  class HasSearchBox extends PureComponent {
     constructor(props) {
       super(props);
       this.state = {

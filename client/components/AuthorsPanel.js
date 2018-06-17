@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { fetchItems, countItems } from './Datasource';
 import AuthorList from './AuthorList';
 import hasSearchBox from './hasSearchBox';
@@ -7,7 +7,7 @@ import hasPagination from './hasPagination';
 const api = '/api/Authors';
 const ListHasSearchAndPagination = hasPagination(hasSearchBox(AuthorList));
 
-export default class AuthorsPanel extends Component {
+export default class AuthorsPanel extends PureComponent {
   constructor(props) {
     super(props);
     this.countItems = this.countItems.bind(this);

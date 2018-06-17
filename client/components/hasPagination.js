@@ -28,12 +28,14 @@ const hasPagination = (WrappedComponent, itemsPerPage = 12) => {
       if (this.state.current - 1 > 0) {
         return this.handlePagination(this.state.current - 1);
       }
+      return new Promise((resolve, reject) => { reject('Reach the start'); });
     }
 
     loadNextList() {
       if (this.state.current + 1 < this.state.total) {
         return this.handlePagination(this.state.current + 1);
       }
+      return new Promise((resolve, reject) => { reject('Reach the end'); });
     }
 
     fetchData() {

@@ -34,17 +34,17 @@ export default class PageList extends PureComponent {
     }
 
     if (e.keyCode === 37 && i < 0) {
-      // check pagespanel to see if there is prev pagination
-      this.props.loadPrevList().then(() => {
-        this.onItemClick(this.props.items[this.props.items.length - 1]);
-      });
+      // check HasPagination to see if there is prev pagination
+      this.props.loadPrevList()
+        .then(() => this.onItemClick(this.props.items[this.props.items.length - 1]))
+        .catch((e) => console.log(e));
     }
 
     if (e.keyCode === 39 && i === items.length) {
-      // check pagespanel to see if there is next pagination
-      this.props.loadNextList().then(() => {
-        this.onItemClick(this.props.items[0]);
-      });
+      // check HasPagination to see if there is next pagination
+      this.props.loadNextList()
+        .then(() => this.onItemClick(this.props.items[0]))
+        .catch((e) => console.log(e));
     }
   }
 

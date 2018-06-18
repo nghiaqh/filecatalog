@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
-import { fetchItems, countItems } from './Datasource';
-import PageList from './PageList';
-import hasPagination from './hasPagination';
+import { fetchItems, countItems } from '../Datasource';
+import PageList from '../molecules/PageList';
+import hasPagination from '../hasPagination';
 
 const api = '/api/Pages';
 const ListHasPagination = hasPagination(PageList, 20);

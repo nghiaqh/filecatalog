@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react';
-import AuthorsPanel from './AuthorsPanel';
-import MangasPanel from './MangasPanel';
-import PagesPanel from './PagesPanel';
-import PagePanel from './PagePanel';
-import hasSearchBox from './hasSearchBox';
+import AuthorsPanel from '../organisms/AuthorsPanel';
+import MangasPanel from '../organisms/MangasPanel';
+import PagesPanel from '../organisms/PagesPanel';
+import PagePanel from '../organisms/PagePanel';
+import hasSearchBox from '../hasSearchBox';
 
 const AuthorsPanelWithSearch = hasSearchBox(AuthorsPanel);
 const MangasPanelWithSearch = hasSearchBox(MangasPanel);

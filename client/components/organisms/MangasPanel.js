@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
-import { fetchItems, countItems } from './Datasource';
-import MangaList from './MangaList';
-import hasPagination from './hasPagination';
+import { fetchItems, countItems } from '../Datasource';
+import MangaList from '../molecules/MangaList';
+import hasPagination from '../hasPagination';
 
 const api = '/api/Mangas';
 const ListHasSearchAndPagination = hasPagination(MangaList);

@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import Pagination from './Pagination';
+import Pagination from './molecules/Pagination';
 
 const hasPagination = (WrappedComponent, itemsPerPage = 12) => {
   class HasPagination extends PureComponent {

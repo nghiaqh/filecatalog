@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import TextList from './TextList';
-import hasClickableItems from './hasClickableItems';
+import hasClickableItems from '../hasClickableItems';
 
 const ClickableTextList = hasClickableItems(TextList);
 

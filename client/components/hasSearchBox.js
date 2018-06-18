@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import SearchBox from './SearchBox';
+import SearchBox from './molecules/SearchBox';
 
 const hasSearchBox = (WrappedComponent) => {
   class HasSearchBox extends PureComponent {

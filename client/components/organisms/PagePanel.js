@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import Page from './Page';
+import Page from '../molecules/Page';
 
 export default class PagePanel extends PureComponent {
   constructor(props) {

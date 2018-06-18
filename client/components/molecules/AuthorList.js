@@ -1,8 +1,5 @@
 import React, { PureComponent } from 'react';
 import TextList from './TextList';
-import hasClickableItems from '../hasClickableItems';
-
-const ClickableTextList = hasClickableItems(TextList);
 
 export default class AuthorList extends PureComponent {
   constructor(props) {
@@ -11,7 +8,7 @@ export default class AuthorList extends PureComponent {
 
   render() {
     return (
-      <ClickableTextList
+      <TextList
         displayAttribute='name'
         items={this.props.items}
         onItemClick={this.props.onItemClick}

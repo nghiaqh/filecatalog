@@ -1,8 +1,5 @@
 import React, { PureComponent } from 'react';
 import TextList from './TextList';
-import hasClickableItems from '../hasClickableItems';
-
-const ClickableTextList = hasClickableItems(TextList);
 
 export default class PageList extends PureComponent {
   constructor(props) {
@@ -14,7 +11,6 @@ export default class PageList extends PureComponent {
     this.handleArrowKey = this.handleArrowKey.bind(this);
   }
 
-  // Overwrite onItemClick of ClickableTextList to add key listener
   onItemClick(item) {
     const i = this.props.items.indexOf(item);
     this.setState({currentPage: i});
@@ -54,7 +50,7 @@ export default class PageList extends PureComponent {
 
   render() {
     return (
-      <ClickableTextList
+      <TextList
         displayAttribute='title'
         items={this.props.items}
         onItemClick={this.onItemClick}

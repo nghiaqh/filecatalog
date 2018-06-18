@@ -1,10 +1,9 @@
 import React, { PureComponent } from 'react';
 import { fetchItems, countItems } from '../Datasource';
 import AuthorList from '../molecules/AuthorList';
-import hasPagination from '../hasPagination';
+import PaginatedList from '../molecules/PaginatedList';
 
 const api = '/api/Authors';
-const ListHasSearchAndPagination = hasPagination(AuthorList, 15);
 
 export default class AuthorsPanel extends PureComponent {
   constructor(props) {
@@ -12,6 +11,7 @@ export default class AuthorsPanel extends PureComponent {
     this.countItems = this.countItems.bind(this);
     this.fetchItems = this.fetchItems.bind(this);
     this.shouldResetPagination = this.shouldResetPagination.bind(this);
+    this.renderList = this.renderList.bind(this);
   }
 
   countItems() {
@@ -48,15 +48,24 @@ export default class AuthorsPanel extends PureComponent {
     }
   }
 
+  renderList(items) {
+    return (
+      <AuthorList
+        items={items}
+        onItemClick={this.props.onItemClick}
+      />
+    );
+  }
+
   render() {
     return (
       <div>
-        <ListHasSearchAndPagination
+        <PaginatedList
           filterText={this.props.filterText}
           fetchItems={this.fetchItems}
           countItems={this.countItems}
-          onItemClick={this.props.onItemClick}
           shouldResetPagination={this.shouldResetPagination}
+          render={this.renderList}
         />
       </div>
     );

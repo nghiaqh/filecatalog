@@ -1,10 +1,9 @@
 import React, { PureComponent } from 'react';
 import { fetchItems, countItems } from '../Datasource';
 import MangaList from '../molecules/MangaList';
-import hasPagination from '../hasPagination';
+import PaginatedList from '../molecules/PaginatedList';
 
 const api = '/api/Mangas';
-const ListHasSearchAndPagination = hasPagination(MangaList);
 
 export default class MangasPanel extends PureComponent {
   constructor(props) {
@@ -12,6 +11,7 @@ export default class MangasPanel extends PureComponent {
     this.countItems = this.countItems.bind(this);
     this.fetchItems = this.fetchItems.bind(this);
     this.shouldResetPagination = this.shouldResetPagination.bind(this);
+    this.renderList = this.renderList.bind(this);
   }
 
   countItems() {
@@ -49,6 +49,15 @@ export default class MangasPanel extends PureComponent {
     }
   }
 
+  renderList(items) {
+    return (
+      <MangaList
+        items={items}
+        onItemClick={this.props.onItemClick}
+      />
+    );
+  }
+
   render() {
     const author = this.props.author;
 
@@ -56,13 +65,13 @@ export default class MangasPanel extends PureComponent {
       <div>
         {author ? (<h3>Mangas by {author.name}</h3>) : (<h3>Mangas</h3>)}
 
-        <ListHasSearchAndPagination
-          author={author}
-          onItemClick={this.props.onItemClick}
+        <PaginatedList
+          author={this.props.author}
           filterText={this.props.filterText}
           fetchItems={this.fetchItems}
           countItems={this.countItems}
           shouldResetPagination={this.shouldResetPagination}
+          render={this.renderList}
         />
       </div>
     );

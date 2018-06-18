@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Pagination = (props) => {
+const PaginationLinks = (props) => {
   const total = props.total;
   const current = props.current;
 
@@ -33,4 +33,4 @@ const Pagination = (props) => {
   );
 };
 
-export default Pagination;
+export default PaginationLinks;

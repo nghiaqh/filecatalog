@@ -10,7 +10,6 @@ export default class PagePanel extends PureComponent {
     const page = this.props.page;
     return (
       <div>
-        <h2>{this.constructor.name}</h2>
         { page ? (<Page page={this.props.page} />) : ''}
       </div>
     );

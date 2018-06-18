@@ -1,25 +1,34 @@
 import React, { PureComponent } from 'react';
 import { fetchItems, countItems } from '../Datasource';
-import MangaList from '../molecules/MangaList';
+import MangaList from './MangaList';
 import PaginatedList from '../molecules/PaginatedList';
+import SearchBox from '../molecules/SearchBox';
 
 const api = '/api/Mangas';
 
 export default class MangasPanel extends PureComponent {
   constructor(props) {
     super(props);
+    this.state = {
+      searchText: ''
+    };
+    this.handleSearch = this.handleSearch.bind(this);
     this.countItems = this.countItems.bind(this);
     this.fetchItems = this.fetchItems.bind(this);
-    this.shouldResetPagination = this.shouldResetPagination.bind(this);
     this.renderList = this.renderList.bind(this);
   }
 
+  handleSearch(searchText) {
+    this.setState({searchText: searchText});
+  }
+
   countItems() {
-    const { author, filterText } = this.props;
+    const { author } = this.props;
+    const { searchText } = this.state;
     const where = author ? {authorId: author.id} : {};
-    if (typeof filterText !== 'undefined' && filterText !== '') {
+    if (typeof searchText !== 'undefined' && searchText !== '') {
       where.title = {
-        regexp: '.*' + filterText + '.*',
+        regexp: '.*' + searchText + '.*',
         options: 'i'
       }
     }
@@ -28,11 +37,12 @@ export default class MangasPanel extends PureComponent {
   }
 
   fetchItems(skip, itemPerPage) {
-    const { author, filterText } = this.props;
+    const { author } = this.props;
+    const { searchText } = this.state;
     const where = author ? {authorId: author.id} : {};
-    if (typeof filterText !== 'undefined' && filterText !== '') {
+    if (typeof searchText !== 'undefined' && searchText !== '') {
       where.title = {
-        regexp: '.*' + filterText + '.*',
+        regexp: '.*' + searchText + '.*',
         options: 'i'
       }
     }
@@ -40,21 +50,9 @@ export default class MangasPanel extends PureComponent {
     return fetchItems(api, where, skip, itemPerPage);
   }
 
-  shouldResetPagination(prevProps) {
-    try {
-      return (this.props.author !== prevProps.author) ||
-        (this.props.filterText !== prevProps.filterText);
-    } catch(e) {
-      return false;
-    }
-  }
-
   renderList(items) {
     return (
-      <MangaList
-        items={items}
-        onItemClick={this.props.onItemClick}
-      />
+      <MangaList items={items} onItemClick={this.props.onItemClick} />
     );
   }
 
@@ -64,13 +62,12 @@ export default class MangasPanel extends PureComponent {
     return (
       <div>
         {author ? (<h3>Mangas by {author.name}</h3>) : (<h3>Mangas</h3>)}
-
+        <SearchBox onSearch={this.handleSearch} />
         <PaginatedList
           author={this.props.author}
-          filterText={this.props.filterText}
+          searchText={this.state.searchText}
           fetchItems={this.fetchItems}
           countItems={this.countItems}
-          shouldResetPagination={this.shouldResetPagination}
           render={this.renderList}
         />
       </div>

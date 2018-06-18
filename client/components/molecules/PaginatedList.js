@@ -58,8 +58,7 @@ export default class PaginatedList extends PureComponent {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    const shouldReset = this.props.shouldResetPagination;
-    if (shouldReset && shouldReset(prevProps)) {
+    if (this.props !== prevProps) {
       this.setState({
         total: 0,
         current: 0
@@ -70,7 +69,7 @@ export default class PaginatedList extends PureComponent {
   render() {
     return (
       <div>
-        {this.props.render(this.state.items)}
+        {this.props.render(this.state.items, this.loadPrevList, this.loadNextList)}
 
         <PaginationLinks
           total={this.state.total}

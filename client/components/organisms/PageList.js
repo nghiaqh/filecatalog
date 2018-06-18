@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import TextList from './TextList';
+import TextList from '../molecules/TextList';
 
 export default class PageList extends PureComponent {
   constructor(props) {

@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { fetchItems, countItems } from '../Datasource';
-import PageList from '../molecules/PageList';
+import PageList from './PageList';
 import PaginatedList from '../molecules/PaginatedList';
 
 const api = '/api/Pages';
@@ -10,7 +10,6 @@ export default class PagesPanel extends PureComponent {
     super(props);
     this.countItems = this.countItems.bind(this);
     this.fetchItems = this.fetchItems.bind(this);
-    this.shouldResetPagination = this.shouldResetPagination.bind(this);
     this.renderList = this.renderList.bind(this);
   }
 
@@ -38,18 +37,12 @@ export default class PagesPanel extends PureComponent {
     return fetchItems(api, where, skip, itemPerPage);
   }
 
-  shouldResetPagination(prevProps) {
-    if (typeof prevProps === 'undefined') {
-      return false;
-    }
-
-    return this.props.manga !== prevProps.manga;
-  }
-
-  renderList(items) {
+  renderList(items, loadPrevList, loadNextList) {
     return (
       <PageList
         items={items}
+        loadPrevList={loadPrevList}
+        loadNextList={loadNextList}
         onItemClick={this.props.onItemClick}
       />
     );
@@ -60,15 +53,12 @@ export default class PagesPanel extends PureComponent {
 
     return (
       <div>
-        <h2>{this.constructor.name}</h2>
-
         {manga ? (<h3>{manga.title}</h3>) : ''}
 
         <PaginatedList
           manga={this.props.manga}
           fetchItems={this.fetchItems}
           countItems={this.countItems}
-          shouldResetPagination={this.shouldResetPagination}
           render={this.renderList}
         />
       </div>

@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
-import TextList from './TextList';
+import TextList from '../molecules/TextList';
 
-export default class MangaList extends PureComponent {
+export default class AuthorList extends PureComponent {
   constructor(props) {
     super(props);
   }
@@ -9,7 +9,7 @@ export default class MangaList extends PureComponent {
   render() {
     return (
       <TextList
-        displayAttribute='title'
+        displayAttribute='name'
         items={this.props.items}
         onItemClick={this.props.onItemClick}
       />

@@ -1,70 +1,62 @@
 import React, { PureComponent } from 'react';
 import { fetchItems, countItems } from '../Datasource';
-import AuthorList from '../molecules/AuthorList';
+import AuthorList from './AuthorList';
 import PaginatedList from '../molecules/PaginatedList';
+import SearchBox from '../molecules/SearchBox';
 
 const api = '/api/Authors';
 
 export default class AuthorsPanel extends PureComponent {
   constructor(props) {
     super(props);
+    this.state = {
+      searchText: ''
+    };
+    this.handleSearch = this.handleSearch.bind(this);
     this.countItems = this.countItems.bind(this);
     this.fetchItems = this.fetchItems.bind(this);
-    this.shouldResetPagination = this.shouldResetPagination.bind(this);
     this.renderList = this.renderList.bind(this);
   }
 
+  handleSearch(searchText) {
+    this.setState({searchText: searchText});
+  }
+
   countItems() {
-    const { filterText } = this.props;
+    const { searchText } = this.state;
     let where = {};
-    if (typeof filterText !== 'undefined' && filterText !== '') {
-      where.name = {
-        regexp: '.*' + filterText + '.*',
-        options: 'i'
-      }
+    if (typeof searchText !== 'undefined' && searchText !== '') {
+      where.name = { regexp: '.*' + searchText + '.*' };
     }
 
     return countItems(api, where);
   }
 
   fetchItems(skip, itemPerPage) {
-    const { filterText } = this.props;
+    const { searchText } = this.state;
     let where = {};
-    if (typeof filterText !== 'undefined' && filterText !== '') {
-      where.name = {
-        regexp: '.*' + filterText + '.*',
-        options: 'i'
-      }
+    if (typeof searchText !== 'undefined' && searchText !== '') {
+      where.name = { regexp: '.*' + searchText + '.*' };
     }
 
     return fetchItems(api, where, skip, itemPerPage);
   }
 
-  shouldResetPagination(prevProps) {
-    try {
-      return this.props.filterText !== prevProps.filterText;
-    } catch(e) {
-      return false;
-    }
-  }
-
   renderList(items) {
     return (
-      <AuthorList
-        items={items}
-        onItemClick={this.props.onItemClick}
-      />
+      <AuthorList items={items} onItemClick={this.props.onItemClick} />
     );
   }
 
   render() {
     return (
       <div>
+        <h3>Authors</h3>
+        <SearchBox onSearch={this.handleSearch} />
         <PaginatedList
-          filterText={this.props.filterText}
+          searchText={this.state.searchText}
           fetchItems={this.fetchItems}
           countItems={this.countItems}
-          shouldResetPagination={this.shouldResetPagination}
           render={this.renderList}
         />
       </div>

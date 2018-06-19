@@ -2,11 +2,16 @@
 
 module.exports = function(Genre) {
   Genre.observe('before save', function(ctx, next) {
+    const now = new Date();
+
     if (ctx.instance) {
-      ctx.instance.updated = new Date();
+      const {created} = ctx.instance;
+      ctx.instance.created = created || now;
+      ctx.instance.updated = now;
     } else {
-      ctx.data.created = ctx.data.created || new Date();
-      ctx.data.updated = new Date();
+      let {created} = ctx.data;
+      ctx.data.created = created || now;
+      ctx.data.updated = now;
     }
     next();
   });

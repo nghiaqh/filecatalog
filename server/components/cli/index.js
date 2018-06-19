@@ -43,6 +43,7 @@ async function askQuestions() {
       type: 'input',
       message: 'Enter the folder path to import files:',
       validate: function(value) {
+        value = value.trim();
         const isValid = value.length && fs.statSync(value).isDirectory();
         return isValid ? true : 'Please enter a valid folder path';
       },
@@ -65,7 +66,8 @@ async function askQuestions() {
 
 async function proceed(input) {
   if (input.contentType === 'manga') {
-    await manga.scanFolder(input.path, input.includeSubFolder);
+    console.log('Importing mangas ...');
+    await manga.scanFolder(input.path.trim(), input.includeSubFolder);
   }
   console.log(chalk.green('Completed!'));
 }

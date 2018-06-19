@@ -1,5 +1,6 @@
 'use strict';
 
+const fs = require('fs');
 const chalk = require('chalk');
 const folder = require('./folder');
 const path = require('path');
@@ -16,20 +17,22 @@ const Series = app.models.Series;
  * 3. If name doesn't match pattern and there is no request to include sub folders, end
  * 4. If name doesn't match pattern and there is a request to include sub folders, start the whole process with each sub folder.
  */
-let i = 0;
-let r = 0;
-async function scanFolder(folderPath, recursive = false, callback) {
+async function scanFolder(folderPath, recursive = false) {
   if (hasValidName(folderPath)) {
-    await importContent(folderPath, callback);
+    await importContent(folderPath);
   } else {
     const folders = folder.getChildren(folderPath).folders;
     // if use array.map here, the recursive
     for (let i = 0; i < folders.length; i++) {
-      await scanFolder(folders[i], recursive, callback);
+      await scanFolder(folders[i], recursive);
     }
   }
 }
 
+/**
+ * Check if folder name match name pattern /([^,.]+),([^,.]+)/
+ * @param {String} folderPath
+ */
 function hasValidName(folderPath) {
   const folderName = path.parse(folderPath).base.split('/').pop();
   const namePattern = /([^,.]+),([^,.]+)/;
@@ -37,15 +40,22 @@ function hasValidName(folderPath) {
   return matches !== null;
 }
 
-async function importContent(folderPath, callback) {
+/**
+ * Create data records (author, manga, page) from a folder
+ * @param {String} folderPath a folder path
+ */
+async function importContent(folderPath) {
   const folderName = path.parse(folderPath).base.split('/').pop();
+  const mtime = fs.statSync(folderPath).mtime;
   const authorName = folderName.split(',')[0].trim();
   const bookName = folderName.split(authorName + ',')[1].trim();
+
   const timeStamp = new Date().toISOString().replace(/T/, ' ')
     .replace(/\..+/, '');
   console.log(`${chalk.yellow(timeStamp)} - ` +
     `${chalk.bold('Author:')} ${authorName}. ` +
-    `${chalk.bold('Manga:')} ${bookName}`);
+    `${chalk.bold('Manga:')} ${bookName} - ` +
+    `${chalk.bold('mtime:')} ${mtime}`);
 
   const files = folder.getChildren(folderPath).files;
   const imgRe = /.*\.(jpg|jpeg|png|gif)$/;
@@ -57,7 +67,7 @@ async function importContent(folderPath, callback) {
     else console.log(chalk.gray(
       '  Author already exists in database.'));
 
-    const manga = await createManga(bookName, author[0].id);
+    const manga = await createManga(bookName, author[0].id, mtime);
     if (manga[1]) console.log(`  Manga ${manga[0].title} created!`);
     else console.log(chalk.gray(
       '  Manga already exists in database.'));
@@ -82,10 +92,10 @@ function createAuthor(authorName) {
   );
 }
 
-function createManga(bookTitle, authorId) {
+function createManga(bookTitle, authorId, created) {
   return Manga.findOrCreate(
     {where: {title: bookTitle, authorId: authorId}},
-    {title: bookTitle, authorId: authorId}
+    {title: bookTitle, authorId: authorId, created: created}
   );
 }
 

@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(Genre) {
-  Genre.observe('before save', async function(ctx, next) {
+  Genre.observe('before save', function(ctx, next) {
     if (ctx.instance) {
       ctx.instance.updated = new Date();
     } else {
@@ -9,6 +9,5 @@ module.exports = function(Genre) {
       ctx.data.updated = new Date();
     }
     next();
-    return;
   });
 };

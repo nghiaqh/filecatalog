@@ -15,6 +15,12 @@
     },
     "description": {
       "type": "any"
+    },
+    "created": {
+      "type": "date"
+    },
+    "updated": {
+      "type": "date"
     }
   },
   "validations": [],

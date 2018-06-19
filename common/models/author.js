@@ -2,14 +2,16 @@
 
 module.exports = function(Author) {
   Author.observe('before save', function(ctx, next) {
+    const now = new Date();
+
     if (ctx.instance) {
       const {created} = ctx.instance;
-      ctx.instance.created = created || new Date();
-      ctx.instance.updated = new Date();
+      ctx.instance.created = created || now;
+      ctx.instance.updated = now;
     } else {
-      const {created} = ctx.data;
-      ctx.data.created = created || new Date();
-      ctx.data.updated = new Date();
+      let {created} = ctx.data;
+      ctx.data.created = created || now;
+      ctx.data.updated = now;
     }
     next();
   });

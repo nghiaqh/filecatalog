@@ -6,15 +6,16 @@ const Image = styled('img')`
   max-width: 100%;
   display: block;
   margin: 0 auto;
+  cursor: pointer;
 `
 
 export default class Page extends PureComponent {
   constructor(props) {
     super(props);
-    this.handleDoubleClick = this.handleDoubleClick.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
-  handleDoubleClick(e) {
+  handleClick(e) {
     this.toggleFullscreen(e.target);
     if (e.target.requestFullscreen) {
       e.target.requestFullscreen();
@@ -61,7 +62,8 @@ export default class Page extends PureComponent {
     return (
       <div>
         <h3>image {this.props.page.title}</h3>
-        <Image src={uri} onDoubleClick={this.handleDoubleClick} />
+        <Image src={uri} onClick={this.handleClick}
+          title="Click to view in fullscsreen. Use left, right arrow for navigation" />
       </div>
     );
   }

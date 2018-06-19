@@ -4,6 +4,21 @@ import { fetchItems, countItems } from '../Datasource';
 import PageList from './PageList';
 import PaginatedList from '../molecules/PaginatedList';
 
+const PagesPaginatedList = styled(PaginatedList)`
+  ul {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  li {
+    flex-basis: 20%;
+
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+`
+
 const api = '/api/Pages';
 
 export default class PagesPanel extends PureComponent {
@@ -56,7 +71,7 @@ export default class PagesPanel extends PureComponent {
       <section>
         {manga ? (<h3>{manga.title}</h3>) : ''}
 
-        <PaginatedList
+        <PagesPaginatedList
           manga={this.props.manga}
           fetchItems={this.fetchItems}
           countItems={this.countItems}

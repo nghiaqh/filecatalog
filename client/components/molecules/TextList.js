@@ -13,7 +13,8 @@ const UL = styled('ul')`
     padding: 5px;
 
     &:hover {
-      background: turquoise;
+      background: #5bacdf;
+      color: #fcfefc;
     }
   }
 `

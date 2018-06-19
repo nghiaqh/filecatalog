@@ -5,6 +5,18 @@ import AuthorList from './AuthorList';
 import PaginatedList from '../molecules/PaginatedList';
 import SearchBox from '../molecules/SearchBox';
 
+const AuthorsPaginatedList = styled(PaginatedList)`
+  ul {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  li {
+    flex-basis: 30%;
+  }
+`
+
 const api = '/api/Authors';
 
 export default class AuthorsPanel extends PureComponent {
@@ -57,7 +69,7 @@ export default class AuthorsPanel extends PureComponent {
       <section>
         <h3>Authors</h3>
         <SearchBox onSearch={this.handleSearch} />
-        <PaginatedList
+        <AuthorsPaginatedList
           searchText={this.state.searchText}
           fetchItems={this.fetchItems}
           countItems={this.countItems}

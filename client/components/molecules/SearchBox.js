@@ -3,6 +3,17 @@ import styled from 'react-emotion';
 
 const Form = styled('form')`
   margin: 20px 0;
+
+  input[type="text"] {
+    border-radius: 15px;
+    border: 1px solid #999999;
+    padding: 5px 10px;
+    outline: none;
+
+    &:focus {
+      border-color: #5bacdf;
+    }
+  }
 `
 
 export default class SearchBox extends React.PureComponent {
@@ -28,7 +39,6 @@ export default class SearchBox extends React.PureComponent {
           type="text"
           placeholder="Search..."
         />
-        <button type="submit">Search</button>
       </Form>
     );
   }

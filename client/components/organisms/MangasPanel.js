@@ -13,7 +13,6 @@ const MangasPaginatedList = styled(PaginatedList)`
 
   li {
     flex-basis: 50%;
-    box-sizing: border-box;
   }
 `
 
@@ -81,7 +80,7 @@ export default class MangasPanel extends PureComponent {
           (
           <div>
             <h3>Mangas by {author.name}</h3>
-            <em onClick={this.props.resetAuthor}>show all mangas</em>
+            <button className="no-border" onClick={this.props.resetAuthor}>show all mangas</button>
           </div>
           ) :
           (<h3>Mangas</h3>)

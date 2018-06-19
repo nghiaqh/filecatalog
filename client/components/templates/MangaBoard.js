@@ -9,10 +9,16 @@ const FlexContainer = styled('div')`
   display: flex;
   flex-direction: column;
 
+  > h1 {
+    padding: 0 1%;
+  }
+
   section {
-    border: 1px solid #999;
+    border: 1px solid #ececec;
     box-sizing: border-box;
     padding: 10px;
+    background: #f7f7f7;
+    margin: 5px 1%;
   }
 
   @media (min-width: 1024px) {
@@ -20,15 +26,16 @@ const FlexContainer = styled('div')`
     flex-wrap: wrap;
 
     > section:nth-child(2) {
-      flex-basis: 40%;
+      flex-basis: 39%;
+      margin-right: 0;
     }
     > section:nth-child(3) {
-      flex-basis: 60%;
+      flex-basis: 58%;
     }
     > h1,
     > section:nth-child(4),
     > section:nth-child(5) {
-      flex-basis: 100%;
+      flex-basis: 98%;
     }
   }
 `;
@@ -64,7 +71,7 @@ export default class MangaBoard extends PureComponent {
         <h1>{this.constructor.name}</h1>
         <AuthorsPanel
           onItemClick={this.handleAuthorSelect}
-          itemsPerPage={12}
+          itemsPerPage={24}
         />
         <MangasPanel
           resetAuthor={() => this.handleAuthorSelect(null)}
@@ -75,7 +82,7 @@ export default class MangaBoard extends PureComponent {
         <PagesPanel
           manga={this.state.selectedManga}
           onItemClick={this.handlePageSelect}
-          itemsPerPage={12}
+          itemsPerPage={15}
         />
         <PagePanel page={this.state.selectedPage} />
       </FlexContainer>

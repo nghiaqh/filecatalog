@@ -3,6 +3,11 @@ import styled from 'react-emotion';
 
 const Box = styled('div')`
   margin: 20px 0;
+  font-weight: 500;
+
+  button {
+    margin: 0 15px;
+  }
 `
 
 const PaginationLinks = (props) => {
@@ -24,13 +29,13 @@ const PaginationLinks = (props) => {
   return (
     <Box>
       { current > 1 ? (
-        <button page-index={current - 1} onClick={handleClick}>Prev</button>
+        <button className="no-border" page-index={current - 1} onClick={handleClick}>Prev</button>
       ) : (
         ''
       )}
       { current > 0 ? (<span>{' '}{current} / {total}{' '}</span>) : '' }
       { current < total ? (
-        <button page-index={current + 1} onClick={handleClick}>Next</button>
+        <button className="no-border" page-index={current + 1} onClick={handleClick}>Next</button>
       ) : (
         ''
       )}

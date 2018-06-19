@@ -1,4 +1,12 @@
 import React, { PureComponent } from 'react';
+import styled from 'react-emotion';
+
+const Image = styled('img')`
+  width: auto;
+  max-width: 100%;
+  display: block;
+  margin: 0 auto;
+`
 
 export default class Page extends PureComponent {
   constructor(props) {
@@ -12,7 +20,7 @@ export default class Page extends PureComponent {
     return (
       <div>
         <h3>image {this.props.page.title}</h3>
-        <img src={uri}/>
+        <Image src={uri}/>
       </div>
     );
   }

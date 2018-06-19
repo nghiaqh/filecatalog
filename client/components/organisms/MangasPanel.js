@@ -1,8 +1,21 @@
 import React, { PureComponent } from 'react';
+import styled from 'react-emotion';
 import { fetchItems, countItems } from '../Datasource';
 import MangaList from './MangaList';
 import PaginatedList from '../molecules/PaginatedList';
 import SearchBox from '../molecules/SearchBox';
+
+const MangasPaginatedList = styled(PaginatedList)`
+  ul {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  li {
+    flex-basis: 50%;
+    box-sizing: border-box;
+  }
+`
 
 const api = '/api/Mangas';
 
@@ -52,7 +65,10 @@ export default class MangasPanel extends PureComponent {
 
   renderList(items) {
     return (
-      <MangaList items={items} onItemClick={this.props.onItemClick} />
+      <MangaList
+        items={items}
+        onItemClick={this.props.onItemClick}
+      />
     );
   }
 
@@ -60,17 +76,28 @@ export default class MangasPanel extends PureComponent {
     const author = this.props.author;
 
     return (
-      <div>
-        {author ? (<h3>Mangas by {author.name}</h3>) : (<h3>Mangas</h3>)}
+      <section>
+        {author ?
+          (
+          <div>
+            <h3>Mangas by {author.name}</h3>
+            <em onClick={this.props.resetAuthor}>show all mangas</em>
+          </div>
+          ) :
+          (<h3>Mangas</h3>)
+        }
+
         <SearchBox onSearch={this.handleSearch} />
-        <PaginatedList
+
+        <MangasPaginatedList
           author={this.props.author}
           searchText={this.state.searchText}
           fetchItems={this.fetchItems}
           countItems={this.countItems}
+          itemsPerPage={this.props.itemsPerPage}
           render={this.renderList}
         />
-      </div>
+      </section>
     );
   }
 }

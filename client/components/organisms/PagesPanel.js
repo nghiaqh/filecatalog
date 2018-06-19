@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import styled from 'react-emotion';
 import { fetchItems, countItems } from '../Datasource';
 import PageList from './PageList';
 import PaginatedList from '../molecules/PaginatedList';
@@ -52,16 +53,17 @@ export default class PagesPanel extends PureComponent {
     const manga = this.props.manga;
 
     return (
-      <div>
+      <section>
         {manga ? (<h3>{manga.title}</h3>) : ''}
 
         <PaginatedList
           manga={this.props.manga}
           fetchItems={this.fetchItems}
           countItems={this.countItems}
+          itemsPerPage={this.props.itemsPerPage}
           render={this.renderList}
         />
-      </div>
+      </section>
     );
   }
 }

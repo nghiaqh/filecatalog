@@ -1,4 +1,9 @@
 import React from 'react';
+import styled from 'react-emotion';
+
+const Box = styled('div')`
+  margin: 20px 0;
+`
 
 const PaginationLinks = (props) => {
   const total = props.total;
@@ -17,7 +22,7 @@ const PaginationLinks = (props) => {
   }
 
   return (
-    <div>
+    <Box>
       { current > 1 ? (
         <button page-index={current - 1} onClick={handleClick}>Prev</button>
       ) : (
@@ -29,7 +34,7 @@ const PaginationLinks = (props) => {
       ) : (
         ''
       )}
-    </div>
+    </Box>
   );
 };
 

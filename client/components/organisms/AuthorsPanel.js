@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import styled from 'react-emotion';
 import { fetchItems, countItems } from '../Datasource';
 import AuthorList from './AuthorList';
 import PaginatedList from '../molecules/PaginatedList';
@@ -44,22 +45,26 @@ export default class AuthorsPanel extends PureComponent {
 
   renderList(items) {
     return (
-      <AuthorList items={items} onItemClick={this.props.onItemClick} />
+      <AuthorList
+        items={items}
+        onItemClick={this.props.onItemClick}
+      />
     );
   }
 
   render() {
     return (
-      <div>
+      <section>
         <h3>Authors</h3>
         <SearchBox onSearch={this.handleSearch} />
         <PaginatedList
           searchText={this.state.searchText}
           fetchItems={this.fetchItems}
           countItems={this.countItems}
+          itemsPerPage={this.props.itemsPerPage}
           render={this.renderList}
         />
-      </div>
+      </section>
     );
   }
 }

@@ -49,6 +49,12 @@ export default class PaginatedList extends PureComponent {
             this.props.fetchItems(skip, this.state.itemsPerPage)
               .then(items => this.setState({ items: items }));
           });
+        } else {
+          this.setState({
+            items: [],
+            total: 0,
+            current: 0
+          });
         }
       });
   }
@@ -68,7 +74,7 @@ export default class PaginatedList extends PureComponent {
 
   render() {
     return (
-      <div>
+      <div className={this.props.className}>
         {this.props.render(this.state.items, this.loadPrevList, this.loadNextList)}
 
         <PaginationLinks

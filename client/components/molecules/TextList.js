@@ -1,4 +1,22 @@
 import React, { PureComponent } from 'react';
+import styled from 'react-emotion';
+
+const UL = styled('ul')`
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+
+  li {
+    cursor: pointer;
+    padding: 5px;
+
+    &:hover {
+      background: turquoise;
+    }
+  }
+`
 
 export default class TextList extends PureComponent {
   constructor(props) {
@@ -8,7 +26,7 @@ export default class TextList extends PureComponent {
 
   handleClick(e) {
     e.preventDefault();
-    const i = parseInt(e._targetInst.return.key);
+    const i = parseInt(e._targetInst.key);
     const item = this.props.items[i];
     this.props.onItemClick(item);
   }
@@ -17,18 +35,16 @@ export default class TextList extends PureComponent {
     const items = [];
     this.props.items.forEach((item, index) => {
       items.push(
-        <li key={index}>
-          <div onClick={this.handleClick}>
-            {item[this.props.displayAttribute]}
-          </div>
+        <li key={index} onClick={this.handleClick}>
+          {item[this.props.displayAttribute]}
         </li>
       );
     });
 
     return (
-      <div>
-        <ul>{items}</ul>
-      </div>
+      <UL>
+        {items}
+      </UL>
     );
   }
 }

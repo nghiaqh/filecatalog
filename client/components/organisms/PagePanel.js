@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import styled from 'react-emotion';
 import Page from '../molecules/Page';
 
 export default class PagePanel extends PureComponent {
@@ -9,9 +10,9 @@ export default class PagePanel extends PureComponent {
   render() {
     const page = this.props.page;
     return (
-      <div>
+      <section>
         { page ? (<Page page={this.props.page} />) : ''}
-      </div>
+      </section>
     );
   }
 }

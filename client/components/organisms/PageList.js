@@ -9,6 +9,8 @@ export default class PageList extends PureComponent {
     }
     this.onItemClick = this.onItemClick.bind(this);
     this.handleArrowKey = this.handleArrowKey.bind(this);
+    this.handleTouchStart = this.handleTouchStart.bind(this);
+    this.handleTouchEnd = this.handleTouchEnd.bind(this);
     this.handleGesture = this.handleGesture.bind(this);
   }
 
@@ -24,27 +26,9 @@ export default class PageList extends PureComponent {
     const _this = this;
     setTimeout(function() {
       const gestureZone = document.getElementById('imageViewer');
-
       if (gestureZone) {
-        let pageWidth = window.innerWidth || document.body.clientWidth;
-        let treshold = Math.max(1,Math.floor(0.01 * (pageWidth)));
-        let touchstartX = 0;
-        let touchendX = 0;
-        let eventTimeout;
-
-        gestureZone.addEventListener('touchstart', function(event) {
-          touchstartX = event.changedTouches[0].screenX;
-        }, false);
-
-        gestureZone.addEventListener('touchend', function(event) {
-          if ( !eventTimeout ) {
-            eventTimeout = setTimeout(function() {
-              eventTimeout = null;
-              touchendX = event.changedTouches[0].screenX;
-              _this.handleGesture(event, touchstartX, touchendX, treshold, pageWidth);
-            }, 80);
-          }
-        }, false);
+        gestureZone.addEventListener('touchstart', _this.handleTouchStart, false);
+        gestureZone.addEventListener('touchend', _this.handleTouchEnd, false);
       }
     }, 500);
   }
@@ -75,12 +59,21 @@ export default class PageList extends PureComponent {
     }
   }
 
-  handleGesture(e, touchstartX, touchendX, pageWidth) {
+  handleTouchStart(e) {
+    this.touchstartX = e.changedTouches[0].screenX;
+  }
+
+  handleTouchEnd(e) {
+    this.touchendX = e.changedTouches[0].screenX;
+    this.handleGesture(e);
+  }
+
+  handleGesture(e) {
     let i = this.state.currentPage;
     const items = this.props.items
-
-    let x = touchendX - touchstartX;
-    if (x < 0 || touchendX > pageWidth / 2) {
+    const pageWidth = window.innerWidth || document.body.clientWidth;
+    let x = this.touchendX - this.touchstartX;
+    if (x < -40 || this.touchendX > 2 * pageWidth / 3) {
       console.log("left");
       if (i + 1 < items.length) {
         this.props.onItemClick(items[i + 1]);
@@ -90,7 +83,7 @@ export default class PageList extends PureComponent {
           .then(() => this.onItemClick(this.props.items[0]))
           .catch((e) => console.log(e));
       }
-    } else {
+    } else if (x > 40 || this.touchendX < pageWidth / 3) {
       console.log("right");
       if (i - 1 >= 0) {
         this.props.onItemClick(items[i - 1]);
@@ -106,8 +99,8 @@ export default class PageList extends PureComponent {
   componentWillUnmount() {
     document.removeEventListener('keydown', this.handleArrowKey);
     const gestureZone = document.getElementById('imageViewer');
-    gestureZone.removeEventListener('touchstart');
-    gestureZone.removeEventListener('touchend');
+    gestureZone.removeEventListener('touchstart', this.handleTouchStart);
+    gestureZone.removeEventListener('touchend', this.handleTouchEnd);
   }
 
   render() {

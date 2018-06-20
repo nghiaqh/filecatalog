@@ -31,7 +31,7 @@ export default class PaginatedList extends PureComponent {
   }
 
   loadNextList() {
-    if (this.state.current + 1 < this.state.total) {
+    if (this.state.current + 1 <= this.state.total) {
       return this.handlePagination(this.state.current + 1);
     }
     return new Promise((resolve, reject) => { reject('Reach the end'); });

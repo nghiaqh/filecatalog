@@ -4,9 +4,12 @@ import styled from 'react-emotion';
 const Image = styled('img')`
   width: auto;
   max-width: 100%;
+  height: auto;
+  max-height: 100%;
   display: block;
   margin: 0 auto;
   cursor: pointer;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 `
 
 export default class Page extends PureComponent {
@@ -57,12 +60,12 @@ export default class Page extends PureComponent {
 
   render() {
     let uri = this.props.page.uri;
-    uri = uri.replace('/mnt/d', 'http://localhost/img');
+    uri = uri.replace('/mnt/d', 'http://192.168.0.6/img');
 
     return (
       <div>
         <h3>image {this.props.page.title}</h3>
-        <Image src={uri} onClick={this.handleClick}
+        <Image id="imageViewer" src={uri} onDoubleClick={this.handleClick}
           title="Click to view in fullscsreen. Use left, right arrow for navigation" />
       </div>
     );

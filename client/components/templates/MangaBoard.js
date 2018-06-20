@@ -68,7 +68,7 @@ export default class MangaBoard extends PureComponent {
   render() {
     return (
       <FlexContainer>
-        <h1>{this.constructor.name}</h1>
+        <h1 className="text-center">Manga Dashboard</h1>
         <AuthorsPanel
           onItemClick={this.handleAuthorSelect}
           itemsPerPage={24}

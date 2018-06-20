@@ -24,6 +24,10 @@ injectGlobal`
     cursor: pointer;
     outline: none;
   }
+
+  .text-center {
+    text-align: center;
+  }
 `
 
 export default class App extends Component {
@@ -35,7 +39,7 @@ export default class App extends Component {
     return (
       <div>
         <nav>
-          <Link to='/'>Manga Dashboard</Link>{' '}
+          {/* <Link to='/'>Manga Dashboard</Link>{' '} */}
         </nav>
         <Switch>
           <Route exact path='/' component={MangaBoard}/>

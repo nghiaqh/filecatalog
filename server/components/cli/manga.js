@@ -4,12 +4,26 @@ const fs = require('fs');
 const chalk = require('chalk');
 const folder = require('./folder');
 const path = require('path');
+const winston = require('winston');
 const app = require('../../server');
 const Author = app.models.Author;
 const Genre = app.models.Genre;
 const Manga = app.models.Manga;
 const Page = app.models.Page;
 const Series = app.models.Series;
+
+const logger = winston.createLogger({
+  level: 'error',
+  format: winston.format.json(),
+  transports: [
+    //
+    // - Write to all logs with level `info` and below to `combined.log`
+    // - Write all logs error (and below) to `error.log`.
+    //
+    new winston.transports.File({filename: 'error.log', level: 'error'}),
+    new winston.transports.File({filename: 'combined.log'}),
+  ],
+});
 
 /**
  * 1. Scan a folder
@@ -45,23 +59,23 @@ function hasValidName(folderPath) {
  * @param {String} folderPath a folder path
  */
 async function importContent(folderPath) {
-  const folderName = path.parse(folderPath).base.split('/').pop();
-  const mtime = fs.statSync(folderPath).mtime;
-  const authorName = folderName.split(',')[0].trim();
-  const bookName = folderName.split(authorName + ',')[1].trim();
-
-  const timeStamp = new Date().toISOString().replace(/T/, ' ')
-    .replace(/\..+/, '');
-  console.log(`${chalk.yellow(timeStamp)} - ` +
-    `${chalk.bold('Author:')} ${authorName}. ` +
-    `${chalk.bold('Manga:')} ${bookName} - ` +
-    `${chalk.bold('mtime:')} ${mtime}`);
-
-  const files = folder.getChildren(folderPath).files;
-  const imgRe = /.*\.(jpg|jpeg|png|gif)$/;
-  let images = files.filter(file => imgRe.exec(file));
-
   try {
+    const folderName = path.parse(folderPath).base.split('/').pop();
+    const mtime = fs.statSync(folderPath).mtime;
+    let authorName = folderName.split(',')[0];
+    const bookName = folderName.split(authorName + ',')[1].trim();
+    authorName = authorName.trim();
+    const timeStamp = new Date().toISOString().replace(/T/, ' ')
+      .replace(/\..+/, '');
+    console.log(`${chalk.yellow(timeStamp)} - ` +
+      `${chalk.bold('Author:')} ${authorName}. ` +
+      `${chalk.bold('Manga:')} ${bookName} - ` +
+      `${chalk.bold('mtime:')} ${mtime}`);
+
+    const files = folder.getChildren(folderPath).files;
+    const imgRe = /.*\.(jpg|jpeg|png|gif)$/;
+    let images = files.filter(file => imgRe.exec(file));
+
     const author = await createAuthor(authorName);
     if (author[1]) console.log(`  Author ${author[0].name} created!`);
     else console.log(chalk.gray(
@@ -82,6 +96,10 @@ async function importContent(folderPath) {
     }
   } catch (err) {
     console.log(err);
+    logger.log({
+      level: 'error',
+      message: err + ' - folderPath: ' + folderPath,
+    });
   }
 }
 

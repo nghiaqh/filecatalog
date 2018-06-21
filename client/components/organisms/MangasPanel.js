@@ -58,8 +58,12 @@ export default class MangasPanel extends PureComponent {
         options: 'i'
       }
     }
+    const filter = {
+      where: where,
+      order: 'created DESC'
+    }
 
-    return fetchItems(api, where, skip, itemPerPage);
+    return fetchItems(api, filter, skip, itemPerPage);
   }
 
   renderList(items) {

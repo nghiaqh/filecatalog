@@ -1,13 +1,12 @@
 const ITEM_PER_PAGE = 12;
 
-const fetchItems = (api, where = {}, skip = 0, limit = ITEM_PER_PAGE) => {
-  const filter = {
+const fetchItems = (api, filter = {}, skip = 0, limit = ITEM_PER_PAGE) => {
+  const filterObj = Object.assign({
     limit: limit,
-    skip: skip < 0 ? 0 : skip,
-    where: where
-  };
+    skip: skip < 0 ? 0 : skip
+  }, filter);
 
-  return fetch(`${api}?filter=${JSON.stringify(filter)}`)
+  return fetch(`${api}?filter=${JSON.stringify(filterObj)}`)
     .then(res => res.json());
 };
 

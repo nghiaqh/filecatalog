@@ -47,12 +47,14 @@ export default class AuthorsPanel extends PureComponent {
 
   fetchItems(skip, itemPerPage) {
     const { searchText } = this.state;
-    let where = {};
+    const filter = { order: 'name ASC' };
     if (typeof searchText !== 'undefined' && searchText !== '') {
-      where.name = { regexp: '.*' + searchText + '.*' };
+      filter.where = {
+        name: { regexp: '.*' + searchText + '.*' }
+      };
     }
 
-    return fetchItems(api, where, skip, itemPerPage);
+    return fetchItems(api, filter, skip, itemPerPage);
   }
 
   renderList(items) {

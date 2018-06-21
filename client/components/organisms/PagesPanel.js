@@ -37,7 +37,7 @@ export default class PagesPanel extends PureComponent {
       });
     }
 
-    const where = {mangaId: manga.id};
+    const where = { mangaId: manga.id };
     return countItems(api, where);
   }
 
@@ -49,8 +49,11 @@ export default class PagesPanel extends PureComponent {
       });
     }
 
-    const where = {mangaId: manga.id};
-    return fetchItems(api, where, skip, itemPerPage);
+    const filter = {
+      where: { mangaId: manga.id },
+      order: 'title'
+    };
+    return fetchItems(api, filter, skip, itemPerPage);
   }
 
   renderList(items, loadPrevList, loadNextList) {

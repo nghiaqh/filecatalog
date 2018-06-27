@@ -2,10 +2,10 @@ import React, { PureComponent } from 'react';
 import styled from 'react-emotion';
 import { fetchItems, countItems } from '../Datasource';
 import MangaList from './MangaList';
-import PaginatedList from '../molecules/PaginatedList';
+import Paginator from '../molecules/Paginator';
 import SearchBox from '../molecules/SearchBox';
 
-const MangasPaginatedList = styled(PaginatedList)`
+const MangasPaginator = styled(Paginator)`
   ul {
     flex-direction: row;
     flex-wrap: wrap;
@@ -92,7 +92,7 @@ export default class MangasPanel extends PureComponent {
 
         <SearchBox onSearch={this.handleSearch} />
 
-        <MangasPaginatedList
+        <MangasPaginator
           author={this.props.author}
           searchText={this.state.searchText}
           fetchItems={this.fetchItems}

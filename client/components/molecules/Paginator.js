@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PaginationLinks from './PaginationLinks';
 
-export default class PaginatedList extends PureComponent {
+export default class Paginator extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {

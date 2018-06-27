@@ -2,9 +2,9 @@ import React, { PureComponent } from 'react';
 import styled from 'react-emotion';
 import { fetchItems, countItems } from '../Datasource';
 import PageList from './PageList';
-import PaginatedList from '../molecules/PaginatedList';
+import Paginator from '../molecules/Paginator';
 
-const PagesPaginatedList = styled(PaginatedList)`
+const PagesPaginator = styled(Paginator)`
   ul {
     flex-direction: row;
     flex-wrap: wrap;
@@ -74,7 +74,7 @@ export default class PagesPanel extends PureComponent {
       <section>
         {manga ? (<h3>{manga.title}</h3>) : ''}
 
-        <PagesPaginatedList
+        <PagesPaginator
           manga={this.props.manga}
           fetchItems={this.fetchItems}
           countItems={this.countItems}

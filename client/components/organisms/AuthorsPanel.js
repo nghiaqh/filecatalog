@@ -2,10 +2,10 @@ import React, { PureComponent } from 'react';
 import styled from 'react-emotion';
 import { fetchItems, countItems } from '../Datasource';
 import AuthorList from './AuthorList';
-import PaginatedList from '../molecules/PaginatedList';
+import Paginator from '../molecules/Paginator';
 import SearchBox from '../molecules/SearchBox';
 
-const AuthorsPaginatedList = styled(PaginatedList)`
+const AuthorsPaginator = styled(Paginator)`
   ul {
     flex-direction: row;
     flex-wrap: wrap;
@@ -71,7 +71,7 @@ export default class AuthorsPanel extends PureComponent {
       <section>
         <h3>Authors</h3>
         <SearchBox onSearch={this.handleSearch} />
-        <AuthorsPaginatedList
+        <AuthorsPaginator
           searchText={this.state.searchText}
           fetchItems={this.fetchItems}
           countItems={this.countItems}

@@ -11,7 +11,7 @@ const PagesPaginator = styled(Paginator)`
   }
 
   li {
-    flex-basis: 20%;
+    flex-basis: 25%;
 
     overflow: hidden;
     white-space: nowrap;

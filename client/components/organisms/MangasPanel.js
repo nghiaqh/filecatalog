@@ -12,7 +12,7 @@ const MangasPaginator = styled(Paginator)`
   }
 
   li {
-    flex-basis: 50%;
+    flex-basis: 100%;
   }
 `
 

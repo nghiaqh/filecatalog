@@ -13,7 +13,7 @@ const AuthorsPaginator = styled(Paginator)`
   }
 
   li {
-    flex-basis: 30%;
+    flex-basis: 100%;
   }
 `
 

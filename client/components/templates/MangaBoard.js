@@ -71,18 +71,18 @@ export default class MangaBoard extends PureComponent {
         <h1 className="text-center">Manga Dashboard</h1>
         <AuthorsPanel
           onItemClick={this.handleAuthorSelect}
-          itemsPerPage={24}
+          itemsPerPage={12}
         />
         <MangasPanel
           resetAuthor={() => this.handleAuthorSelect(null)}
           onItemClick={this.handleMangaSelect}
           author={this.state.selectedAuthor}
-          itemsPerPage={24}
+          itemsPerPage={12}
         />
         <PagesPanel
           manga={this.state.selectedManga}
           onItemClick={this.handlePageSelect}
-          itemsPerPage={15}
+          itemsPerPage={12}
         />
         <PagePanel page={this.state.selectedPage} />
       </FlexContainer>

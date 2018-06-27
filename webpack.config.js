@@ -26,9 +26,13 @@ module.exports = {
     port: 3000,
     open: true,
     host: '0.0.0.0',
-    public: 'http://localhost:' + 3000,
+    public: 'http://localhost:3000',
     proxy: {
       '/api': 'http://192.168.0.6:8080',
+      '/mnt/d': {
+        target: 'http://192.168.0.6/img',
+        pathRewrite: {'^/mnt/d': ''},
+      },
     },
   },
   plugins: [

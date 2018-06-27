@@ -92,7 +92,7 @@ async function importContent(folderPath, skipExistingRecords = false) {
     for (let i = 0; i < images.length; i++) {
       const title = path.parse(images[i]).base.split('/').pop().trim();
       const uri = images[i];
-      const page = await createPage(title, uri, manga[0].id);
+      const page = await createPage(title, uri, manga[0].id, i + 1);
       if (page[1]) console.log(`  Page ${page[0].title} created!`);
       else console.log(chalk.gray(
       `  Page ${page[0].title} already exists in database.`));
@@ -120,10 +120,10 @@ function createManga(bookTitle, authorId, created) {
   );
 }
 
-function createPage(title, uri, mangaId) {
+function createPage(title, uri, mangaId, number) {
   return Page.findOrCreate(
-    {where: {title: title, uri: uri, mangaId: mangaId}},
-    {title: title, uri: uri, mangaId: mangaId}
+    {where: {title: title, uri: uri, mangaId: mangaId, number: number}},
+    {title: title, uri: uri, mangaId: mangaId, number: number}
   );
 }
 

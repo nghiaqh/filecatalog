@@ -1,11 +1,9 @@
 import React, { PureComponent } from 'react';
 import styled from 'react-emotion';
-import { fetchItems, countItems } from '../Datasource';
 import MangaList from './MangaList';
-import Paginator from '../molecules/Paginator';
 import SearchBox from '../molecules/SearchBox';
 
-const MangasPaginator = styled(Paginator)`
+const StyledMangaList = styled(MangaList)`
   ul {
     flex-direction: row;
     flex-wrap: wrap;
@@ -16,8 +14,6 @@ const MangasPaginator = styled(Paginator)`
   }
 `
 
-const api = '/api/Mangas';
-
 export default class MangasPanel extends PureComponent {
   constructor(props) {
     super(props);
@@ -25,54 +21,10 @@ export default class MangasPanel extends PureComponent {
       searchText: ''
     };
     this.handleSearch = this.handleSearch.bind(this);
-    this.countItems = this.countItems.bind(this);
-    this.fetchItems = this.fetchItems.bind(this);
-    this.renderList = this.renderList.bind(this);
   }
 
   handleSearch(searchText) {
     this.setState({searchText: searchText});
-  }
-
-  countItems() {
-    const { author } = this.props;
-    const { searchText } = this.state;
-    const where = author ? {authorId: author.id} : {};
-    if (typeof searchText !== 'undefined' && searchText !== '') {
-      where.title = {
-        regexp: '.*' + searchText + '.*',
-        options: 'i'
-      }
-    }
-
-    return countItems(api, where);
-  }
-
-  fetchItems(skip, itemPerPage) {
-    const { author } = this.props;
-    const { searchText } = this.state;
-    const where = author ? {authorId: author.id} : {};
-    if (typeof searchText !== 'undefined' && searchText !== '') {
-      where.title = {
-        regexp: '.*' + searchText + '.*',
-        options: 'i'
-      }
-    }
-    const filter = {
-      where: where,
-      order: 'created DESC'
-    }
-
-    return fetchItems(api, filter, skip, itemPerPage);
-  }
-
-  renderList(items) {
-    return (
-      <MangaList
-        items={items}
-        onItemClick={this.props.onItemClick}
-      />
-    );
   }
 
   render() {
@@ -91,14 +43,9 @@ export default class MangasPanel extends PureComponent {
         }
 
         <SearchBox onSearch={this.handleSearch} />
-
-        <MangasPaginator
-          author={this.props.author}
+        <StyledMangaList
           searchText={this.state.searchText}
-          fetchItems={this.fetchItems}
-          countItems={this.countItems}
-          itemsPerPage={this.props.itemsPerPage}
-          render={this.renderList}
+          {...this.props}
         />
       </section>
     );

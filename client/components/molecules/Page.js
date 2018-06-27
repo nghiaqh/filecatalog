@@ -60,13 +60,12 @@ export default class Page extends PureComponent {
 
   render() {
     let uri = this.props.page.uri;
-    uri = uri.replace('/mnt/d', 'http://192.168.0.6/img');
 
     return (
       <div>
         <h3>image {this.props.page.title}</h3>
         <Image id="imageViewer" src={uri} onDoubleClick={this.handleClick}
-          title="Click to view in fullscsreen. Use left, right arrow for navigation" />
+          title="Double click the image to view in fullscsreen. Use left, right arrow for navigation" />
       </div>
     );
   }

@@ -7,7 +7,7 @@ export default class Paginator extends PureComponent {
     this.state = {
       items: [],
       total: 0,
-      current: 0,
+      current: 0 || props.current,
       itemsPerPage: props.itemsPerPage || 12
     };
     this.handlePagination = this.handlePagination.bind(this);
@@ -43,7 +43,7 @@ export default class Paginator extends PureComponent {
         if (result && result.count > 0) {
           this.setState({
             total: Math.ceil(result.count / this.state.itemsPerPage),
-            current: 1
+            current: this.state.current || 1
           }, () => {
             const skip = (this.state.current - 1) * this.state.itemsPerPage;
             this.props.fetchItems(skip, this.state.itemsPerPage)
@@ -67,7 +67,7 @@ export default class Paginator extends PureComponent {
     if (this.props !== prevProps) {
       this.setState({
         total: 0,
-        current: 0
+        current: 0 || this.props.current
       }, this.fetchData());
     }
   }
@@ -75,7 +75,8 @@ export default class Paginator extends PureComponent {
   render() {
     return (
       <div className={this.props.className}>
-        {this.props.render(this.state.items, this.loadPrevList, this.loadNextList)}
+        {this.props.render(this.state.items, this.loadPrevList,
+          this.loadNextList)}
 
         <PaginationLinks
           total={this.state.total}

@@ -55,10 +55,10 @@ async function askQuestions() {
       choices: ['manga'],
     },
     {
-      name: 'replaceExistingRecords',
+      name: 'skipExistingRecords',
       type: 'confirm',
-      message: 'Do you want to replace existing records?',
-    },
+      message: 'Do you want to skip existing records?',
+    }
   ];
 
   return inquirer.prompt(questions);
@@ -67,7 +67,7 @@ async function askQuestions() {
 async function proceed(input) {
   if (input.contentType === 'manga') {
     console.log('Importing mangas ...');
-    await manga.scanFolder(input.path.trim(), input.replaceExistingRecords);
+    await manga.scanFolder(input.path.trim(), input.skipExistingRecords);
   }
   console.log(chalk.green('Completed!'));
 }

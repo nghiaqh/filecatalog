@@ -21,7 +21,6 @@ const logger = winston.createLogger({
     // - Write all logs error (and below) to `error.log`.
     //
     new winston.transports.File({filename: 'error.log', level: 'error'}),
-    new winston.transports.File({filename: 'combined.log'}),
   ],
 });
 
@@ -31,14 +30,14 @@ const logger = winston.createLogger({
  * 3. If name doesn't match pattern and there is no request to include sub folders, end
  * 4. If name doesn't match pattern and there is a request to include sub folders, start the whole process with each sub folder.
  */
-async function scanFolder(folderPath, recursive = false) {
+async function scanFolder(folderPath, replaceExistingRecords = false) {
   if (hasValidName(folderPath)) {
-    await importContent(folderPath);
+    await importContent(folderPath, replaceExistingRecords);
   } else {
     const folders = folder.getChildren(folderPath).folders;
     // if use array.map here, the recursive
     for (let i = 0; i < folders.length; i++) {
-      await scanFolder(folders[i], recursive);
+      await scanFolder(folders[i]);
     }
   }
 }
@@ -58,7 +57,7 @@ function hasValidName(folderPath) {
  * Create data records (author, manga, page) from a folder
  * @param {String} folderPath a folder path
  */
-async function importContent(folderPath) {
+async function importContent(folderPath, replaceExistingRecords = false) {
   try {
     const folderName = path.parse(folderPath).base.split('/').pop();
     const mtime = fs.statSync(folderPath).mtime;
@@ -85,6 +84,10 @@ async function importContent(folderPath) {
     if (manga[1]) console.log(`  Manga ${manga[0].title} created!`);
     else console.log(chalk.gray(
       '  Manga already exists in database.'));
+
+    if (replaceExistingRecords) {
+      await Page.destroyAll({mangaId: manga[0].id});
+    }
 
     for (let i = 0; i < images.length; i++) {
       const title = path.parse(images[i]).base.split('/').pop().trim();

@@ -55,9 +55,9 @@ async function askQuestions() {
       choices: ['manga'],
     },
     {
-      name: 'includeSubFolder',
+      name: 'replaceExistingRecords',
       type: 'confirm',
-      message: 'Do you want to scan the sub folders?',
+      message: 'Do you want to replace existing records?',
     },
   ];
 
@@ -67,7 +67,7 @@ async function askQuestions() {
 async function proceed(input) {
   if (input.contentType === 'manga') {
     console.log('Importing mangas ...');
-    await manga.scanFolder(input.path.trim(), input.includeSubFolder);
+    await manga.scanFolder(input.path.trim(), input.replaceExistingRecords);
   }
   console.log(chalk.green('Completed!'));
 }

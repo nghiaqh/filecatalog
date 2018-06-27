@@ -30,9 +30,7 @@ export default class PagesPanel extends PureComponent {
         {manga ? (<h3>{manga.title}</h3>) : ''}
 
         <StyledPageList
-          manga={this.props.manga}
-          itemsPerPage={this.props.itemsPerPage}
-          onItemClick={this.props.onItemClick}
+          {...this.props}
         />
       </section>
     );

@@ -14,6 +14,17 @@ export default class PageList extends PureComponent {
     this.renderList = this.renderList.bind(this);
   }
 
+  render() {
+    return (
+      <Paginator
+        fetchItems={this.fetchItems}
+        countItems={this.countItems}
+        render={this.renderList}
+        {...this.props}
+      />
+    );
+  }
+
   countItems() {
     const manga = this.props.manga;
     if (manga === null) {
@@ -47,18 +58,6 @@ export default class PageList extends PureComponent {
         items={items}
         displayAttribute='title'
         onItemClick={this.props.onItemClick}
-      />
-    );
-  }
-
-  render() {
-    return (
-      <Paginator
-        fetchItems={this.fetchItems}
-        countItems={this.countItems}
-        itemsPerPage={this.props.itemsPerPage}
-        manga={this.props.manga}
-        render={this.renderList}
       />
     );
   }

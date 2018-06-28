@@ -3,7 +3,11 @@ const chalk = require('chalk');
 const folder = require('./folder');
 const path = require('path');
 const winston = require('winston');
-const app = require('../../server');
+const loopback = require('loopback');
+const boot = require('loopback-boot');
+
+const app = loopback();
+boot(app, path.resolve(__dirname, '../../'));
 const Author = app.models.Author;
 const Genre = app.models.Genre;
 const Manga = app.models.Manga;
@@ -14,10 +18,6 @@ const logger = winston.createLogger({
   level: 'error',
   format: winston.format.json(),
   transports: [
-    //
-    // - Write to all logs with level `info` and below to `combined.log`
-    // - Write all logs error (and below) to `error.log`.
-    //
     new winston.transports.File({filename: 'error.log', level: 'error'}),
   ],
 });

@@ -35,7 +35,7 @@ async function scanFolder(folderPath, skipExistingRecords = false) {
     const folders = folder.getChildren(folderPath).folders;
     // if use array.map here, the recursive
     for (let i = 0; i < folders.length; i++) {
-      await scanFolder(folders[i]);
+      await scanFolder(folders[i], skipExistingRecords);
     }
   }
 }

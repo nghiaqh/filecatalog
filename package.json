@@ -31,6 +31,7 @@
     "react-dom": "^16.4.1",
     "react-emotion": "^9.2.4",
     "react-router-dom": "^4.3.1",
+    "rmwc": "^1.7.6",
     "serve-favicon": "^2.0.1",
     "strong-error-handler": "^2.0.0",
     "winston": "^3.0.0"

@@ -20,8 +20,12 @@ function getChildren(folderPath) {
 
   return {
     files: files,
-    folders: folders,
+    folders: folders.sort(isNewer),
   };
+}
+
+function isNewer(a, b) {
+  return fs.statSync(b).mtime.getTime() - fs.statSync(a).mtime.getTime();
 }
 
 module.exports = {getChildren};

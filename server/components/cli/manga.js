@@ -28,14 +28,15 @@ const logger = winston.createLogger({
  * 3. If name doesn't match pattern and there is no request to include sub folders, end
  * 4. If name doesn't match pattern and there is a request to include sub folders, start the whole process with each sub folder.
  */
-async function scanFolder(folderPath, skipExistingRecords = false) {
+async function scanFolder(folderPath, skipExistingRecords = false, limitTo30 = false) {
   if (hasValidName(folderPath)) {
     await importContent(folderPath, skipExistingRecords);
   } else {
     const folders = folder.getChildren(folderPath).folders;
+    const limit = limitTo30 ? 30 : folders.length;
     // if use array.map here, the recursive
-    for (let i = 0; i < folders.length; i++) {
-      await scanFolder(folders[i], skipExistingRecords);
+    for (let i = 0; i < limit; i++) {
+      await scanFolder(folders[i], skipExistingRecords, limitTo30);
     }
   }
 }

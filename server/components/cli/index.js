@@ -56,7 +56,12 @@ async function askQuestions() {
       name: 'skipExistingRecords',
       type: 'confirm',
       message: 'Do you want to skip existing records?',
-    }
+    },
+    {
+      name: 'limitTo30',
+      type: 'confirm',
+      message: 'Limit scan to 30 recent changed folders?',
+    },
   ];
 
   return inquirer.prompt(questions);
@@ -65,7 +70,7 @@ async function askQuestions() {
 async function proceed(input) {
   if (input.contentType === 'manga') {
     console.log('Importing mangas ...');
-    await manga.scanFolder(input.path.trim(), input.skipExistingRecords);
+    await manga.scanFolder(input.path.trim(), input.skipExistingRecords, input.limitTo30);
   }
   console.log(chalk.green('Completed!'));
 }

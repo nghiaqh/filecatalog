@@ -1,4 +1,4 @@
-'use strict';
+;
 
 module.exports = function(Page) {
   Page.observe('before save', function(ctx, next) {

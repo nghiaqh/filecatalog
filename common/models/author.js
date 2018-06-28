@@ -1,4 +1,4 @@
-'use strict';
+;
 
 module.exports = function(Author) {
   Author.observe('before save', function(ctx, next) {

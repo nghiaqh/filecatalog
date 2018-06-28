@@ -1,4 +1,4 @@
-'use strict';
+;
 
 module.exports = function(Manga) {
   Manga.observe('before save', function(ctx, next) {

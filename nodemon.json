@@ -1,0 +1,15 @@
+{
+  "verbose": false,
+  "ignore": [
+    ".git",
+    "node_modules/**/node_modules",
+    "dist",
+    "docs",
+    "bin",
+    "client",
+    "server/react-routes.js",
+    "server/components/cli"
+  ],
+  "exec": "npm run build && node .",
+  "ext": "js json jsx"
+}

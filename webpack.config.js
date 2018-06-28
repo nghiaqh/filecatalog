@@ -1,44 +1,77 @@
-'use strict';
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const webpack = require('webpack');
+const nodeExternals = require('webpack-node-externals');
 
+const nodeEnv = process.env.NODE_ENV || 'development';
 const outputDirectory = 'dist';
+const hotMiddlewareScript = 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000';
 
-module.exports = {
-  entry: './client/index.js',
-  output: {
-    path: path.join(__dirname, outputDirectory),
-    filename: 'bundle.js',
-  },
+const common = {
+  mode: nodeEnv,
+  devtool: 'eval',
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.js?$/,
         exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-        },
+        use: ['babel-loader'],
       },
     ],
   },
-  devServer: {
-    port: 3000,
-    open: true,
-    host: '0.0.0.0',
-    public: 'http://localhost:3000',
-    proxy: {
-      '/api': 'http://192.168.0.6:8080',
-      '/mnt/d': {
-        target: 'http://192.168.0.6/img',
-        pathRewrite: {'^/mnt/d': ''},
-      },
-    },
+};
+
+const frontend = {
+  entry: [
+    './client/index.js',
+    hotMiddlewareScript,
+  ],
+  output: {
+    path: path.resolve(__dirname, outputDirectory),
+    filename: 'bundle.js',
+    publicPath: 'http://localhost:8080/',
   },
   plugins: [
-    new CleanWebpackPlugin([outputDirectory]),
-    new HtmlWebpackPlugin({
-      template: './public/index.html',
+    new webpack.DefinePlugin({
+      // http://stackoverflow.com/a/35372706/2177568
+      // for server side code, just require, don't chunk
+      // use `if (ONSERVER) { ...` for server specific code
+      ONSERVER: false,
+      'process.env': {NODE_ENV: JSON.stringify(nodeEnv)},
     }),
+    new webpack.HotModuleReplacementPlugin(),
   ],
 };
+
+const backend = {
+  entry: [
+    './server/server.js',
+    hotMiddlewareScript,
+  ],
+  target: 'node',
+  externals: [
+    nodeExternals({whitelist: hotMiddlewareScript}),
+  ],
+  output: {
+    path: path.resolve(__dirname, outputDirectory),
+    filename: 'server.js',
+    publicPath: '/',
+  },
+  node: {
+    __dirname: true,
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+      // http://stackoverflow.com/a/35372706/2177568
+      // for server side code, just require, don't chunk
+      // use `if (ONSERVER) { ...` for server specific code
+      ONSERVER: true,
+      'process.env': {NODE_ENV: JSON.stringify(nodeEnv)},
+    }),
+    new webpack.HotModuleReplacementPlugin(),
+  ],
+};
+
+module.exports = [
+  Object.assign({}, common, frontend),
+  Object.assign({}, common, backend),
+];

@@ -1,4 +1,4 @@
-'use strict';
+;
 
 module.exports = function(Series) {
   Series.observe('before save', function(ctx, next) {

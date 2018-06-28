@@ -1,4 +1,4 @@
-'use strict';
+;
 
 module.exports = function(Genre) {
   Genre.observe('before save', function(ctx, next) {

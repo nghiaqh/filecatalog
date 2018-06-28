@@ -14,7 +14,6 @@ export default class MangasHub extends PureComponent {
   render() {
     return (
       <article>
-        <h1 className="text-center">Mangas</h1>
         <MangasPanel
           onItemClick={this.handleMangaSelect}
           itemsPerPage={30}

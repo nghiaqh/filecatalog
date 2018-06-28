@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { Route, Link, Switch } from 'react-router-dom';
 import { injectGlobal } from 'emotion';
 import MangaBoard from './components/templates/MangaBoard';
+import MangasHub from './components/templates/MangasHub';
+import Manga from './components/templates/Manga';
+import { hot } from 'react-hot-loader';
 
 injectGlobal`
   * {
@@ -30,7 +33,7 @@ injectGlobal`
   }
 `
 
-export default class App extends Component {
+class App extends Component {
   constructor(props) {
     super(props);
   }
@@ -39,12 +42,17 @@ export default class App extends Component {
     return (
       <div>
         <nav>
-          {/* <Link to='/'>Manga Dashboard</Link>{' '} */}
+          <Link to='/'>Dashboard</Link>{' '}
+          <Link to='/mangas'>Mangas</Link>{' '}
         </nav>
         <Switch>
           <Route exact path='/' component={MangaBoard}/>
+          <Route exact path='/mangas' component={MangasHub}/>
+          <Route exact path='/mangas/:mangaId' component={Manga}/>
         </Switch>
       </div>
     );
   }
 }
+
+export default hot(module)(App);

@@ -24,17 +24,21 @@ export default class Manga extends PureComponent {
 
   render() {
     return (
-      <Grid>
-        <GridCell span="12">
-          <ToolbarFixedAdjust/>
-          <PagesPanel
-            manga={this.state.manga}
-            onItemClick={this.handlePageSelect}
-            itemsPerPage={30}
-          />
-          <PagePanel page={this.state.selectedPage} />
-        </GridCell>
-      </Grid>
+      <article>
+        <ToolbarFixedAdjust/>
+        <Grid>
+          <GridCell span="4">
+            <PagesPanel
+              manga={this.state.manga}
+              onItemClick={this.handlePageSelect}
+              itemsPerPage={30}
+            />
+          </GridCell>
+          <GridCell span="4" desktop="8">
+            <PagePanel page={this.state.selectedPage} />
+          </GridCell>
+        </Grid>
+      </article>
     );
   }
 

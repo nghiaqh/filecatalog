@@ -8,11 +8,10 @@ export default class SearchBox extends React.PureComponent {
     this.state = {
       filterText: ''
     };
-    this.onInitialSearch = this.onInitialSearch.bind(this);
+    this.handleTextChange = this.handleTextChange.bind(this);
   }
 
-  onInitialSearch(e) {
-    e.preventDefault();
+  handleTextChange(e) {
     const value = e.target.value.trim();
     this.props.onSearch(value);
   }
@@ -21,7 +20,7 @@ export default class SearchBox extends React.PureComponent {
     return (
       <TextField fullwidth
         placeholder="Search..."
-        onChange={this.onInitialSearch}
+        onChange={this.handleTextChange}
       />
     );
   }

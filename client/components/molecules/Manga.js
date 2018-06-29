@@ -38,17 +38,15 @@ export default class Manga extends PureComponent {
   }
 
   render() {
-    const { title, author, created } = this.props.manga;
+    const { title, author, coverPicture } = this.props.manga;
     const isNew = isNewItem(this.props.manga);
 
     return (
       <StyledCard>
         <CardPrimaryAction onClick={this.viewManga}>
           <CardMedia
-            sixteenByNine
             style={{
-              backgroundImage:
-                'url(https://material-components-web.appspot.com/images/16-9.jpg)'
+              backgroundImage: `url(${coverPicture})`
             }}
           />
           {isNew ?

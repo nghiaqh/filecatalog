@@ -22,22 +22,9 @@ injectGlobal`
   html, body {
     font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
     -webkit-font-smoothing: antialiased;
-
-    margin: 0;
+    font-size: 14px;
     padding: 0;
-
-    color: #1a1a1a;
-  }
-
-  button.no-border {
-    background-color: transparent;
-    border: 0;
-    cursor: pointer;
-    outline: none;
-  }
-
-  .text-center {
-    text-align: center;
+    margin: 0;
   }
 
   .mdc-top-app-bar {
@@ -48,6 +35,13 @@ injectGlobal`
         color: #fff;
       }
     }
+  }
+
+  .ellipsis {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    display: block;
   }
 `
 

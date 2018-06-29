@@ -6,6 +6,7 @@ import PagesPanel from '../organisms/PagesPanel';
 import PagePanel from '../organisms/PagePanel';
 import { ToolbarFixedAdjust } from 'rmwc/Toolbar';
 import { Grid, GridCell } from 'rmwc/Grid';
+import { Typography } from 'rmwc/Typography';
 
 const StyledGridCell = styled(GridCell)`
   padding: 5px;
@@ -47,7 +48,7 @@ export default class MangaBoard extends PureComponent {
         <ToolbarFixedAdjust/>
         <Grid>
           <StyledGridCell span="12">
-            <h1 className="text-center">Manga Dashboard</h1>
+            <Typography use="headline4">Manga Dashboard</Typography>
           </StyledGridCell>
           <StyledGridCell span="4">
             <AuthorsPanel

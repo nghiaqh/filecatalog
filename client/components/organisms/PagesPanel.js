@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import styled from 'react-emotion';
 import PageList from './PageList';
+import { Typography } from 'rmwc/Typography';
 
 const StyledPageList = styled(PageList)`
   ul {
@@ -27,7 +28,7 @@ export default class PagesPanel extends PureComponent {
 
     return (
       <section>
-        {manga ? (<h3>{manga.title}</h3>) : ''}
+        {manga ? <Typography className="ellipsis" use="headline5">{manga.title}</Typography> : ''}
 
         <StyledPageList
           {...this.props}

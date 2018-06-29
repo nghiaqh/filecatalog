@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import styled from 'react-emotion';
+import { Typography } from 'rmwc/Typography';
 
 const Image = styled('img')`
   width: auto;
@@ -59,13 +60,17 @@ export default class Page extends PureComponent {
   }
 
   render() {
-    let uri = this.props.page.uri;
+    const uri = this.props.page.uri;
+    const tooltip = 'Double click the image to view in fullscsreen. Use left, \
+      right arrow keys to navigate';
 
     return (
       <div>
-        <h3>{this.props.page.title}</h3>
+        <Typography className="ellipsis" use="headline5">
+          {this.props.page.title}
+        </Typography>
         <Image id="imageViewer" src={uri} onDoubleClick={this.handleClick}
-          title="Double click the image to view in fullscsreen. Use left, right arrow for navigation" />
+          title={tooltip} />
       </div>
     );
   }

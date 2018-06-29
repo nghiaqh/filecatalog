@@ -2,6 +2,8 @@ import React, { PureComponent } from 'react';
 import styled from 'react-emotion';
 import MangaList from './MangaList';
 import SearchBox from '../molecules/SearchBox';
+import { Typography } from 'rmwc/Typography';
+import { Button } from 'rmwc/Button';
 
 const StyledMangaList = styled(MangaList)`
   ul {
@@ -33,13 +35,11 @@ export default class MangasPanel extends PureComponent {
     return (
       <section>
         {author ?
-          (
-          <div>
-            <h3>Mangas by {author.name}</h3>
-            <button className="no-border" onClick={this.props.resetAuthor}>show all mangas</button>
-          </div>
-          ) :
-          (<h3>Mangas</h3>)
+          <Typography className="ellipsis" use="headline5">
+            Mangas by {author.name}
+          </Typography>
+          :
+          <Typography className="ellipsis" use="headline5">Mangas</Typography>
         }
 
         <SearchBox onSearch={this.handleSearch} />
@@ -47,6 +47,10 @@ export default class MangasPanel extends PureComponent {
           searchText={this.state.searchText}
           {...this.props}
         />
+        {author ?
+          <Button dense onClick={this.props.resetAuthor}>show all mangas</Button>
+          : ''
+        }
       </section>
     );
   }

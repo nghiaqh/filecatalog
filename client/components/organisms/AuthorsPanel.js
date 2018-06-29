@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import styled from 'react-emotion';
 import AuthorList from './AuthorList';
 import SearchBox from '../molecules/SearchBox';
+import { Typography } from 'rmwc/Typography';
 
 const StyledAuthorList = styled(AuthorList)`
   ul {
@@ -31,7 +32,7 @@ export default class AuthorsPanel extends PureComponent {
   render() {
     return (
       <section>
-        <h3>Authors</h3>
+        <Typography use="headline5">Authors</Typography>
         <SearchBox onSearch={this.handleSearch} />
         <StyledAuthorList
           searchText={this.state.searchText}

@@ -50,12 +50,17 @@ export default class MangaBoard extends PureComponent {
       selectedPage: null
     };
     this.handleAuthorSelect = this.handleAuthorSelect.bind(this);
+    this.resetAuthorSelect = this.handleAuthorSelect.bind(this);
     this.handleMangaSelect = this.handleMangaSelect.bind(this);
     this.handlePageSelect = this.handlePageSelect.bind(this);
   }
 
   handleAuthorSelect(author) {
     this.setState({selectedAuthor: author});
+  }
+
+  resetAuthorSelect(author) {
+    this.setState({selectedAuthor: null});
   }
 
   handleMangaSelect(manga) {
@@ -77,7 +82,7 @@ export default class MangaBoard extends PureComponent {
             itemsPerPage={12}
           />
           <MangasPanel
-            resetAuthor={() => this.handleAuthorSelect(null)}
+            resetAuthor={this.resetAuthorSelect}
             onItemClick={this.handleMangaSelect}
             author={this.state.selectedAuthor}
             itemsPerPage={12}

@@ -4,6 +4,7 @@ import AuthorsPanel from '../organisms/AuthorsPanel';
 import MangasPanel from '../organisms/MangasPanel';
 import PagesPanel from '../organisms/PagesPanel';
 import PagePanel from '../organisms/PagePanel';
+import { ToolbarFixedAdjust } from 'rmwc/Toolbar';
 
 const FlexContainer = styled('div')`
   display: flex;
@@ -67,25 +68,28 @@ export default class MangaBoard extends PureComponent {
 
   render() {
     return (
-      <FlexContainer>
-        <h1 className="text-center">Manga Dashboard</h1>
-        <AuthorsPanel
-          onItemClick={this.handleAuthorSelect}
-          itemsPerPage={12}
-        />
-        <MangasPanel
-          resetAuthor={() => this.handleAuthorSelect(null)}
-          onItemClick={this.handleMangaSelect}
-          author={this.state.selectedAuthor}
-          itemsPerPage={12}
-        />
-        <PagesPanel
-          manga={this.state.selectedManga}
-          onItemClick={this.handlePageSelect}
-          itemsPerPage={12}
-        />
-        <PagePanel page={this.state.selectedPage} />
-      </FlexContainer>
+      <article>
+        <ToolbarFixedAdjust/>
+        <FlexContainer>
+          <h1 className="text-center">Manga Dashboard</h1>
+          <AuthorsPanel
+            onItemClick={this.handleAuthorSelect}
+            itemsPerPage={12}
+          />
+          <MangasPanel
+            resetAuthor={() => this.handleAuthorSelect(null)}
+            onItemClick={this.handleMangaSelect}
+            author={this.state.selectedAuthor}
+            itemsPerPage={12}
+          />
+          <PagesPanel
+            manga={this.state.selectedManga}
+            onItemClick={this.handlePageSelect}
+            itemsPerPage={12}
+          />
+          <PagePanel page={this.state.selectedPage} />
+        </FlexContainer>
+      </article>
     );
   }
 }

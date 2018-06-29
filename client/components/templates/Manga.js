@@ -3,6 +3,8 @@ import styled from 'react-emotion';
 import PagesPanel from '../organisms/PagesPanel';
 import PagePanel from '../organisms/PagePanel';
 import { fetchItems } from '../Datasource';
+import { ToolbarFixedAdjust } from 'rmwc/Toolbar';
+import { Grid, GridCell } from 'rmwc/Grid';
 
 export default class Manga extends PureComponent {
   constructor(props) {
@@ -22,14 +24,17 @@ export default class Manga extends PureComponent {
 
   render() {
     return (
-      <article>
-        <PagesPanel
-          manga={this.state.manga}
-          onItemClick={this.handlePageSelect}
-          itemsPerPage={30}
-        />
-        <PagePanel page={this.state.selectedPage} />
-      </article>
+      <Grid>
+        <GridCell span="12">
+          <ToolbarFixedAdjust/>
+          <PagesPanel
+            manga={this.state.manga}
+            onItemClick={this.handlePageSelect}
+            itemsPerPage={30}
+          />
+          <PagePanel page={this.state.selectedPage} />
+        </GridCell>
+      </Grid>
     );
   }
 

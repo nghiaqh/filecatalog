@@ -24,6 +24,7 @@ export default class TextList extends PureComponent {
     this.props.items.forEach((item, index) => {
       const text = item[this.props.displayTextFrom];
       const secondaryText = getNestedObject(item, this.props.displaySecondaryFrom);
+      const meta = isNewItem(item) ? 'fiber_new' : null;
       items.push(
         <StyledSimpleListItem
           key={index}
@@ -31,6 +32,7 @@ export default class TextList extends PureComponent {
           text={text}
           secondaryText={secondaryText}
           data-key={index}
+          meta={meta}
         />
       );
     });
@@ -49,4 +51,10 @@ function getNestedObject(nestedObj, path) {
     (obj, key) => (obj && obj[key] !== 'undefined') ? obj[key] : undefined,
     nestedObj
   );
+}
+
+function isNewItem(item) {
+  const now = new Date();
+  const then = new Date(item.updated);
+  return (now - then) / (1000 * 3600 * 24) <= 10;
 }

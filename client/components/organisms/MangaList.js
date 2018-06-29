@@ -1,7 +1,9 @@
 import React, { PureComponent } from 'react';
-import TextList from '../molecules/TextList';
-import Paginator from '../molecules/Paginator';
 import { fetchItems, countItems } from '../Datasource';
+import Paginator from '../molecules/Paginator';
+import TextList from '../molecules/TextList';
+import CardList from '../molecules/CardList';
+import Manga from '../molecules/Manga';
 
 const api = '/api/Mangas';
 
@@ -11,6 +13,7 @@ export default class MangaList extends PureComponent {
     this.countItems = this.countItems.bind(this);
     this.fetchItems = this.fetchItems.bind(this);
     this.renderList = this.renderList.bind(this);
+    this.renderCard = this.renderCard.bind(this);
   }
   render() {
     return (
@@ -55,12 +58,33 @@ export default class MangaList extends PureComponent {
   }
 
   renderList(items) {
+    if (this.props.type === 'text') {
+      return (
+        <TextList
+          displayTextFrom='title'
+          displaySecondaryFrom={['author', 'name']}
+          items={items}
+          onItemClick={this.props.onItemClick}
+        />
+      );
+    } else {
+      return (
+        <CardList
+          items={items}
+          render={this.renderCard}
+          {...this.props}
+        />
+      );
+    }
+  }
+
+  renderCard(item, index, handleClick, ...props) {
     return (
-      <TextList
-        displayTextFrom='title'
-        displaySecondaryFrom={['author', 'name']}
-        items={items}
-        onItemClick={this.props.onItemClick}
+      <Manga
+        key={index}
+        manga={item}
+        onItemClick={handleClick}
+        {...props}
       />
     );
   }

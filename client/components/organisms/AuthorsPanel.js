@@ -32,7 +32,7 @@ export default class AuthorsPanel extends PureComponent {
   render() {
     return (
       <section>
-        <Typography use="headline5">Authors</Typography>
+        <Typography className="ellipsis" use="headline5">Authors</Typography>
         <SearchBox onSearch={this.handleSearch} />
         <StyledAuthorList
           searchText={this.state.searchText}

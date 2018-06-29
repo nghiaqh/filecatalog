@@ -61,8 +61,8 @@ export default class Page extends PureComponent {
 
   render() {
     const uri = this.props.page.uri;
-    const tooltip = 'Double click the image to view in fullscsreen. Use left, \
-      right arrow keys to navigate';
+    const tooltip = 'Double click the image to view in fullscsreen. Use left,\
+ right arrow keys to navigate';
 
     return (
       <div>

@@ -13,15 +13,15 @@ export default class SearchBox extends React.PureComponent {
 
   onInitialSearch(e) {
     e.preventDefault();
-    const value = e.target[0].value.trim();
+    const value = e.target.value.trim();
     this.props.onSearch(value);
   }
 
   render() {
     return (
       <TextField fullwidth
-        label="Search..."
-        onSubmit={this.onInitialSearch}
+        placeholder="Search..."
+        onChange={this.onInitialSearch}
       />
     );
   }

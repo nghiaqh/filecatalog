@@ -63,7 +63,7 @@ export default class Page extends PureComponent {
 
     return (
       <div>
-        <h3>image {this.props.page.title}</h3>
+        <h3>{this.props.page.title}</h3>
         <Image id="imageViewer" src={uri} onDoubleClick={this.handleClick}
           title="Double click the image to view in fullscsreen. Use left, right arrow for navigation" />
       </div>

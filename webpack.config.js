@@ -18,21 +18,14 @@ const common = {
       },
       {
         test: /\.css$/,
-        // exclude material css from being loaded by CSS modules
-        exclude: [
-          path.resolve('./node_modules/material-components-web'),
-          path.resolve('./node_modules/@material'),
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+            },
+          },
         ],
-        use: ['style-loader', 'css-loader?modules=true'],
-      },
-      {
-        test: /\.css$/,
-        // only turn on standard global CSS loader for the material directories
-        include: [
-          path.resolve('./node_modules/material-components-web'),
-          path.resolve('./node_modules/@material'),
-        ],
-        use: ['style-loader', 'css-loader'],
       },
     ],
   },

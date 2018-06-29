@@ -8,6 +8,7 @@ const Html = ({ body, title }) => `
       <meta http-equiv="X-UA-Compatible" content="ie=edge">
       <title>${title}</title>
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <link href="material-components-web.min.css" rel="stylesheet">
   </head>
 
   <body>

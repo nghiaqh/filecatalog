@@ -5,40 +5,10 @@ import MangasPanel from '../organisms/MangasPanel';
 import PagesPanel from '../organisms/PagesPanel';
 import PagePanel from '../organisms/PagePanel';
 import { ToolbarFixedAdjust } from 'rmwc/Toolbar';
+import { Grid, GridCell } from 'rmwc/Grid';
 
-const FlexContainer = styled('div')`
-  display: flex;
-  flex-direction: column;
-
-  > h1 {
-    padding: 0 1%;
-  }
-
-  section {
-    border: 1px solid #ececec;
-    box-sizing: border-box;
-    padding: 10px;
-    background: #f7f7f7;
-    margin: 5px 1%;
-  }
-
-  @media (min-width: 1024px) {
-    flex-direction: row;
-    flex-wrap: wrap;
-
-    > section:nth-child(2) {
-      flex-basis: 39%;
-      margin-right: 0;
-    }
-    > section:nth-child(3) {
-      flex-basis: 58%;
-    }
-    > h1,
-    > section:nth-child(4),
-    > section:nth-child(5) {
-      flex-basis: 98%;
-    }
-  }
+const StyledGridCell = styled(GridCell)`
+  padding: 5px;
 `;
 
 export default class MangaBoard extends PureComponent {
@@ -75,25 +45,35 @@ export default class MangaBoard extends PureComponent {
     return (
       <article>
         <ToolbarFixedAdjust/>
-        <FlexContainer>
-          <h1 className="text-center">Manga Dashboard</h1>
-          <AuthorsPanel
-            onItemClick={this.handleAuthorSelect}
-            itemsPerPage={12}
-          />
-          <MangasPanel
-            resetAuthor={this.resetAuthorSelect}
-            onItemClick={this.handleMangaSelect}
-            author={this.state.selectedAuthor}
-            itemsPerPage={12}
-          />
-          <PagesPanel
-            manga={this.state.selectedManga}
-            onItemClick={this.handlePageSelect}
-            itemsPerPage={12}
-          />
-          <PagePanel page={this.state.selectedPage} />
-        </FlexContainer>
+        <Grid>
+          <StyledGridCell span="12">
+            <h1 className="text-center">Manga Dashboard</h1>
+          </StyledGridCell>
+          <StyledGridCell span="4">
+            <AuthorsPanel
+              onItemClick={this.handleAuthorSelect}
+              itemsPerPage={12}
+            />
+          </StyledGridCell>
+          <StyledGridCell span="4" desktop="8">
+            <MangasPanel
+              resetAuthor={this.resetAuthorSelect}
+              onItemClick={this.handleMangaSelect}
+              author={this.state.selectedAuthor}
+              itemsPerPage={12}
+            />
+          </StyledGridCell>
+          <StyledGridCell span="4">
+            <PagesPanel
+              manga={this.state.selectedManga}
+              onItemClick={this.handlePageSelect}
+              itemsPerPage={12}
+            />
+          </StyledGridCell>
+          <StyledGridCell span="4" desktop="8">
+            <PagePanel page={this.state.selectedPage} />
+          </StyledGridCell>
+        </Grid>
       </article>
     );
   }

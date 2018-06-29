@@ -1,22 +1,9 @@
 import React, { PureComponent } from 'react';
 import styled from 'react-emotion';
+import { List, SimpleListItem } from 'rmwc/List';
 
-const UL = styled('ul')`
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-
-  li {
-    cursor: pointer;
-    padding: 5px;
-
-    &:hover {
-      background: #5bacdf;
-      color: #fcfefc;
-    }
-  }
+const StyledSimpleListItem = styled(SimpleListItem)`
+  cursor: pointer;
 `
 
 export default class TextList extends PureComponent {
@@ -27,7 +14,7 @@ export default class TextList extends PureComponent {
 
   handleClick(e) {
     e.preventDefault();
-    const i = parseInt(e._targetInst.key);
+    const i = parseInt(e.currentTarget.getAttribute('data-key'));
     const item = this.props.items[i];
     this.props.onItemClick(item);
   }
@@ -35,17 +22,31 @@ export default class TextList extends PureComponent {
   render() {
     const items = [];
     this.props.items.forEach((item, index) => {
+      const text = item[this.props.displayTextFrom];
+      const secondaryText = getNestedObject(item, this.props.displaySecondaryFrom);
       items.push(
-        <li key={index} onClick={this.handleClick}>
-          {item[this.props.displayAttribute]}
-        </li>
+        <StyledSimpleListItem
+          key={index}
+          onClick={this.handleClick}
+          text={text}
+          secondaryText={secondaryText}
+          data-key={index}
+        />
       );
     });
 
     return (
-      <UL>
+      <List {...this.props.twoLine ? twoLine : ''}>
         {items}
-      </UL>
+      </List>
     );
   }
+}
+
+function getNestedObject(nestedObj, path) {
+  if (!Array.isArray(path)) return null;
+  return path.reduce(
+    (obj, key) => (obj && obj[key] !== 'undefined') ? obj[key] : undefined,
+    nestedObj
+  );
 }

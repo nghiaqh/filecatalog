@@ -56,7 +56,7 @@ export default class PageList extends PureComponent {
     return (
       <TextList
         items={items}
-        displayAttribute='title'
+        displayTextFrom='title'
         onItemClick={this.props.onItemClick}
       />
     );

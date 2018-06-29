@@ -49,7 +49,7 @@ export default class AuthorList extends PureComponent {
   renderList(items) {
     return (
       <TextList
-        displayAttribute='name'
+        displayTextFrom='name'
         items={items}
         onItemClick={this.props.onItemClick}
       />

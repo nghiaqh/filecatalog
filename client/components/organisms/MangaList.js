@@ -47,7 +47,8 @@ export default class MangaList extends PureComponent {
     }
     const filter = {
       where: where,
-      order: 'created DESC'
+      order: 'created DESC',
+      include: 'author'
     }
 
     return fetchItems(api, filter, skip, itemPerPage);
@@ -56,7 +57,8 @@ export default class MangaList extends PureComponent {
   renderList(items) {
     return (
       <TextList
-        displayAttribute='title'
+        displayTextFrom='title'
+        displaySecondaryFrom={['author', 'name']}
         items={items}
         onItemClick={this.props.onItemClick}
       />

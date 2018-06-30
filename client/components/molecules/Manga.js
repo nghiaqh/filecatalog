@@ -50,7 +50,7 @@ export default class Manga extends PureComponent {
         <CardPrimaryAction onClick={this.viewManga}>
           <CardMedia
             style={{
-              backgroundImage: `url('${coverUrl}')`
+              backgroundImage: `url("${coverUrl}")`
             }}
           />
           {isNew ?

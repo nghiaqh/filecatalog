@@ -14,6 +14,10 @@ import { Typography } from 'rmwc/Typography';
 import { Icon } from 'rmwc/Icon';
 
 const StyledCard = styled(Card)`
+  .mdc-card__media {
+    min-height: 200px;
+    background-size: contain;
+  }
   .manga-title {
     margin-bottom: 0;
     font-weight: 600;
@@ -40,13 +44,13 @@ export default class Manga extends PureComponent {
   render() {
     const { title, author, coverPicture } = this.props.manga;
     const isNew = isNewItem(this.props.manga);
-
+    const coverUrl = window.location.origin + encodeURI(coverPicture);
     return (
       <StyledCard>
         <CardPrimaryAction onClick={this.viewManga}>
           <CardMedia
             style={{
-              backgroundImage: `url(${coverPicture})`
+              backgroundImage: `url('${coverUrl}')`
             }}
           />
           {isNew ?

@@ -91,10 +91,15 @@ async function importContent(folderPath, skipExistingRecords = false) {
     for (let i = 0; i < images.length; i++) {
       const title = path.parse(images[i]).base.split('/').pop().trim();
       const uri = images[i];
-      const page = await createPage(title, uri, manga[0].id, i + 1);
-      if (page[1]) console.log(`  Page ${page[0].title} created!`);
-      else console.log(chalk.gray(
-      `  Page ${page[0].title} already exists in database.`));
+      const page = createPage(title, uri, manga[0].id, i + 1, (page) => {
+        if (page[1]) console.log(`  Page ${page[0].title} created!`);
+        else console.log(chalk.gray(
+        `  Page ${page[0].title} already exists in database.`));
+        if (i === 0) {
+          manga[0].updateAttribute('coverPicture', uri);
+          manga.save();
+        }
+      });
     }
   } catch (err) {
     console.log(err);
@@ -119,11 +124,25 @@ function createManga(bookTitle, authorId, created) {
   );
 }
 
-function createPage(title, uri, mangaId, number) {
+function createPage(title, uri, mangaId, number, callback) {
   return Page.findOrCreate(
     {where: {title: title, uri: uri, mangaId: mangaId, number: number}},
-    {title: title, uri: uri, mangaId: mangaId, number: number}
+    {title: title, uri: uri, mangaId: mangaId, number: number},
+    callback
   );
 }
 
-module.exports = {scanFolder};
+async function updateMangaCover() {
+  const pages = await getFirstPages();
+  pages.forEach(page => {
+    const manga = page.manga();
+    manga.updateAttribute('coverPicture', page.uri);
+    manga.save((err, obj) => {console.log(err, obj)});
+  });
+}
+
+function getFirstPages() {
+  return Page.find({where: { number: 1}, include: 'manga'});
+}
+
+module.exports = {scanFolder, updateMangaCover};

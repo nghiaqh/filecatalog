@@ -22,12 +22,19 @@ async function main(process) {
   console.log(`${chalk.yellow(timeStamp)} - Importing mangas...`);
   let result = scanner.scan(input);
   result = flatten(result);
+  const summary = () => {
+    const endTime = new Date();
+    console.log(chalk.yellow(`Status: ${result.length} manga imported. Time taken: ${formatLapse(endTime - startTime)}`));
+  };
 
   if (!Array.isArray(result)) {
-    result.then(continueOrQuit)
+    result
+      .then(summary)
+      .then(continueOrQuit)
       .catch(handleError);
   } else {
     Promise.all(result)
+      .then(summary)
       .then(continueOrQuit)
       .catch(handleError);
   }
@@ -70,9 +77,6 @@ async function askQuestions() {
 }
 
 async function continueOrQuit() {
-  const endTime = new Date();
-  console.log(chalk.blue(`Finished after ${formatLapse(endTime - startTime)}`));
-
   const answer = await inquirer.prompt([{
     name: 'continue',
     type: 'confirm',

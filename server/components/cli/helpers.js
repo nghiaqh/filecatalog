@@ -76,23 +76,20 @@ function flatten(list) {
   return list.reduce((a, b) => a.concat(Array.isArray(b) ? flatten(b) : b), []);
 }
 
-function displayMillisec(millisec) {
-  let seconds = (millisec / 1000).toFixed(0);
+function formatLapse(millisec) {
+  let seconds = (millisec / 1000).toFixed(2);
   let minutes = Math.floor(seconds / 60);
-  let hours = '';
+  let hours = 0;
   if (minutes > 59) {
     hours = Math.floor(minutes / 60);
-    hours = (hours >= 10) ? hours : '0' + hours;
+    hours = (hours >= 1) ? hours : '0' + hours;
     minutes = minutes - (hours * 60);
-    minutes = (minutes >= 10) ? minutes : '0' + minutes;
+    minutes = minutes ? minutes : '0' + minutes;
   }
 
-  seconds = Math.floor(seconds % 60);
-  seconds = (seconds >= 10) ? seconds : '0' + seconds;
-  if (hours != '') {
-    return hours + ':' + minutes + ':' + seconds;
-  }
-  return minutes + ':' + seconds;
+  seconds = Math.round(seconds % 60);
+  seconds = seconds ? seconds : '0' + seconds;
+  return hours + ':' + minutes + ':' + seconds;
 }
 
 module.exports = {
@@ -101,5 +98,5 @@ module.exports = {
   getFolderItems,
   findImages,
   flatten,
-  displayMillisec,
+  formatLapse,
 };

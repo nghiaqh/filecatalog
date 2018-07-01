@@ -48,7 +48,7 @@ async function createContent(folder, newOnly) {
   const mtime = fs.statSync(folder).mtime;
   const images = findImages(folder);
 
-  if (!images.length) return;
+  if (!images.length) return [];
 
   const name = path.parse(folder).base.split('/').pop();
   let authorName = name.split(',')[0];
@@ -72,17 +72,19 @@ async function createContent(folder, newOnly) {
 
   let promises = [
     new Promise(resolve => resolve(author.name)),
-    new Promise(resolve => resolve(manga.title)),
+    new Promise(resolve => {
+      const timeStamp = new Date().toISOString().replace(/T/, ' ')
+        .replace(/\..+/, '');
+      console.log(`${chalk.yellow(timeStamp)} - Found: ${manga.title} ` +
+        `by ${author.name}`);
+
+      resolve(manga.title);
+    }),
   ];
 
   if (newOnly && !newManga) {
     return promises;
   }
-
-  const timeStamp = new Date().toISOString().replace(/T/, ' ')
-    .replace(/\..+/, '');
-  console.log(`${chalk.yellow(timeStamp)} - Found: ${manga.title} ` +
-    `by ${author.name}`);
 
   await Page.destroyAll({mangaId: manga.id});
   return promises.concat(createPages(images, manga));

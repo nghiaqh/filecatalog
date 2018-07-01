@@ -2,7 +2,9 @@ const chalk = require('chalk');
 const figlet = require('figlet');
 const inquirer = require('inquirer');
 const scanner = require('./scanner');
-const {flatten, isValidFolder, logger} = require('../helpers');
+const {flatten, isValidFolder, logger, formatLapse} = require('../helpers');
+
+let startTime;
 
 function start(process) {
   console.log(chalk.yellow(figlet.textSync(
@@ -14,7 +16,8 @@ function start(process) {
 
 async function main(process) {
   let input = await askQuestions();
-  const timeStamp = new Date().toISOString().replace(/T/, ' ')
+  startTime = new Date();
+  const timeStamp = startTime.toISOString().replace(/T/, ' ')
     .replace(/\..+/, '');
   console.log(`${chalk.yellow(timeStamp)} - Importing mangas...`);
   let result = scanner.scan(input);
@@ -67,6 +70,9 @@ async function askQuestions() {
 }
 
 async function continueOrQuit() {
+  const endTime = new Date();
+  console.log(chalk.blue(`Finished after ${formatLapse(endTime - startTime)}`));
+
   const answer = await inquirer.prompt([{
     name: 'continue',
     type: 'confirm',

@@ -52,7 +52,6 @@ function isNewer(a, b) {
  * @param {String} value a folder path
  */
 function isValidFolder(value) {
-  value = value.trim();
   const isValid = value.length && fs.statSync(value).isDirectory();
   return isValid ? true : 'Enter a valid folder path';
 }

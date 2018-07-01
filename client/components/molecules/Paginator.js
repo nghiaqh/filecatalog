@@ -64,7 +64,7 @@ export default class Paginator extends PureComponent {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    if (this.props !== prevProps) {
+    if (this.props !== prevProps && this.props.type === prevProps.type) {
       this.setState({
         total: 0,
         current: 0 || this.props.current

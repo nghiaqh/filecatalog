@@ -1,6 +1,7 @@
+const chalk = require('chalk');
 const path = require('path');
 const fs = require('fs');
-const {getFolderItems, findImages} = require('../helpers');
+const {getFolderItems, findImages, logger} = require('../helpers');
 const {Author, Genre, Manga, Page, Series} = require('../models');
 /**
  * Verify folder name against the pattern /([^,.]+),([^,.]+)/
@@ -26,17 +27,20 @@ function hasValidName(folder) {
  */
 function scan(input) {
   const {folder, newOnly, limit} = input;
-  if (hasValidName(folder)) {
-    const promise = createContent(folder, newOnly);
-    return promise;
-  } else {
-    let {folders} = getFolderItems(folder);
-    folders.pop(limit ? folders.length - limit : 0);
 
-    return folders.map(folder =>
-      scan({folder, newOnly, limit})
-    );
+  if (hasValidName(folder)) {
+    return createContent(folder, newOnly)
+      .then(promises => Promise.all(promises))
+      .then(printResult)
+      .then(() => new Promise(resolve => resolve(1)));
   }
+
+  let {folders} = getFolderItems(folder);
+  folders.pop(limit ? folders.length - limit : 0);
+
+  return folders.map(folder =>
+    scan({folder, newOnly, limit})
+  );
 }
 
 // Return an array of Promises resolve [author, mangas, pages]
@@ -75,6 +79,11 @@ async function createContent(folder, newOnly) {
     return promises;
   }
 
+  const timeStamp = new Date().toISOString().replace(/T/, ' ')
+    .replace(/\..+/, '');
+  console.log(`${chalk.yellow(timeStamp)} - Found: ${manga.title} ` +
+    `by ${author.name}`);
+
   await Page.destroyAll({mangaId: manga.id});
   return promises.concat(createPages(images, manga));
 }
@@ -99,6 +108,14 @@ function createPages(images, manga) {
       Page.findOrCreate(filter, data, callback);
     });
   });
+}
+
+function printResult(res) {
+  if (!res.length) return;
+  const timeStamp = new Date().toISOString()
+    .replace(/T/, ' ')
+    .replace(/\..+/, '');
+  console.log(chalk.green(`${timeStamp} - Imported: ${res[1]} by ${res[0]} - ${res.length - 2} pages`));
 }
 
 module.exports = {scan};

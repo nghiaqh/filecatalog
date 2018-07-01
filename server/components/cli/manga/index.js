@@ -21,17 +21,12 @@ async function main(process) {
   result = flatten(result);
 
   if (!Array.isArray(result)) {
-    result.then(promises => Promise.all(promises))
-      .then(printResult)
-      .then(continueOrQuit)
+    result.then(continueOrQuit)
       .catch(handleError);
   } else {
-    Promise.all(result.map(async x => {
-      return x.then(promises => Promise.all(promises));
-    }))
-    .then(res => res.forEach(printResult))
-    .then(continueOrQuit)
-    .catch(handleError);
+    Promise.all(result)
+      .then(continueOrQuit)
+      .catch(handleError);
   }
 }
 
@@ -83,16 +78,6 @@ async function continueOrQuit() {
   } else {
     main(process);
   }
-}
-
-function printResult(res) {
-  if (!res.length) return;
-  const timeStamp = new Date().toISOString().replace(/T/, ' ')
-    .replace(/\..+/, '');
-  console.log(`${chalk.yellow(timeStamp)} - ` +
-    `${chalk.bold('Author:')} ${res[0]}. ` +
-    `${chalk.bold('Manga:')} ${res[1]}. ` +
-    `${chalk.bold('Pages:')} ${res.length - 2}`);
 }
 
 function handleError(err) {

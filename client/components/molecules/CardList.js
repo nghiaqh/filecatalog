@@ -4,7 +4,7 @@ import styled from 'react-emotion';
 const StyledCardCollection = styled('section')`
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-evenly;
+  justify-content: center;
   padding: 10px 0;
 
   .mdc-card {
@@ -24,7 +24,7 @@ const StyledCardCollection = styled('section')`
     @media (min-width: 1280px) {
       flex-basis: 250px;
       max-width: 250px;
-      margin: 8px 5px 8px 0;
+      margin: 8px 10px 8px 0;
     }
   }
 `;

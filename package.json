@@ -1,6 +1,6 @@
 {
   "name": "filecatalog",
-  "version": "1.0.0",
+  "version": "0.3.0",
   "main": "dist/server.js",
   "engines": {
     "node": ">=8"
@@ -11,7 +11,7 @@
     "build": "webpack --config webpack.config.js",
     "dev": "nodemon",
     "posttest": "npm run lint && nsp check",
-    "cli": "node bin/cli.js"
+    "cli": "node bin/cli-manga.js"
   },
   "dependencies": {
     "chalk": "^2.4.1",

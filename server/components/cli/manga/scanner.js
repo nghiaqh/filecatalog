@@ -55,11 +55,20 @@ async function createContent(folder, newOnly) {
   const bookTitle = name.split(authorName + ',')[1].trim();
   authorName = authorName.trim();
 
-  const a = await Author.findOrCreate(
-    {where: {name: authorName}},
-    {name: authorName}
-  );
-  const author = a[0];
+  let author;
+  try {
+    const a = await Author.findOrCreate(
+      {where: {name: authorName}},
+      {name: authorName}
+    );
+    author = a[0];
+  } catch (err) {
+    if (err.code === 'ER_DUP_ENTRY') {
+      author = await Author.findOne({where: {name: authorName}});
+    } else {
+      throw err;
+    }
+  }
 
   const m = await Manga.findOrCreate(
     {where: {title: bookTitle, authorId: author.id}},

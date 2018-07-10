@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import TextList from '../molecules/TextList';
+import TextList from '../organisms/TextList';
 import Paginator from '../molecules/Paginator';
 import { fetchItems, countItems } from '../Datasource';
 

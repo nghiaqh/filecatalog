@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import styled from 'react-emotion';
-import SearchBox from '../molecules/SearchBox';
+import SearchBox from '../atoms/SearchBox';
 import { Typography } from 'rmwc/Typography';
 import { Button } from 'rmwc/Button';
 import { Switch } from 'rmwc/Switch';

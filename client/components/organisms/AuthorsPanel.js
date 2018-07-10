@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import styled from 'react-emotion';
 import AuthorList from './AuthorList';
-import SearchBox from '../molecules/SearchBox';
+import SearchBox from '../atoms/SearchBox';
 import { Typography } from 'rmwc/Typography';
 
 const StyledAuthorList = styled(AuthorList)`

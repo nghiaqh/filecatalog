@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react';
 import { fetchItems, countItems } from '../Datasource';
 import Paginator from '../molecules/Paginator';
-import TextList from '../molecules/TextList';
-import CardList from '../molecules/CardList';
-import Manga from '../molecules/Manga';
+import TextList from '../organisms/TextList';
+import CardList from '../organisms/CardList';
+import MangaCard from '../molecules/MangaCard';
 
 const api = '/api/Mangas';
 
@@ -80,7 +80,7 @@ export default class MangaList extends PureComponent {
 
   renderCard(item, index, handleClick, ...props) {
     return (
-      <Manga
+      <MangaCard
         key={index}
         manga={item}
         onItemClick={handleClick}

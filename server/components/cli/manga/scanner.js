@@ -36,7 +36,9 @@ function scan(input) {
   }
 
   let {folders} = getFolderItems(folder);
-  folders.pop(limit ? folders.length - limit : 0);
+  if (limit) {
+    folders.pop(folders.length - limit);
+  }
 
   return folders.map(folder =>
     scan({folder, newOnly, limit})

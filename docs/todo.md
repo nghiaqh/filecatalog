@@ -13,3 +13,12 @@
 - Done
 
 4. Update setting to not hard code IP and domain of image server in component
+
+- Done
+
+5. Reorganise molecules and organisms
+
+- SearchBox: atom
+- AuthorCard, AuthorListeItem, MangaCard, MangaListItem: molecule
+- CardList, TextList, MangaList: organism
+- MangasHub: template

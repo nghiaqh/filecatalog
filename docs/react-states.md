@@ -42,11 +42,11 @@
 - UI states are stored in the components instead of redux store.
 - Redux store acts like a client-side database
 
-```js
+```javascript
 {
   data,
   communication,
-  control,
+  control, // store within component
   session,
   location
 }
@@ -54,35 +54,42 @@
 
 // data
 {
-  listingMangas: {
-    items: [],
-    pagination: {
-      current: 2,
-      total: 10,
-      itemsPerPage: 11
+  mangasPage: {
+    list: {
+      items: [],
+      currentPage: 2,
+      totalPages: 10,
+      pageSize: 11,
+      type: 'list', // or 'grid'
+      sort: 'alphabetically', // or 'chronologically'
+      group: '',
+      retrieving: false // communication state
     },
-    viewType: 'list', // or 'grid'
-    sort: 'alphabetically', // or 'chronologically'
-    group: ''
+
+    mangasById: {
+      123: {
+        id,
+        title,
+        description,
+        coverPicture,
+        createdDate,
+        updatedDate
+      }
+    }
+
+    mangasByAuthor: {
+      1: {
+        items
+      }
+    }
   },
 
-  mangasById: {
-    123: {
-      id,
-      title,
-      description,
-      coverPicture,
-      createdDate,
-      updatedDate
-    }
+  mangaReader: {
+    list
   }
 
-  mangasByAuthor: {
-    authorX: {
-      items
-    }
-  },
-
+  authorsPage:
 }
+
 
 ```

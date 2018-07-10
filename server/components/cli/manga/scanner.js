@@ -37,11 +37,11 @@ function scan(input) {
 
   let {folders} = getFolderItems(folder);
   if (limit) {
-    folders.pop(folders.length - limit);
+    folders = folders.slice(0, limit);
   }
 
   return folders.map(folder =>
-    scan({folder, newOnly, limit})
+    scan({folder, newOnly})
   );
 }
 

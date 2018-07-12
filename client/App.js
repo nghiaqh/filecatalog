@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Route, NavLink, Switch } from 'react-router-dom';
 import { injectGlobal } from 'emotion';
-import MangaBoard from './components/templates/MangaBoard';
-import MangasHub from './components/templates/MangasHub';
+// import MangaBoard from './components/templates/MangaBoard';
+// import MangasHub from './components/templates/MangasHub';
 import Manga from './components/templates/Manga';
+import { MangaList } from './components/organisms/MangaList/index';
 import { hot } from 'react-hot-loader';
 import {
   TopAppBar,
@@ -53,7 +54,7 @@ class App extends Component {
   render() {
     return (
       <section>
-        <TopAppBar>
+        {/* <TopAppBar>
           <TopAppBarRow>
             <TopAppBarSection alignStart>
               <NavLink to="/" exact>
@@ -64,10 +65,10 @@ class App extends Component {
               </TopAppBarTitle>
             </TopAppBarSection>
           </TopAppBarRow>
-        </TopAppBar>
+        </TopAppBar> */}
         <Switch>
-          <Route exact path='/' component={MangaBoard}/>
-          <Route exact path='/mangas' component={MangasHub}/>
+          <Route exact path='/' component={MangaList}/>
+          <Route exact path='/mangas' component={MangaList}/>
           <Route exact path='/mangas/:mangaId' component={Manga}/>
         </Switch>
       </section>

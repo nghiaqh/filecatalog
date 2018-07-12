@@ -9,7 +9,6 @@ import {
   CardActionButtons,
   CardActionIcons
 } from 'rmwc/Card';
-import { isNewItem } from '../DataHelpers';
 import { Typography } from 'rmwc/Typography';
 import { Icon } from 'rmwc/Icon';
 
@@ -42,8 +41,7 @@ export default class MangaCard extends PureComponent {
   }
 
   render() {
-    const { title, author, coverPicture } = this.props.manga;
-    const isNew = isNewItem(this.props.manga);
+    const { title, author, coverPicture, isNew } = this.props.manga;
     const coverUrl = window.location.origin + encodeURI(coverPicture);
     return (
       <StyledCard>

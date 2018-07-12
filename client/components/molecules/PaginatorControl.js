@@ -2,9 +2,9 @@ import React from 'react';
 import { Button } from 'rmwc/Button';
 import { Select } from 'rmwc/Select';
 
-const PaginationLinks = (props) => {
-  const total = parseInt(props.total);
-  const current = parseInt(props.current);
+const PaginationControl = (props) => {
+  const total = parseInt(props.totalPages);
+  const current = parseInt(props.pageNumber);
   let i = 0;
   const options = Array(total).fill('').map(n => ({
     label: ++i, value: i
@@ -49,4 +49,4 @@ const PaginationLinks = (props) => {
   );
 };
 
-export default PaginationLinks;
+export default PaginationControl;

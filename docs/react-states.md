@@ -54,19 +54,19 @@
 
 // data
 {
-  mangasPage: {
-    list: {
+  mangas: {
+    all: {
       items: [],
-      currentPage: 2,
+      pageNumber: 2,
       totalPages: 10,
-      pageSize: 11,
+      pageSize: 12,
       type: 'list', // or 'grid'
       sort: 'alphabetically', // or 'chronologically'
-      group: '',
-      retrieving: false // communication state
+      retrieving: false, // communication state
+      receivedAt
     },
 
-    mangasById: {
+    byId: {
       123: {
         id,
         title,
@@ -75,13 +75,18 @@
         createdDate,
         updatedDate
       }
-    }
+    },
 
-    mangasByAuthor: {
+    byAuthor: {
       1: {
         items
       }
-    }
+    },
+
+    byTitle: {
+      a: { items, pageNumber, totalPages, pageSize, type, sort, retrieving, receivedAt },
+      b: { ... }
+    },
   },
 
   mangaReader: {

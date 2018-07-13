@@ -1,7 +1,14 @@
 import React, { PureComponent } from 'react';
-import { Button } from 'rmwc/Button';
+import styled from 'react-emotion';
 import SearchBox from '../../atoms/SearchBox';
 import { MangaList } from '../../organisms/MangaList';
+
+const StyledMangaHub = styled('section')`
+  .mdc-text-field--fullwidth {
+    width: calc(100% - 20px);
+    margin: 0 auto;
+  }
+`
 
 export default class MangaHub extends PureComponent {
   constructor(props) {
@@ -18,14 +25,14 @@ export default class MangaHub extends PureComponent {
 
   render() {
     return (
-      <section>
+      <StyledMangaHub>
         <SearchBox onSearch={this.handleSearch} />
         <br/>
         <MangaList
           searchText={this.state.searchText}
           history={this.props.history}
         />
-      </section>
+      </StyledMangaHub>
     );
   }
 }

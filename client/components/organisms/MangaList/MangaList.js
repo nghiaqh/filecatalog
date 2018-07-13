@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import { fetchMangas, countMangas } from './actions';
+import { fetchMangasIfNeeded, fetchMangas, countMangas } from './actions';
 import PaginatorControl from '../../molecules/PaginatorControl';
 import TextList from '../../organisms/TextList';
 import CardList from '../../organisms/CardList';
@@ -38,7 +38,7 @@ export class MangaList extends PureComponent {
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch(countMangas());
-    dispatch(fetchMangas(12, 1));
+    dispatch(fetchMangasIfNeeded());
   }
 
   renderList(items) {

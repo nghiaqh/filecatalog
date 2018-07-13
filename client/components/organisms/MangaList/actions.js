@@ -91,3 +91,12 @@ export const countMangas = (filter = {}) => {
       .then(json => dispatch(receiveMangaNumber(json)));
   };
 };
+
+export const fetchMangasIfNeeded = () => {
+  return (dispatch, getState) => {
+    const { mangaList } = getState();
+    if (mangaList.paginator.receivedItemsAt === null) {
+      dispatch(fetchMangas());
+    }
+  }
+}

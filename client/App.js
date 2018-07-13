@@ -24,11 +24,15 @@ injectGlobal`
     font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
     -webkit-font-smoothing: antialiased;
     font-size: 14px;
-    padding: 0;
     margin: 0;
   }
 
+  body {
+    padding-top: 64px;
+  }
+
   .mdc-top-app-bar {
+    top: 0;
     a {
       color: #dadada;
       text-decoration: none;
@@ -54,7 +58,7 @@ class App extends Component {
   render() {
     return (
       <section>
-        {/* <TopAppBar>
+        <TopAppBar>
           <TopAppBarRow>
             <TopAppBarSection alignStart>
               <NavLink to="/" exact>
@@ -65,7 +69,7 @@ class App extends Component {
               </TopAppBarTitle>
             </TopAppBarSection>
           </TopAppBarRow>
-        </TopAppBar> */}
+        </TopAppBar>
         <Switch>
           <Route exact path='/' component={MangaList}/>
           <Route exact path='/mangas' component={MangaList}/>

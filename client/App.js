@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
 import { Route, NavLink, Switch } from 'react-router-dom';
 import { injectGlobal } from 'emotion';
-// import MangaBoard from './components/templates/MangaBoard';
-// import MangasHub from './components/templates/MangasHub';
-import Manga from './components/templates/Manga';
-import { MangaList } from './components/organisms/MangaList/index';
-import { MangaDetail } from './components/templates/MangaDetail/index';
 import { hot } from 'react-hot-loader';
 import {
   TopAppBar,
@@ -15,6 +10,8 @@ import {
   TopAppBarTitle
 } from 'rmwc/TopAppBar';
 import '../node_modules/material-components-web/dist/material-components-web.min.css';
+import { MangaList } from './components/organisms/MangaList/index';
+import { MangaDetail } from './components/templates/MangaDetail/index';
 
 injectGlobal`
   * {

@@ -39,9 +39,10 @@ export class PageList extends PureComponent {
   }
 
   componentDidMount() {
-    const { dispatch, manga } = this.props;
+    const { dispatch, manga, display } = this.props;
     if (manga.id) {
-      dispatch(fetchPagesIfNeeded(12, 1, {manga: manga}));
+      const pageSize = display.type === 'grid' ? 12 : 1;
+      dispatch(fetchPagesIfNeeded(pageSize, 1, {mangaId: manga.id}));
       document.addEventListener('keydown', this.handleKeyDown);
     }
   }
@@ -80,18 +81,18 @@ export class PageList extends PureComponent {
 
   handlePagination(pageNumber) {
     const { dispatch, manga, pageSize } = this.props;
-    dispatch(fetchPages(pageSize, pageNumber, {manga: manga}));
+    dispatch(fetchPages(pageSize, pageNumber, {mangaId: manga.id}));
   }
 
   switchToPageView(page) {
     const { dispatch, manga } = this.props;
-    dispatch(changeDisplay({type: 'page'}, 1, page.number, {manga: manga}));
+    dispatch(changeDisplay({type: 'page'}, 1, page.number, {mangaId: manga.id}));
   }
 
   switchToGridView() {
     const { dispatch, manga } = this.props;
-    dispatch(changeDisplay({type: 'grid'}, 1, 1, {manga: manga}));
-    dispatch(fetchPages(12, 1, {manga: manga}));
+    dispatch(changeDisplay({type: 'grid'}, 1, 1, {mangaId: manga.id}));
+    dispatch(fetchPages(12, 1, {mangaId: manga.id}));
   }
 
   handleKeyDown(e) {

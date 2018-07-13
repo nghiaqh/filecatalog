@@ -44,9 +44,9 @@ export const receiveMangaNumber = (json) => ({
 export const fetchMangas = (pageSize = 12, pageNumber = 1, filter = {}, order = 'created DESC') => {
   return (dispatch) => {
     dispatch(requestMangas(pageSize, pageNumber, filter, order));
-    const { author, title } = filter;
+    const { authorId, title } = filter;
 
-    const where = author ? {authorId: author.id} : {};
+    const where = authorId ? {authorId: authorId} : {};
     if (typeof title !== 'undefined' && title !== '') {
       where.title = {
         regexp: '.*' + title + '.*',
@@ -76,8 +76,8 @@ export const countMangas = (filter = {}) => {
   return (dispatch) => {
     dispatch(requestMangaNumber(filter));
 
-    const { author, title } = filter;
-    const where = author ? {authorId: author.id} : {};
+    const { authorId, title } = filter;
+    const where = authorId ? {authorId: authorId} : {};
     if (typeof title !== 'undefined' && title !== '') {
       where.title = {
         regexp: '.*' + title + '.*',
@@ -97,8 +97,9 @@ export const countMangas = (filter = {}) => {
 export const fetchMangasIfNeeded = (pageSize, pageNumber, filter) => {
   return (dispatch, getState) => {
     const { mangaList } = getState();
+    const currentFilter = mangaList.paginator.filter;
     if (mangaList.paginator.receivedItemsAt === null ||
-      filter !== mangaList.paginator.filter) {
+      filter.title !== currentFilter.title || filter.authorId !== currentFilter.authorId) {
       dispatch(countMangas(filter));
       dispatch(fetchMangas(pageSize, pageNumber, filter));
     }

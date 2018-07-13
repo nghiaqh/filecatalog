@@ -45,8 +45,8 @@ export const receivePageNumber = (json) => ({
 export const fetchPages = (pageSize = 12, pageNumber = 1, filter = {}, order = 'title') => {
   return (dispatch) => {
     dispatch(requestPages(pageSize, pageNumber, filter, order));
-    const { manga } = filter;
-    const where = manga ? { mangaId: manga.id } : {};
+    const { mangaId } = filter;
+    const where = mangaId ? { mangaId: mangaId } : {};
     const filterObj = {
       where: where,
       limit: pageSize,
@@ -67,8 +67,8 @@ export const countPages = (filter = {}) => {
   return (dispatch) => {
     dispatch(requestPageNumber(filter));
 
-    const { manga } = filter;
-    const where = manga ? {mangaId: manga.id} : {};
+    const { mangaId } = filter;
+    const where = mangaId ? {mangaId: mangaId} : {};
 
     return fetch(`/api/pages/count?where=${JSON.stringify(where)}`)
       .then(res => res.json())
@@ -83,7 +83,7 @@ export const fetchPagesIfNeeded = (pageSize, pageNumber, filter) => {
   return (dispatch, getState) => {
     const { pageList } = getState();
     if (pageList.paginator.receivedItemsAt === null ||
-      filter !== pageList.paginator.filter) {
+      filter.mangaId !== pageList.paginator.filter.mangaId) {
       dispatch(countPages(filter));
       dispatch(fetchPages(pageSize, pageNumber, filter));
     }

@@ -1,5 +1,15 @@
 import React, { PureComponent } from 'react';
 import styled from 'react-emotion';
+import {
+  Drawer,
+  DrawerHeader,
+  DrawerContent
+} from 'rmwc/Drawer';
+
+import {
+  ListItem,
+  ListItemText
+} from 'rmwc/List';
 import SearchBox from '../../atoms/SearchBox';
 import { MangaList } from '../../organisms/MangaList';
 
@@ -26,6 +36,23 @@ export default class MangaHub extends PureComponent {
   render() {
     return (
       <StyledMangaHub>
+        {/* <Drawer persistent open={this.state.persistentOpen == undefined ? true : this.state.persistentOpen}>
+          <DrawerHeader>
+            Manga Catalog
+          </DrawerHeader>
+          <DrawerContent>
+          <ListItem>
+              <ListItemText>Cookies</ListItemText>
+            </ListItem>
+            <ListItem>
+              <ListItemText>Pizza</ListItemText>
+            </ListItem>
+            <ListItem>
+              <ListItemText>Icecream</ListItemText>
+            </ListItem>
+          </DrawerContent>
+        </Drawer> */}
+
         <SearchBox onSearch={this.handleSearch} />
         <br/>
         <MangaList

@@ -6,7 +6,7 @@ import {
   RECEIVE_MANGA_NUMBER
 } from './actions';
 
-const initialState = {
+const mangaList = {
   display: {
     type: 'grid'
   },
@@ -21,7 +21,11 @@ const initialState = {
     retrievingTotal: false,
     receivedItemsAt: null,
     receivedTotalAt: null,
-  },
+  }
+};
+
+const initialState = {
+  mangaList,
   entities: {}
 };
 
@@ -44,13 +48,17 @@ const handleRequestMangasAction = (state, action) => {
   const { pageSize, pageNumber, filter, order } = action;
   return {
     ...state,
-    paginator: Object.assign({}, state.paginator, {
-      pageNumber,
-      pageSize,
-      filter,
-      order,
-      retrievingItems: true
-    })
+    mangaList: {
+      ...state.mangaList,
+      paginator: {
+        ...state.mangaList.paginator,
+        pageNumber,
+        pageSize,
+        filter,
+        order,
+        retrievingItems: true
+      }
+    }
   };
 };
 
@@ -71,33 +79,48 @@ const handleReceiveMangasAction = (state, action) => {
 
   return {
     ...state,
-    paginator: Object.assign({}, state.paginator, {
-      items: normalizedData.result.mangas,
-      retrievingItems: false,
-      receivedItemsAt: receivedAt
-    }),
-    entities: normalizedData.entities
+    mangaList: {
+      ...state.mangaList,
+      paginator: {
+        ...state.mangaList.paginator,
+        items: normalizedData.result.mangas,
+        retrievingItems: false,
+        receivedItemsAt: receivedAt
+      }
+    },
+    entities: {
+      ...state.entities,
+      mangas: Object.assign({}, state.entities.mangas, normalizedData.entities.mangas)
+    }
   }
 }
 
 const handleRequestMangaNumber = (state, action) => {
   return {
     ...state,
-    paginator: Object.assign({}, state.paginator, {
-      filter: action.filter,
-      retrievingTotal: true
-    })
+    mangaList: {
+      ...state.mangaList,
+      paginator: {
+        ...state.mangaList.paginator,
+        filter: action.filter,
+        retrievingTotal: true
+      }
+    }
   }
 }
 
 const handleReceiveMangaNumber = (state, action) => {
   return {
     ...state,
-    paginator: Object.assign({}, state.paginator, {
-      total: action.total,
-      retrievingTotal: false,
-      receivedTotalAt: action.receivedAt
-    })
+    mangaList: {
+      ...state.mangaList,
+      paginator: {
+        ...state.mangaList.paginator,
+        total: action.total,
+        retrievingTotal: false,
+        receivedTotalAt: action.receivedAt
+      }
+    }
   }
 }
 

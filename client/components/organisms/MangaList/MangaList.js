@@ -59,11 +59,12 @@ export class MangaList extends PureComponent {
 
 // container
 const mapStateToProps = (state) => {
-  const { paginator, entities } = state.mangaList;
+  const { paginator } = state.mangaList;
+  const { mangas } = state.entities;
   const total = parseInt(paginator.total);
   const pageSize = parseInt(paginator.pageSize);
   return {
-    mangas: paginator.items.map(index => entities.mangas[index]),
+    mangas: paginator.items.map(index => mangas[index]),
     total: total,
     totalPages: Math.ceil(total / pageSize),
     pageNumber: paginator.pageNumber

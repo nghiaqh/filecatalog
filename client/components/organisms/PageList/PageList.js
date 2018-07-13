@@ -1,12 +1,12 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import { fetchMangasIfNeeded, fetchMangas, countMangas } from './actions';
+import { fetchPagesIfNeeded, fetchPages, countPages } from './actions';
 import PaginatorControl from '../../molecules/PaginatorControl';
 import ContentGrid from '../ContentGrid';
-import MangaCard from '../../molecules/MangaCard';
+import PageCard from '../../molecules/PageCard';
 
 // component
-export class MangaList extends PureComponent {
+export class PageList extends PureComponent {
   constructor(props) {
     super(props);
     this.renderCard = this.renderCard.bind(this);
@@ -18,7 +18,7 @@ export class MangaList extends PureComponent {
     return (
       <div>
         <ContentGrid
-          items={this.props.mangas}
+          items={this.props.pages}
           render={this.renderCard}
         />
         <PaginatorControl
@@ -31,43 +31,44 @@ export class MangaList extends PureComponent {
   }
 
   componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch(countMangas());
-    dispatch(fetchMangasIfNeeded());
+    const { dispatch, manga } = this.props;
+    dispatch(countPages({manga: manga}));
+    dispatch(fetchPagesIfNeeded(12, 1, {manga: manga}));
   }
 
   renderCard(item) {
     return (
-      <MangaCard
+      <PageCard
         key={item.id}
-        manga={item}
+        page={item}
+        manga={this.props.manga}
         onItemClick={this.handleClick}
       />
     );
   }
 
   handlePagination(pageNumber) {
-    const { dispatch } = this.props;
-    dispatch(fetchMangas(12, pageNumber));
+    const { dispatch, manga } = this.props;
+    dispatch(fetchPages(12, pageNumber, {manga: manga}));
   }
 
-  handleClick(manga) {
-    const target = `/mangas/${manga.id}`;
+  handleClick(page) {
+    const target = `/pages/${page.id}`;
     this.props.history.push(target);
   }
 }
 
 // container
 const mapStateToProps = (state) => {
-  const { paginator, entities } = state.mangaList;
+  const { paginator, entities } = state.pageList;
   const total = parseInt(paginator.total);
   const pageSize = parseInt(paginator.pageSize);
   return {
-    mangas: paginator.items.map(index => entities.mangas[index]),
+    pages: paginator.items.map(index => entities.pages[index]),
     total: total,
     totalPages: Math.ceil(total / pageSize),
     pageNumber: paginator.pageNumber
   };
 };
 
-export default connect(mapStateToProps)(MangaList);
+export default connect(mapStateToProps)(PageList);

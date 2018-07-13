@@ -8,7 +8,7 @@ const hotMiddlewareScript = 'webpack-hot-middleware/client?path=/__webpack_hmr&t
 
 const common = {
   mode: nodeEnv,
-  devtool: 'inline-source-map',
+  devtool: 'cheap-inline-source-map',
   module: {
     rules: [
       {
@@ -42,6 +42,13 @@ const frontend = {
     publicPath: 'http://localhost:8080/',
   },
   plugins: [
+    new webpack.DefinePlugin({
+      // http://stackoverflow.com/a/35372706/2177568
+      // for server side code, just require, don't chunk
+      // use `if (ONSERVER) { ...` for server specific code
+      ONSERVER: false,
+      'process.env': {NODE_ENV: JSON.stringify(nodeEnv)},
+    }),
     new webpack.HotModuleReplacementPlugin(),
   ],
 };

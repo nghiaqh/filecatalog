@@ -16,6 +16,14 @@ delete window.__PRELOADED_STATE__;
 const middleware = [ thunk ];
 const store = createStore(rootReducer, preloadedState, applyMiddleware(...middleware));
 
+// if(module.hot) {
+//   // Enable Webpack hot module replacement for reducers
+//   module.hot.accept('./reducers', () => {
+//     const nextReducer = require('./reducers').default;
+//     store.replaceReducer(nextReducer);
+//   });
+// }
+
 ReactDOM.hydrate((
   <Provider store={store}>
     <BrowserRouter>

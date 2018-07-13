@@ -38,13 +38,13 @@ export const receiveMangaNumber = (json) => ({
  * Request a list of mangas
  * @param {Integer} pageSize number of items per page
  * @param {Integer} pageNumber
- * @param {String} title if defined, only request mangas with title contains the string
- * @param {Author} author if defined, only request mangas written by this author
+ * @param {Object} filter { title: x, author: y } if defined, we will request only mangas with title contains string x and written by the author y
+ * @param {String} order mysql order input
  */
 export const fetchMangas = (pageSize = 12, pageNumber = 1, filter = {}, order = 'created DESC') => {
   return (dispatch) => {
     dispatch(requestMangas(pageSize, pageNumber, filter, order));
-    const {author, title} = filter;
+    const { author, title } = filter;
 
     const where = author ? {authorId: author.id} : {};
     if (typeof title !== 'undefined' && title !== '') {
@@ -70,14 +70,13 @@ export const fetchMangas = (pageSize = 12, pageNumber = 1, filter = {}, order = 
 
 /**
  * Request total number of mangas
- * @param {String} title if defined, only count mangas with title contains this
- * @param {Author} author if defined, only count mangas written by this author
+ * @param {filter} { title: x, author: y } if defined, we will request only mangas with title contains string x and written by the author y
  */
 export const countMangas = (filter = {}) => {
   return (dispatch) => {
     dispatch(requestMangaNumber(filter));
 
-    const {author, title} = filter;
+    const { author, title } = filter;
     const where = author ? {authorId: author.id} : {};
     if (typeof title !== 'undefined' && title !== '') {
       where.title = {
@@ -92,6 +91,9 @@ export const countMangas = (filter = {}) => {
   };
 };
 
+/**
+ * Use to determine if we need to call mangas api again, using stored state
+ */
 export const fetchMangasIfNeeded = () => {
   return (dispatch, getState) => {
     const { mangaList } = getState();

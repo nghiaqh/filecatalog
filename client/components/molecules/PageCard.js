@@ -35,25 +35,25 @@ const StyledCard = styled(Card)`
   }
 `;
 
-export default class MangaCard extends PureComponent {
+export default class PageCard extends PureComponent {
   constructor(props) {
     super(props);
-    this.viewManga = this.viewManga.bind(this);
+    this.viewPage = this.viewPage.bind(this);
   }
 
-  viewManga(e) {
+  viewPage(e) {
     this.props.onItemClick(this.props.manga);
   }
 
   render() {
-    const { title, author, coverPicture, isNew } = this.props.manga;
-    const coverUrl = window.location.origin + encodeURI(coverPicture);
+    const { title, uri, isNew } = this.props.page;
+    const imageUrl = window.location.origin + encodeURI(uri);
     return (
       <StyledCard>
-        <CardPrimaryAction onClick={this.viewManga}>
+        <CardPrimaryAction onClick={this.viewPage}>
           <CardMedia
             style={{
-              backgroundImage: `url("${coverUrl}")`
+              backgroundImage: `url("${imageUrl}")`
             }}
           />
           {isNew ?
@@ -63,16 +63,16 @@ export default class MangaCard extends PureComponent {
           : ''}
           <div style={{ padding: '0 1rem 1rem' }}>
             <Typography className="manga-title ellipsis" use="subtitle1" tag="h3">
-              {title}
+              {this.props.manga.title}
             </Typography>
             <Typography className="ellipsis" use="subtitle2">
-              {author.name}
+              {title}
             </Typography>
           </div>
         </CardPrimaryAction>
         <CardActions>
           <CardActionButtons>
-            <CardAction onClick={this.viewManga}>Read</CardAction>
+            <CardAction onClick={this.viewPage}>Read</CardAction>
           </CardActionButtons>
           <CardActionIcons>
             <CardAction

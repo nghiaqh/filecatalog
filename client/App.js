@@ -5,6 +5,7 @@ import { injectGlobal } from 'emotion';
 // import MangasHub from './components/templates/MangasHub';
 import Manga from './components/templates/Manga';
 import { MangaList } from './components/organisms/MangaList/index';
+import { MangaDetail } from './components/templates/MangaDetail/index';
 import { hot } from 'react-hot-loader';
 import {
   TopAppBar,
@@ -73,7 +74,7 @@ class App extends Component {
         <Switch>
           <Route exact path='/' component={MangaList}/>
           <Route exact path='/mangas' component={MangaList}/>
-          <Route exact path='/mangas/:mangaId' component={Manga}/>
+          <Route exact path='/mangas/:mangaId' component={MangaDetail}/>
         </Switch>
       </section>
     );

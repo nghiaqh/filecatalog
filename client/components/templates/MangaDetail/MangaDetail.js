@@ -25,9 +25,8 @@ export class MangaDetail extends PureComponent {
 }
 
 const mapStateToProps = (state) => {
-  const { entities } = state.mangaList;
   return {
-    mangas: entities.mangas
+    mangas: state.entities.mangas
   };
 };
 

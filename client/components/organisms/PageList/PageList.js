@@ -60,11 +60,12 @@ export class PageList extends PureComponent {
 
 // container
 const mapStateToProps = (state) => {
-  const { paginator, entities } = state.pageList;
+  const { paginator } = state.pageList;
+  const { pages } = state.entities;
   const total = parseInt(paginator.total);
   const pageSize = parseInt(paginator.pageSize);
   return {
-    pages: paginator.items.map(index => entities.pages[index]),
+    pages: paginator.items.map(index => pages[index]),
     total: total,
     totalPages: Math.ceil(total / pageSize),
     pageNumber: paginator.pageNumber

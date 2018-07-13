@@ -29,7 +29,8 @@ const initialState = {
   entities: {}
 };
 
-const mangaListReducer = (state = initialState, action) => {
+const mangaListReducer = (prevState, action) => {
+  const state = Object.assign({}, initialState, prevState);
   switch (action.type) {
     case REQUEST_MANGAS:
       return handleRequestMangasAction(state, action);

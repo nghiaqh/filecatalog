@@ -6,7 +6,7 @@ import {
   RECEIVE_PAGE_NUMBER
 } from './actions';
 
-const initialState = {
+const pageList = {
   display: {
     type: 'grid'
   },
@@ -15,17 +15,22 @@ const initialState = {
     total: 0,
     pageNumber: 1,
     pageSize: 12,
-    order: 'created DESC',
+    order: 'title',
     filter: {},
     retrievingItems: false,
     retrievingTotal: false,
     receivedItemsAt: null,
     receivedTotalAt: null,
-  },
+  }
+};
+
+const initialState = {
+  pageList,
   entities: {}
 };
 
-const pageListReducer = (state = initialState, action) => {
+const pageListReducer = (prevState = {}, action) => {
+  const state = Object.assign({}, initialState, prevState);
   switch (action.type) {
     case REQUEST_PAGES:
       return handleRequestPagesAction(state, action);
@@ -44,13 +49,17 @@ const handleRequestPagesAction = (state, action) => {
   const { pageSize, pageNumber, filter, order } = action;
   return {
     ...state,
-    paginator: Object.assign({}, state.paginator, {
-      pageNumber,
-      pageSize,
-      filter,
-      order,
-      retrievingItems: true
-    })
+    pageList: {
+      ...state.pageList,
+      paginator: {
+        ...state.pageList.paginator,
+        pageNumber,
+        pageSize,
+        filter,
+        order,
+        retrievingItems: true
+      }
+    }
   };
 };
 
@@ -71,33 +80,48 @@ const handleReceivePagesAction = (state, action) => {
 
   return {
     ...state,
-    paginator: Object.assign({}, state.paginator, {
-      items: normalizedData.result.pages,
-      retrievingItems: false,
-      receivedItemsAt: receivedAt
-    }),
-    entities: normalizedData.entities
+    pageList: {
+      ...state.pageList,
+      paginator: {
+        ...state.pageList.paginator,
+        items: normalizedData.result.pages,
+        retrievingItems: false,
+        receivedItemsAt: receivedAt
+      }
+    },
+    entities: {
+      ...state.entities,
+      pages: Object.assign({}, state.entities.pages, normalizedData.entities.pages)
+    }
   }
 }
 
 const handleRequestPageNumber = (state, action) => {
   return {
     ...state,
-    paginator: Object.assign({}, state.paginator, {
-      filter: action.filter,
-      retrievingTotal: true
-    })
+    pageList: {
+      ...state.pageList,
+      paginator: {
+        ...state.pageList.paginator,
+        filter: action.filter,
+        retrievingTotal: true
+      }
+    }
   }
 }
 
 const handleReceivePageNumber = (state, action) => {
   return {
     ...state,
-    paginator: Object.assign({}, state.paginator, {
-      total: action.total,
-      retrievingTotal: false,
-      receivedTotalAt: action.receivedAt
-    })
+    pageList: {
+      ...state.pageList,
+      paginator: {
+        ...state.pageList.paginator,
+        total: action.total,
+        retrievingTotal: false,
+        receivedTotalAt: action.receivedAt
+      }
+    }
   }
 }
 

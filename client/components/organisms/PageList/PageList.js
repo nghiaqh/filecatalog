@@ -41,7 +41,6 @@ export class PageList extends PureComponent {
   componentDidMount() {
     const { dispatch, manga } = this.props;
     if (manga.id) {
-      dispatch(countPages({manga: manga}));
       dispatch(fetchPagesIfNeeded(12, 1, {manga: manga}));
       document.addEventListener('keydown', this.handleKeyDown);
     }

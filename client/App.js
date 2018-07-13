@@ -10,7 +10,7 @@ import {
   TopAppBarTitle
 } from 'rmwc/TopAppBar';
 import '../node_modules/material-components-web/dist/material-components-web.min.css';
-import { MangaList } from './components/organisms/MangaList/index';
+import { MangaHub } from './components/templates/MangaHub/index';
 import { MangaDetail } from './components/templates/MangaDetail/index';
 
 injectGlobal`
@@ -69,8 +69,8 @@ class App extends Component {
           </TopAppBarRow>
         </TopAppBar>
         <Switch>
-          <Route exact path='/' component={MangaList}/>
-          <Route exact path='/mangas' component={MangaList}/>
+          <Route exact path='/' component={MangaHub}/>
+          <Route exact path='/mangas' component={MangaHub}/>
           <Route exact path='/mangas/:mangaId' component={MangaDetail}/>
         </Switch>
       </section>

@@ -31,10 +31,21 @@ export class MangaList extends PureComponent {
   }
 
   componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch(countMangas());
-    dispatch(fetchMangasIfNeeded());
+    const { dispatch, searchText } = this.props;
+    const filter = { title: searchText };
+    dispatch(fetchMangasIfNeeded(12, 1, filter));
+
   }
+
+  componentDidUpdate(prevProps) {
+    const { dispatch, searchText } = this.props;
+
+    if (searchText !== prevProps.searchText) {
+      const filter = { title: searchText };
+      dispatch(fetchMangasIfNeeded(12, 1, filter));
+    }
+  }
+
 
   renderCard(item) {
     return (
@@ -47,8 +58,9 @@ export class MangaList extends PureComponent {
   }
 
   handlePagination(pageNumber) {
-    const { dispatch } = this.props;
-    dispatch(fetchMangas(12, pageNumber));
+    const { dispatch, searchText } = this.props;
+    const filter = { title: searchText };
+    dispatch(fetchMangas(12, pageNumber, filter));
   }
 
   handleClick(manga) {

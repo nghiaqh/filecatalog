@@ -94,11 +94,13 @@ export const countMangas = (filter = {}) => {
 /**
  * Use to determine if we need to call mangas api again, using stored state
  */
-export const fetchMangasIfNeeded = () => {
+export const fetchMangasIfNeeded = (pageSize, pageNumber, filter) => {
   return (dispatch, getState) => {
     const { mangaList } = getState();
-    if (mangaList.paginator.receivedItemsAt === null) {
-      dispatch(fetchMangas());
+    if (mangaList.paginator.receivedItemsAt === null ||
+      filter !== mangaList.paginator.filter) {
+      dispatch(countMangas(filter));
+      dispatch(fetchMangas(pageSize, pageNumber, filter));
     }
   }
 }

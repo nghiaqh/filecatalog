@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import styled from 'react-emotion';
-import { Typography } from 'rmwc/Typography';
 
 const Image = styled('img')`
   width: auto;
@@ -66,11 +65,14 @@ export default class Page extends PureComponent {
 
     return (
       <div>
-        <Typography className="ellipsis" use="headline5">
-          {this.props.page.title}
-        </Typography>
-        <Image id="imageViewer" src={uri} onDoubleClick={this.handleClick}
-          title={tooltip} />
+        <Image
+          className={this.props.className}
+          src={uri}
+          title={tooltip}
+          onDoubleClick={this.handleClick}
+          onTouchStart={this.props.onTouchStart}
+          onTouchEnd={this.props.onTouchEnd}
+          />
       </div>
     );
   }

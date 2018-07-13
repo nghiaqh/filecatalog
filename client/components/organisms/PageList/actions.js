@@ -5,6 +5,7 @@ export const REQUEST_PAGES = 'REQUEST_PAGES';
 export const RECEIVE_PAGES = 'RECEIVE_PAGES';
 export const REQUEST_PAGE_NUMBER = 'REQUEST_PAGE_NUMBER'
 export const RECEIVE_PAGE_NUMBER = 'RECEIVE_PAGE_NUMBER';
+export const CHANGE_DISPLAY = 'CHANGE_DISPLAY';
 
 /*
  * Sync action creators
@@ -56,7 +57,7 @@ export const fetchPages = (pageSize = 12, pageNumber = 1, filter = {}, order = '
       .then(res => res.json())
       .then(json => dispatch(receivePages(json)));
   }
-}
+};
 
 /**
  * Request total number of pages
@@ -86,4 +87,12 @@ export const fetchPagesIfNeeded = (pageSize, pageNumber, filter) => {
       dispatch(fetchPages(pageSize, pageNumber, filter));
     }
   }
-}
+};
+
+export const changeDisplay = (display, pageSize, pageNumber, filter) => ({
+  type: CHANGE_DISPLAY,
+  display,
+  pageSize,
+  pageNumber,
+  filter
+});

@@ -1,9 +1,11 @@
 import pageListReducer from './reducers';
 import PageList from './PageList';
-import { fetchPagesIfNeeded } from './actions';
+import { fetchPagesIfNeeded, fetchPages, countPages } from './actions';
 
 export {
   pageListReducer,
   PageList,
-  fetchPagesIfNeeded
+  fetchPagesIfNeeded,
+  fetchPages,
+  countPages
 };

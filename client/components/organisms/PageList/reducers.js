@@ -3,7 +3,8 @@ import {
   REQUEST_PAGES,
   RECEIVE_PAGES,
   REQUEST_PAGE_NUMBER,
-  RECEIVE_PAGE_NUMBER
+  RECEIVE_PAGE_NUMBER,
+  CHANGE_DISPLAY
 } from './actions';
 
 const pageList = {
@@ -40,6 +41,8 @@ const pageListReducer = (prevState = {}, action) => {
       return handleRequestPageNumber(state, action);
     case RECEIVE_PAGE_NUMBER:
       return handleReceivePageNumber(state, action);
+    case CHANGE_DISPLAY:
+      return handleChangeDisplay(state, action);
     default:
       return state;
   }
@@ -120,6 +123,31 @@ const handleReceivePageNumber = (state, action) => {
         total: action.total,
         retrievingTotal: false,
         receivedTotalAt: action.receivedAt
+      }
+    }
+  }
+}
+
+const handleChangeDisplay = (state, action) => {
+  const { items, pageNumber, pageSize } = state.pageList.paginator;
+  const x = [];
+  if (action.display.type === 'page') {
+    x.push(items[action.pageNumber - (pageNumber - 1) * pageSize - 1]);
+  } else {
+    x.concat(items);
+  }
+
+  return {
+    ...state,
+    pageList: {
+      ...state.pageList,
+      display: action.display,
+      paginator: {
+        ...state.pageList.paginator,
+        items: x,
+        pageNumber: action.pageNumber,
+        pageSize: action.pageSize,
+        filter: action.filter
       }
     }
   }

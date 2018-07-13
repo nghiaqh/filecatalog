@@ -42,11 +42,11 @@ export default class PageCard extends PureComponent {
   }
 
   viewPage(e) {
-    this.props.onItemClick(this.props.manga);
+    this.props.onItemClick(this.props.page);
   }
 
   render() {
-    const { title, uri, isNew } = this.props.page;
+    const { uri, number } = this.props.page;
     const imageUrl = window.location.origin + encodeURI(uri);
     return (
       <StyledCard>
@@ -56,33 +56,12 @@ export default class PageCard extends PureComponent {
               backgroundImage: `url("${imageUrl}")`
             }}
           />
-          {isNew ?
-            <div className="tag-groups">
-              <Icon use="fiber_new" />
-            </div>
-          : ''}
-          <div style={{ padding: '0 1rem 1rem' }}>
-            <Typography className="manga-title ellipsis" use="subtitle1" tag="h3">
-              {this.props.manga.title}
-            </Typography>
+          <div style={{ padding: '1rem' }}>
             <Typography className="ellipsis" use="subtitle2">
-              {title}
+              {number}
             </Typography>
           </div>
         </CardPrimaryAction>
-        <CardActions>
-          <CardActionButtons>
-            <CardAction onClick={this.viewPage}>Read</CardAction>
-          </CardActionButtons>
-          <CardActionIcons>
-            <CardAction
-              iconToggle
-              on={{ label: 'Remove from favorites', content: 'favorite' }}
-              off={{ label: 'Add to favorites', content: 'favorite_border' }}
-            />
-            <CardAction icon use="more_vert" />
-          </CardActionIcons>
-        </CardActions>
       </StyledCard>
     );
   }

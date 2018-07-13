@@ -18,7 +18,7 @@ export class MangaDetail extends PureComponent {
     const mangaId = this.props.match.params.mangaId;
     const mangas = this.props.mangas;
 
-    if (mangas) {
+    if (mangas && mangas[mangaId].id) {
       return (
         <Grid>
           <GridCell span="12">

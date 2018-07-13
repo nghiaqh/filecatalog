@@ -42,6 +42,7 @@ const handleReceiveMangaAction = (state, action) => {
   const now = new Date();
   const then = new Date(manga.updated);
   manga.isNew = (now - then) / (1000 * 3600 * 24) <= 10;
+  manga.retrieving = false;
   manga.receivedAt = receivedAt;
   const id = manga.id;
 

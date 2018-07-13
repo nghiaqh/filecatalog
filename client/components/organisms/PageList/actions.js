@@ -81,7 +81,8 @@ export const countPages = (filter = {}) => {
 export const fetchPagesIfNeeded = (pageSize, pageNumber, filter) => {
   return (dispatch, getState) => {
     const { pageList } = getState();
-    if (pageList.paginator.receivedItemsAt === null) {
+    if (pageList.paginator.receivedItemsAt === null ||
+      filter !== pageList.paginator.filter) {
       dispatch(fetchPages(pageSize, pageNumber, filter));
     }
   }

@@ -14,7 +14,7 @@ export const requestManga = (id) => ({
 
 export const receiveManga = (json) => ({
   type: RECEIVE_MANGA,
-  manga: json,
+  manga: json[0],
   receivedAt: Date.now()
 });
 

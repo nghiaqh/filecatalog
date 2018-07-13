@@ -32,8 +32,10 @@ export class PageList extends PureComponent {
 
   componentDidMount() {
     const { dispatch, manga } = this.props;
-    dispatch(countPages({manga: manga}));
-    dispatch(fetchPagesIfNeeded(12, 1, {manga: manga}));
+    if (manga.id) {
+      dispatch(countPages({manga: manga}));
+      dispatch(fetchPagesIfNeeded(12, 1, {manga: manga}));
+    }
   }
 
   renderCard(item) {

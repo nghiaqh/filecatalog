@@ -8,12 +8,12 @@ const hotMiddlewareScript = 'webpack-hot-middleware/client?path=/__webpack_hmr&t
 
 const common = {
   mode: nodeEnv,
-  devtool: 'eval',
+  devtool: 'inline-source-map',
   module: {
     rules: [
       {
         test: /\.js?$/,
-        exclude: /node_modules/,
+        exclude: [/node_modules/],
         use: ['babel-loader'],
       },
       {
@@ -42,13 +42,6 @@ const frontend = {
     publicPath: 'http://localhost:8080/',
   },
   plugins: [
-    new webpack.DefinePlugin({
-      // http://stackoverflow.com/a/35372706/2177568
-      // for server side code, just require, don't chunk
-      // use `if (ONSERVER) { ...` for server specific code
-      ONSERVER: false,
-      'process.env': {NODE_ENV: JSON.stringify(nodeEnv)},
-    }),
     new webpack.HotModuleReplacementPlugin(),
   ],
 };

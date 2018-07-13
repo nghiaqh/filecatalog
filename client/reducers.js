@@ -1,5 +1,6 @@
 import { mangaListReducer } from './components/organisms/MangaList/index';
 import { pageListReducer } from './components/organisms/PageList/index';
+import { mangaDetailReducer } from './components/templates/MangaDetail';
 
 /**
  * Combine reducers to make a flat state
@@ -11,6 +12,10 @@ const reduceReducers = (...reducers) => (prevState, value, ...args) =>
     prevState
   );
 
-const rootReducer = reduceReducers(mangaListReducer, pageListReducer);
+const rootReducer = reduceReducers(
+  mangaListReducer,
+  pageListReducer,
+  mangaDetailReducer
+);
 
 export default rootReducer;

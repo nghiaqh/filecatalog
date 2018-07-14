@@ -124,9 +124,10 @@ export class PageList extends PureComponent {
   }
 
   switchToGridView() {
-    const { dispatch, manga } = this.props;
+    const { dispatch, manga, pageNumber } = this.props;
+    const newPageNumber = Math.ceil(pageNumber / 20);
     dispatch(changeDisplay({type: 'grid'}, 1, 1, {mangaId: manga.id}));
-    dispatch(fetchPages(12, 1, {mangaId: manga.id}));
+    dispatch(fetchPages(20, newPageNumber, {mangaId: manga.id}));
   }
 
   updatePaginatorControlState() {

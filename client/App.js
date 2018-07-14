@@ -96,7 +96,7 @@ injectGlobal`
     --mdc-theme-secondary: #feeae6;
     --mdc-theme-secondary-dark: #ccb9b5;
     --mdc-theme-background: #caa99f;
-    --mdc-theme-surface: #fedbd0;
+    --mdc-theme-surface: #feeae6;
     --mdc-theme-on-primary: #442c2e;
     --mdc-theme-on-secondary: #442c2e;
     --mdc-theme-on-surface: #442c2e;

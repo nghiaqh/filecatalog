@@ -52,7 +52,7 @@ export class PageList extends PureComponent {
   componentDidMount() {
     const { dispatch, manga, display } = this.props;
     if (manga.id) {
-      const pageSize = display.type === 'grid' ? 12 : 1;
+      const pageSize = display.type === 'grid' ? 20 : 1;
       dispatch(fetchPagesIfNeeded(pageSize, 1, {mangaId: manga.id}));
       document.addEventListener('keydown', this.handleKeyDown);
       this.updatePaginatorControlState();

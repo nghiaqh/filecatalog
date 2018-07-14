@@ -42,7 +42,7 @@ export class MangaList extends PureComponent {
   componentDidMount() {
     const { dispatch, searchText } = this.props;
     const filter = { title: searchText };
-    dispatch(fetchMangasIfNeeded(12, 1, filter));
+    dispatch(fetchMangasIfNeeded(20, 1, filter));
     document.addEventListener('keydown', this.handleKeyDown);
     this.updatePaginatorControlState();
     window.addEventListener('scroll', this.updatePaginatorControlState);
@@ -113,6 +113,9 @@ export class MangaList extends PureComponent {
   }
 }
 
+const StyledMangaList = styled('section')`
+`;
+
 // container
 const mapStateToProps = (state) => {
   const { paginator } = state.mangaList;
@@ -128,6 +131,3 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps)(MangaList);
-
-const StyledMangaList = styled('section')`
-`;

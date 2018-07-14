@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import { Grid, GridCell } from 'rmwc/Grid';
-import { PageList } from '../../organisms/PageList/index';
+import { PageList } from '../../organisms/PageList';
 import { fetchMangaIfNeeded } from './actions';
 
 export class MangaDetail extends PureComponent {
@@ -20,17 +19,10 @@ export class MangaDetail extends PureComponent {
 
     if (mangas && mangas[mangaId].id) {
       return (
-        <Grid>
-          <GridCell span="12">
-            <PageList
-              manga={mangas[mangaId]}
-            />
-          </GridCell>
-        </Grid>
+        <PageList manga={mangas[mangaId]} />
       );
-    } else {
-      return '';
     }
+    return null;
   }
 
 }

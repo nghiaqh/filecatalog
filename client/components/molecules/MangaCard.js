@@ -14,11 +14,13 @@ import { Icon } from 'rmwc/Icon';
 
 const StyledCard = styled(Card)`
   width: calc(50% - 20px);
+  min-width: 180px;
   max-width: 210px;
   margin: 10px 10px 0 0;
 
   .mdc-card__media {
     height: calc(50vw * 4 / 3);
+    min-height: 240px;
     max-height: 280px;
     background-size: contain;
   }
@@ -30,7 +32,6 @@ const StyledCard = styled(Card)`
     position: fixed;
     bottom: 73px;
     padding: 5px;
-    background: #ffffff1a;
     width: 100%;
   }
 `;

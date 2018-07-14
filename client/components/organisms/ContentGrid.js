@@ -5,7 +5,6 @@ const StyledGrid = styled('section')`
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
-  padding: 10px 0;
 `;
 
 export default class ContentGrid extends PureComponent {
@@ -24,9 +23,8 @@ export default class ContentGrid extends PureComponent {
     });
 
     return (
-      <StyledGrid>
+      <StyledGrid id={this.props.id}>
         {list}
-        <div className='phantom-child'></div>
       </StyledGrid>
     );
   }

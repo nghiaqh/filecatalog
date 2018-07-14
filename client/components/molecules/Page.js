@@ -18,6 +18,7 @@ export default class Page extends PureComponent {
   }
 
   handleClick(e) {
+    e.preventDefault();
     this.toggleFullscreen(e.target);
     if (e.target.requestFullscreen) {
       e.target.requestFullscreen();

@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
+import styled from 'react-emotion';
 import { connect } from 'react-redux';
-import { fetchMangasIfNeeded, fetchMangas, countMangas } from './actions';
+import { fetchMangasIfNeeded, fetchMangas } from './actions';
 import PaginatorControl from '../../molecules/PaginatorControl';
 import ContentGrid from '../ContentGrid';
 import MangaCard from '../../molecules/MangaCard';
@@ -16,17 +17,18 @@ export class MangaList extends PureComponent {
 
   render() {
     return (
-      <div>
+      <StyledMangaList>
         <ContentGrid
           items={this.props.mangas}
           render={this.renderCard}
         />
         <PaginatorControl
+          className='paginator-control'
           handlePagination={this.handlePagination}
           pageNumber={this.props.pageNumber}
           totalPages={this.props.totalPages}
         />
-      </div>
+      </StyledMangaList>
     );
   }
 
@@ -84,3 +86,10 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps)(MangaList);
+
+const StyledMangaList = styled('section')`
+  .paginator-control {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+`

@@ -29,7 +29,7 @@ const PaginationControl = (props) => {
   }
 
   return (
-    <div>
+    <div className={props.className}>
       <Button dense
         {...prevDisabled}
         page-index={current - 1}

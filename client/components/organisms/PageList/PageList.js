@@ -1,5 +1,7 @@
 import React, { PureComponent } from 'react';
+import styled from 'react-emotion';
 import { Button } from 'rmwc/Button';
+import { Elevation } from 'rmwc/Elevation';
 import { connect } from 'react-redux';
 import { fetchPagesIfNeeded, fetchPages, countPages, changeDisplay } from './actions';
 import PaginatorControl from '../../molecules/PaginatorControl';
@@ -11,6 +13,9 @@ import Page from '../../molecules/Page';
 export class PageList extends PureComponent {
   constructor(props) {
     super(props);
+    this.state = {
+      pcEvation: 24
+    };
     this.renderCard = this.renderCard.bind(this);
     this.renderContent = this.renderContent.bind(this);
     this.handlePagination = this.handlePagination.bind(this);
@@ -20,22 +25,32 @@ export class PageList extends PureComponent {
     this.handleTouchStart = this.handleTouchStart.bind(this);
     this.handleTouchEnd = this.handleTouchEnd.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.updatePaginatorControlState = this.updatePaginatorControlState.bind(this);
   }
 
   render() {
     const content = this.renderContent();
     return (
-      <div>
-        {content}
-        <PaginatorControl
-          handlePagination={this.handlePagination}
-          pageNumber={this.props.pageNumber}
-          totalPages={this.props.totalPages}
-        />
+      <StyledPageList>
         {this.props.display.type === 'page' ?
-        <Button dense onClick={this.switchToGridView}>Show thumbnails</Button>
+        <Button className='' dense onClick={this.switchToGridView}>
+          Show thumbnails
+        </Button>
         : ''}
-      </div>
+
+        {content}
+
+        <StyledElevation
+          z={this.state.pcEvation}
+          transition
+          >
+          <PaginatorControl
+            handlePagination={this.handlePagination}
+            pageNumber={this.props.pageNumber}
+            totalPages={this.props.totalPages}
+          />
+        </StyledElevation>
+      </StyledPageList>
     );
   }
 
@@ -45,28 +60,34 @@ export class PageList extends PureComponent {
       const pageSize = display.type === 'grid' ? 12 : 1;
       dispatch(fetchPagesIfNeeded(pageSize, 1, {mangaId: manga.id}));
       document.addEventListener('keydown', this.handleKeyDown);
+      this.updatePaginatorControlState();
+      window.addEventListener('scroll', this.updatePaginatorControlState);
     }
   }
 
   componentWillUnmount() {
     document.removeEventListener('keydown', this.handleKeyDown);
+    window.removeEventListener('scroll', this.updatePaginatorControlState);
   }
 
   renderContent() {
     switch (this.props.display.type) {
       case 'page':
-        return <Page
-          className='manga-page__large'
-          page={this.props.pages[0]}
-          onTouchStart={this.handleTouchStart}
-          onTouchEnd={this.handleTouchEnd}
-          onClick={this.handleClick}
-          />
+        return (
+          <Page
+            id='main'
+            page={this.props.pages[0]}
+            onTouchStart={this.handleTouchStart}
+            onTouchEnd={this.handleTouchEnd}
+            onClick={this.handleClick}
+          />);
       default:
-        return <ContentGrid
-          items={this.props.pages}
-          render={this.renderCard}
-        />
+        return (
+          <ContentGrid
+            id='main'
+            items={this.props.pages}
+            render={this.renderCard}
+          />);
     }
   }
 
@@ -83,7 +104,7 @@ export class PageList extends PureComponent {
 
   handlePagination(pageNumber) {
     const { dispatch, manga, pageSize, totalPages } = this.props;
-    if (pageNumber !== this.props.pageNumber && pageNumber <totalPages) {
+    if (pageNumber !== this.props.pageNumber && pageNumber <= totalPages && pageNumber) {
       dispatch(fetchPages(pageSize, pageNumber, {mangaId: manga.id}));
     }
   }
@@ -104,10 +125,10 @@ export class PageList extends PureComponent {
     switch (e.keyCode) {
       case 37:
         e.preventDefault();
-        this.handlePagination(pageNumber - 1);
+        return this.handlePagination(pageNumber - 1);
       case 39:
         e.preventDefault();
-        this.handlePagination(pageNumber + 1);
+        return this.handlePagination(pageNumber + 1);
       default:
         return;
     }
@@ -132,6 +153,19 @@ export class PageList extends PureComponent {
     e.preventDefault();
     this.handlePagination(this.props.pageNumber + 1);
   }
+
+  updatePaginatorControlState() {
+    const el = document.getElementById('main');
+    if (!el) return;
+    const pageHeight = window.innerHeight;
+    const { bottom } = el.getClientRects()[0];
+    const x = pageHeight - bottom;
+    if (x >= 0 && this.state.pcEvation) {
+      this.setState({pcEvation: 0});
+    } else if (x < 0 && this.state.pcEvation === 0) {
+      this.setState({pcEvation: 24});
+    }
+  }
 }
 
 // container
@@ -151,3 +185,19 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps)(PageList);
+
+const StyledPageList = styled('section')`
+  text-align: center;
+  width: 100%;
+`;
+
+const StyledElevation = styled(Elevation)(props => `
+  background: ${props.z ? 'var(--mdc-theme-secondary)' : 'transparent'};
+  position: ${props.z ? 'fixed' : 'relative'};
+  bottom: 0;
+  height: 60px;
+  width: 170px;
+  left: 50%;
+  margin-left: -85px;
+  padding-bottom: 10px;
+`);

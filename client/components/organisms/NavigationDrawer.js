@@ -47,8 +47,9 @@ const StyledDrawer = styled(Drawer)`
 
   &.mdc-drawer--persistent.mdc-drawer--open,
   &.mdc-drawer--persistent .mdc-drawer__drawer {
-    width: 200px;
+    background-color: var(--mdc-theme-secondary);
   }
+
   &.mdc-drawer--persistent .mdc-drawer__drawer {
     position: fixed;
   }

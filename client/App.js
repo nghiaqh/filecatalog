@@ -92,9 +92,11 @@ injectGlobal`
 
   :root {
     --mdc-theme-primary: #fedbd0;
+    --mdc-theme-primary-dark: #caa99f;
     --mdc-theme-secondary: #feeae6;
+    --mdc-theme-secondary-dark: #ccb9b5;
     --mdc-theme-background: #caa99f;
-    --mdc-theme-surface: #feeae6;
+    --mdc-theme-surface: #fedbd0;
     --mdc-theme-on-primary: #442c2e;
     --mdc-theme-on-secondary: #442c2e;
     --mdc-theme-on-surface: #442c2e;
@@ -123,17 +125,5 @@ injectGlobal`
   .mdc-button:not(:disabled) {
     color: var(--mdc-theme-on-primary);
     font-weight: 600;
-  }
-
-  :not(.mdc-list--non-interactive)>.mdc-list-item:after,
-  :not(.mdc-list--non-interactive)>.mdc-list-item:before,
-  .mdc-ripple-surface:after,
-  .mdc-ripple-surface:before {
-    background-color: var(--mdc-theme-secondary);
-  }
-
-  :not(.mdc-list--non-interactive)>.mdc-list-item:hover:before,
-  .mdc-ripple-surface:hover:before {
-    opacity: 0.4;
   }
 `

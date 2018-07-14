@@ -9,7 +9,6 @@ const Image = styled('img')`
   display: block;
   margin: 0 auto;
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 `
 
 export default class Page extends PureComponent {
@@ -72,6 +71,7 @@ export default class Page extends PureComponent {
           onDoubleClick={this.handleClick}
           onTouchStart={this.props.onTouchStart}
           onTouchEnd={this.props.onTouchEnd}
+          onClick={this.props.onClick}
           />
       </div>
     );

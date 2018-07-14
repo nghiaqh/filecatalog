@@ -19,6 +19,7 @@ export class PageList extends PureComponent {
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handleTouchStart = this.handleTouchStart.bind(this);
     this.handleTouchEnd = this.handleTouchEnd.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   render() {
@@ -59,6 +60,7 @@ export class PageList extends PureComponent {
           page={this.props.pages[0]}
           onTouchStart={this.handleTouchStart}
           onTouchEnd={this.handleTouchEnd}
+          onClick={this.handleClick}
           />
       default:
         return <ContentGrid
@@ -80,8 +82,10 @@ export class PageList extends PureComponent {
   }
 
   handlePagination(pageNumber) {
-    const { dispatch, manga, pageSize } = this.props;
-    dispatch(fetchPages(pageSize, pageNumber, {mangaId: manga.id}));
+    const { dispatch, manga, pageSize, totalPages } = this.props;
+    if (pageNumber !== this.props.pageNumber && pageNumber <totalPages) {
+      dispatch(fetchPages(pageSize, pageNumber, {mangaId: manga.id}));
+    }
   }
 
   switchToPageView(page) {
@@ -97,12 +101,15 @@ export class PageList extends PureComponent {
 
   handleKeyDown(e) {
     const {pageNumber, totalPages} = this.props;
-    if (e.keyCode === 37 && pageNumber > 1) {
-      e.preventDefault();
-      this.handlePagination(pageNumber - 1);
-    } else if (e.keyCode === 39 && pageNumber < totalPages) {
-      e.preventDefault();
-      this.handlePagination(pageNumber + 1);
+    switch (e.keyCode) {
+      case 37:
+        e.preventDefault();
+        this.handlePagination(pageNumber - 1);
+      case 39:
+        e.preventDefault();
+        this.handlePagination(pageNumber + 1);
+      default:
+        return;
     }
   }
 
@@ -119,6 +126,11 @@ export class PageList extends PureComponent {
     } else if (x > 200 && pageNumber > 1) {
       this.handlePagination(pageNumber - 1);
     }
+  }
+
+  handleClick(e) {
+    e.preventDefault();
+    this.handlePagination(this.props.pageNumber + 1);
   }
 }
 

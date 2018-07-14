@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import styled from 'react-emotion';
 import { connect } from 'react-redux';
 import { fetchMangasIfNeeded, fetchMangas } from './actions';
-import PaginatorControl from '../../molecules/PaginatorControl';
+import ElevatedPaginatorControl from '../../molecules/ElevatedPaginatorControl';
 import ContentGrid from '../ContentGrid';
 import MangaCard from '../../molecules/MangaCard';
 
@@ -10,20 +10,27 @@ import MangaCard from '../../molecules/MangaCard';
 export class MangaList extends PureComponent {
   constructor(props) {
     super(props);
+    this.state = {
+      pcEvation: 24
+    };
     this.renderCard = this.renderCard.bind(this);
     this.handlePagination = this.handlePagination.bind(this);
+    this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.updatePaginatorControlState = this.updatePaginatorControlState.bind(this);
   }
 
   render() {
     return (
       <StyledMangaList>
         <ContentGrid
+          id="main"
           items={this.props.mangas}
           render={this.renderCard}
         />
-        <PaginatorControl
-          className='paginator-control'
+
+        <ElevatedPaginatorControl
+          z={this.state.pcEvation}
           handlePagination={this.handlePagination}
           pageNumber={this.props.pageNumber}
           totalPages={this.props.totalPages}
@@ -36,7 +43,9 @@ export class MangaList extends PureComponent {
     const { dispatch, searchText } = this.props;
     const filter = { title: searchText };
     dispatch(fetchMangasIfNeeded(12, 1, filter));
-
+    document.addEventListener('keydown', this.handleKeyDown);
+    this.updatePaginatorControlState();
+    window.addEventListener('scroll', this.updatePaginatorControlState);
   }
 
   componentDidUpdate(prevProps) {
@@ -48,6 +57,10 @@ export class MangaList extends PureComponent {
     }
   }
 
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.handleKeyDown);
+    window.removeEventListener('scroll', this.updatePaginatorControlState);
+  }
 
   renderCard(item) {
     return (
@@ -60,14 +73,43 @@ export class MangaList extends PureComponent {
   }
 
   handlePagination(pageNumber) {
-    const { dispatch, searchText } = this.props;
+    const { dispatch, searchText, pageSize, totalPages } = this.props;
     const filter = { title: searchText };
-    dispatch(fetchMangas(12, pageNumber, filter));
+    if (pageNumber !== this.props.pageNumber && pageNumber <= totalPages && pageNumber) {
+      dispatch(fetchMangas(pageSize, pageNumber, filter));
+    }
   }
 
   handleClick(manga) {
     const target = `/mangas/${manga.id}`;
     this.props.history.push(target);
+  }
+
+  handleKeyDown(e) {
+    const {pageNumber, totalPages} = this.props;
+    switch (e.keyCode) {
+      case 37:
+        e.preventDefault();
+        return this.handlePagination(pageNumber - 1);
+      case 39:
+        e.preventDefault();
+        return this.handlePagination(pageNumber + 1);
+      default:
+        return;
+    }
+  }
+
+  updatePaginatorControlState() {
+    const el = document.getElementById('main');
+    if (!el) return;
+    const pageHeight = window.innerHeight;
+    const { bottom } = el.getClientRects()[0];
+    const x = pageHeight - bottom;
+    if (x >= 0 && this.state.pcEvation) {
+      this.setState({pcEvation: 0});
+    } else if (x < 0 && this.state.pcEvation === 0) {
+      this.setState({pcEvation: 24});
+    }
   }
 }
 
@@ -88,8 +130,4 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps)(MangaList);
 
 const StyledMangaList = styled('section')`
-  .paginator-control {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-`
+`;

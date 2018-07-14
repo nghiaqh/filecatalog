@@ -1,10 +1,9 @@
 import React, { PureComponent } from 'react';
 import styled from 'react-emotion';
 import { Button } from 'rmwc/Button';
-import { Elevation } from 'rmwc/Elevation';
 import { connect } from 'react-redux';
-import { fetchPagesIfNeeded, fetchPages, countPages, changeDisplay } from './actions';
-import PaginatorControl from '../../molecules/PaginatorControl';
+import { fetchPagesIfNeeded, fetchPages, changeDisplay } from './actions';
+import ElevatedPaginatorControl from '../../molecules/ElevatedPaginatorControl';
 import ContentGrid from '../ContentGrid';
 import PageCard from '../../molecules/PageCard';
 import Page from '../../molecules/Page';
@@ -33,23 +32,19 @@ export class PageList extends PureComponent {
     return (
       <StyledPageList>
         {this.props.display.type === 'page' ?
-        <Button className='' dense onClick={this.switchToGridView}>
+        <Button dense onClick={this.switchToGridView}>
           Show thumbnails
         </Button>
         : ''}
 
         {content}
 
-        <StyledElevation
+        <ElevatedPaginatorControl
           z={this.state.pcEvation}
-          transition
-          >
-          <PaginatorControl
-            handlePagination={this.handlePagination}
-            pageNumber={this.props.pageNumber}
-            totalPages={this.props.totalPages}
-          />
-        </StyledElevation>
+          handlePagination={this.handlePagination}
+          pageNumber={this.props.pageNumber}
+          totalPages={this.props.totalPages}
+        />
       </StyledPageList>
     );
   }
@@ -109,17 +104,6 @@ export class PageList extends PureComponent {
     }
   }
 
-  switchToPageView(page) {
-    const { dispatch, manga } = this.props;
-    dispatch(changeDisplay({type: 'page'}, 1, page.number, {mangaId: manga.id}));
-  }
-
-  switchToGridView() {
-    const { dispatch, manga } = this.props;
-    dispatch(changeDisplay({type: 'grid'}, 1, 1, {mangaId: manga.id}));
-    dispatch(fetchPages(12, 1, {mangaId: manga.id}));
-  }
-
   handleKeyDown(e) {
     const {pageNumber, totalPages} = this.props;
     switch (e.keyCode) {
@@ -134,24 +118,15 @@ export class PageList extends PureComponent {
     }
   }
 
-  handleTouchStart(e) {
-    this.touchstartX = e.changedTouches[0].screenX;
+  switchToPageView(page) {
+    const { dispatch, manga } = this.props;
+    dispatch(changeDisplay({type: 'page'}, 1, page.number, {mangaId: manga.id}));
   }
 
-  handleTouchEnd(e) {
-    this.touchendX = e.changedTouches[0].screenX;
-    const {pageNumber, totalPages} = this.props;
-    let x = this.touchendX - this.touchstartX;
-    if (x < -200 && pageNumber < totalPages) {
-      this.handlePagination(pageNumber + 1);
-    } else if (x > 200 && pageNumber > 1) {
-      this.handlePagination(pageNumber - 1);
-    }
-  }
-
-  handleClick(e) {
-    e.preventDefault();
-    this.handlePagination(this.props.pageNumber + 1);
+  switchToGridView() {
+    const { dispatch, manga } = this.props;
+    dispatch(changeDisplay({type: 'grid'}, 1, 1, {mangaId: manga.id}));
+    dispatch(fetchPages(12, 1, {mangaId: manga.id}));
   }
 
   updatePaginatorControlState() {
@@ -166,7 +141,32 @@ export class PageList extends PureComponent {
       this.setState({pcEvation: 24});
     }
   }
+
+  handleTouchStart(e) {
+    this.touchstartX = e.changedTouches[0].screenX;
+  }
+
+  handleTouchEnd(e) {
+    this.touchendX = e.changedTouches[0].screenX;
+    const {pageNumber, totalPages} = this.props;
+    let x = this.touchendX - this.touchstartX;
+    if (x < -100 && pageNumber < totalPages) {
+      this.handlePagination(pageNumber + 1);
+    } else if (x > 100 && pageNumber > 1) {
+      this.handlePagination(pageNumber - 1);
+    }
+  }
+
+  handleClick(e) {
+    e.preventDefault();
+    this.handlePagination(this.props.pageNumber + 1);
+  }
 }
+
+const StyledPageList = styled('section')`
+  text-align: center;
+  width: 100%;
+`;
 
 // container
 const mapStateToProps = (state) => {
@@ -185,19 +185,3 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps)(PageList);
-
-const StyledPageList = styled('section')`
-  text-align: center;
-  width: 100%;
-`;
-
-const StyledElevation = styled(Elevation)(props => `
-  background: ${props.z ? 'var(--mdc-theme-secondary)' : 'transparent'};
-  position: ${props.z ? 'fixed' : 'relative'};
-  bottom: 0;
-  height: 60px;
-  width: 170px;
-  left: 50%;
-  margin-left: -85px;
-  padding-bottom: 10px;
-`);

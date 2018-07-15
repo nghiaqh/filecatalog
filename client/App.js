@@ -68,6 +68,7 @@ const FlexContainer = styled('div')`
   display: flex;
   flex-direction: row;
   align-items: stretch;
+  padding-bottom: 10px;
 `;
 
 injectGlobal`

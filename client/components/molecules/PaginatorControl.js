@@ -65,10 +65,13 @@ export class ElevatedPaginatorControl extends PureComponent {
   }
 
   render() {
+    if (this.props.totalPages <= 1) return '';
+
     return (
       <StyledElevation
         z={this.props.z}
         transition
+        wrap
         >
         <PaginatorControl
           handlePagination={this.props.handlePagination}

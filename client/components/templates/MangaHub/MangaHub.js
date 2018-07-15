@@ -33,7 +33,7 @@ export default class MangaHub extends PureComponent {
 const StyledMangaHub = styled('section')`
   width: 100%;
 
-  .mdc-text-field--fullwidth {
+  .mdc-text-field {
     width: calc(100% - 20px);
     margin: 0 auto;
   }

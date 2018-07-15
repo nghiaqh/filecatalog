@@ -13,7 +13,8 @@ export class PageList extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      pcEvation: 24
+      pcEvation: 24,
+      view: 'grid'
     };
 
     this.renderCard = this.renderCard.bind(this);
@@ -36,10 +37,10 @@ export class PageList extends PureComponent {
         {this.props.display.type === 'page' ?
         <div>
           <Button dense onClick={this.switchToGridView}>
-            Show thumbnails
+            Show thumbnails [ESC]
           </Button>
           <Button dense onClick={this.togglePageFullScreen}>
-            Toggle fullscreen
+            Toggle fullscreen [F]
           </Button>
         </div>
         : ''}
@@ -113,13 +114,21 @@ export class PageList extends PureComponent {
 
   handleKeyDown(e) {
     const {pageNumber, totalPages} = this.props;
-    switch (e.keyCode) {
-      case 37:
+    switch (e.key) {
+      case 'ArrowLeft':
         e.preventDefault();
         return this.handlePagination(pageNumber - 1);
-      case 39:
+      case 'ArrowRight':
         e.preventDefault();
         return this.handlePagination(pageNumber + 1);
+      case 'f':
+        e.preventDefault();
+        if (this.state.view !== 'page') return;
+        return this.togglePageFullScreen();
+      case 'Escape':
+        e.preventDefault();
+        if (this.state.view !== 'page') return;
+        return this.switchToGridView();
       default:
         return;
     }
@@ -128,6 +137,7 @@ export class PageList extends PureComponent {
   switchToPageView(page) {
     const { dispatch, manga } = this.props;
     dispatch(changeDisplay({type: 'page'}, 1, page.number, {mangaId: manga.id}));
+    this.setState({ view: 'page' });
   }
 
   switchToGridView() {
@@ -135,6 +145,7 @@ export class PageList extends PureComponent {
     const newPageNumber = Math.ceil(pageNumber / 20);
     dispatch(changeDisplay({type: 'grid'}, 1, 1, {mangaId: manga.id}));
     dispatch(fetchPages(20, newPageNumber, {mangaId: manga.id}));
+    this.setState({ view: 'grid' });
   }
 
   updatePaginatorControlState() {

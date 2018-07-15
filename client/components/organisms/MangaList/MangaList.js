@@ -120,7 +120,7 @@ const StyledMangaList = styled('section')`
 // container
 const mapStateToProps = (state) => {
   const { paginator } = state.mangaList;
-  const { mangas } = state.entities;
+  const { mangas } = state;
   const total = parseInt(paginator.total);
   const pageSize = parseInt(paginator.pageSize);
   return {

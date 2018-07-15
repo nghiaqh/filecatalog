@@ -1,5 +1,1 @@
-import MangaHub from './MangaHub';
-
-export {
-  MangaHub
-}
+export { default as MangaHub } from './MangaHub';

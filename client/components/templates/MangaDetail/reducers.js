@@ -4,9 +4,7 @@ import {
 } from './actions';
 
 const initialState = {
-  entities: {
-    mangas: {}
-  }
+  mangas: {}
 };
 
 const mangaDetailReducer = (prevState, action) => {
@@ -25,13 +23,10 @@ const handleRequestMangaAction = (state, action) => {
   const { id } = action;
   return {
     ...state,
-    entities: {
-      ...state.entities,
-      mangas: {
-        ...state.entities.mangas,
-        [id]: {
-          retrieving: true
-        }
+    mangas: {
+      ...state.mangas,
+      [id]: {
+        retrieving: true
       }
     }
   };
@@ -48,12 +43,9 @@ const handleReceiveMangaAction = (state, action) => {
 
   return {
     ...state,
-    entities: {
-      ...state.entities,
-      mangas: {
-        ...state.entities.mangas,
-        [id]: Object.assign({}, state.entities.mangas[id], manga)
-      }
+    mangas: {
+      ...state.mangas,
+      [id]: Object.assign({}, state.mangas[id], manga)
     }
   }
 }

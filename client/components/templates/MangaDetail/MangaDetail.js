@@ -17,7 +17,8 @@ export class MangaDetail extends PureComponent {
     const mangaId = this.props.match.params.mangaId;
     const mangas = this.props.mangas;
 
-    if (mangas && mangas[mangaId].id) {
+    if (typeof mangas[mangaId] !== 'undefined' &&
+      typeof mangas[mangaId].id !== 'undefined') {
       return (
         <PageList manga={mangas[mangaId]} />
       );
@@ -29,7 +30,7 @@ export class MangaDetail extends PureComponent {
 
 const mapStateToProps = (state) => {
   return {
-    mangas: state.entities.mangas
+    mangas: state.mangas
   };
 };
 

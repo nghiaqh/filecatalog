@@ -42,9 +42,8 @@ export const fetchManga = (id) => {
  */
 export const fetchMangaIfNeeded = (id) => {
   return (dispatch, getState) => {
-    const { entities } = getState();
-    if (typeof entities.mangas === 'undefined' ||
-      typeof entities.mangas[id] === 'undefined') {
+    const { mangas } = getState();
+    if (typeof mangas === 'undefined' || typeof mangas[id] === 'undefined') {
       dispatch(fetchManga(id));
     }
   }

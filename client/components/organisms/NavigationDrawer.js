@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import {
   Drawer,
-  DrawerHeader,
   DrawerContent
 } from 'rmwc/Drawer';
 import {
@@ -12,6 +11,7 @@ import {
 } from 'rmwc/List';
 import { NavLink } from 'react-router-dom';
 import styled from 'react-emotion';
+import { ThemePicker } from '../molecules/ThemePicker/index';
 
 export default class NavigationDrawer extends PureComponent {
   constructor(props) {
@@ -35,6 +35,8 @@ export default class NavigationDrawer extends PureComponent {
               </ListItem>
             </NavLink>
             <ListDivider/>
+            <ThemePicker/>
+            <ListDivider/>
           </DrawerContent>
         </StyledDrawer>
     );
@@ -47,7 +49,7 @@ const StyledDrawer = styled(Drawer)`
 
   &.mdc-drawer--persistent.mdc-drawer--open,
   &.mdc-drawer--persistent .mdc-drawer__drawer {
-    background-color: var(--mdc-theme-secondary);
+    background-color: var(--mdc-theme-surface);
   }
 
   &.mdc-drawer--persistent .mdc-drawer__drawer {
@@ -56,13 +58,21 @@ const StyledDrawer = styled(Drawer)`
 
   a {
     text-transform: uppercase;
+    color: var(--mdc-theme-on-surface);
+    .mdc-list-item__graphic {
+      color: var(--mdc-theme-on-surface);
+    }
 
     &.active {
+      color: var(--mdc-theme-on-primary);
       .mdc-list-item {
         background-color: var(--mdc-theme-primary);
       }
       .mdc-list-item__text {
         font-weight: bold;
+      }
+      .mdc-list-item__graphic {
+        color: var(--mdc-theme-on-primary);
       }
     }
   }

@@ -1,7 +1,2 @@
-import mangaListReducer from './reducers';
-import MangaList from './MangaList';
-
-export {
-  mangaListReducer,
-  MangaList
-};
+export { default as mangaListReducer } from './reducers';
+export { default as MangaList } from './MangaList';

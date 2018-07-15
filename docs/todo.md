@@ -18,7 +18,13 @@
 
 5. Reorganise molecules and organisms
 
-- SearchBox: atom
-- AuthorCard, AuthorListeItem, MangaCard, MangaListItem: molecule
-- CardList, TextList, MangaList: organism
-- MangasHub: template
+- SearchBox: atom - d
+- AuthorCard, AuthorListeItem, MangaCard, MangaListItem: molecule - d
+- CardList, TextList, MangaList: organism -d
+- MangasHub: template - d
+
+6. Fix hot reload and redux
+7. Implement breadcrumb at top app bar
+8. Implement author filter for manga hub
+9. Implement load next at the end of manga
+10. Implement better search for author

@@ -222,7 +222,7 @@ const StyledPageList = styled('section')`
 // container
 const mapStateToProps = (state) => {
   const { paginator, display } = state.pageList;
-  const { pages } = state.entities;
+  const { pages } = state;
   const total = parseInt(paginator.total);
   const pageSize = parseInt(paginator.pageSize);
   return {

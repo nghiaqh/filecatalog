@@ -26,7 +26,7 @@ const mangaList = {
 
 const initialState = {
   mangaList,
-  entities: {}
+  mangas: {}
 };
 
 const mangaListReducer = (prevState, action) => {
@@ -89,10 +89,7 @@ const handleReceiveMangasAction = (state, action) => {
         receivedItemsAt: receivedAt
       }
     },
-    entities: {
-      ...state.entities,
-      mangas: Object.assign({}, state.entities.mangas, normalizedData.entities.mangas)
-    }
+    mangas: Object.assign({}, state.mangas, normalizedData.entities.mangas)
   }
 }
 

@@ -27,7 +27,7 @@ const pageList = {
 
 const initialState = {
   pageList,
-  entities: {}
+  pages: {}
 };
 
 const pageListReducer = (prevState = {}, action) => {
@@ -92,10 +92,7 @@ const handleReceivePagesAction = (state, action) => {
         receivedItemsAt: receivedAt
       }
     },
-    entities: {
-      ...state.entities,
-      pages: Object.assign({}, state.entities.pages, normalizedData.entities.pages)
-    }
+    pages: Object.assign({}, state.pages, normalizedData.entities.pages)
   }
 }
 

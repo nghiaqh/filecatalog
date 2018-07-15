@@ -84,7 +84,7 @@ export class ElevatedPaginatorControl extends PureComponent {
 }
 
 const StyledElevation = styled(Elevation)(props => `
-  background: ${props.z ? 'var(--mdc-theme-primary)' : 'transparent'};
+  background: ${props.z ? 'var(--mdc-theme-surface)' : 'transparent'};
   border: 1px solid ${props.z ? 'var(--mdc-theme-text-disabled-on-light)' : 'transparent'};
   position: ${props.z ? 'fixed' : 'relative'};
   bottom: 0;

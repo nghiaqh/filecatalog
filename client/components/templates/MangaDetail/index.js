@@ -1,7 +1,2 @@
-import MangaDetail from './MangaDetail';
-import mangaDetailReducer from './reducers';
-
-export {
-  MangaDetail,
-  mangaDetailReducer
-}
+export { default as MangaDetail } from './MangaDetail';
+export { default as mangaDetailReducer } from './reducers';

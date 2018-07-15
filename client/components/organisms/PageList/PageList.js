@@ -3,7 +3,7 @@ import styled from 'react-emotion';
 import { Button } from 'rmwc/Button';
 import { connect } from 'react-redux';
 import { fetchPagesIfNeeded, fetchPages, changeDisplay } from './actions';
-import ElevatedPaginatorControl from '../../molecules/ElevatedPaginatorControl';
+import { ElevatedPaginatorControl } from '../../molecules/PaginatorControl';
 import ContentGrid from '../ContentGrid';
 import PageCard from '../../molecules/PageCard';
 import Page from '../../molecules/Page';
@@ -214,6 +214,7 @@ export class PageList extends PureComponent {
 }
 
 const StyledPageList = styled('section')`
+  position: relative;
   text-align: center;
   width: 100%;
 `;

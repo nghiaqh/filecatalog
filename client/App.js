@@ -8,7 +8,8 @@ import {
   TopAppBarRow,
   TopAppBarSection,
   TopAppBarNavigationIcon,
-  TopAppBarTitle
+  TopAppBarTitle,
+  TopAppBarFixedAdjust
 } from 'rmwc/TopAppBar';
 import '../node_modules/material-components-web/dist/material-components-web.min.css';
 import NavigationDrawer from './components/organisms/NavigationDrawer';
@@ -38,6 +39,7 @@ class App extends Component {
             </TopAppBarSection>
           </TopAppBarRow>
         </TopAppBar>
+        <TopAppBarFixedAdjust/>
 
         <FlexContainer>
           <NavigationDrawer persistentOpen={this.state.persistentOpen}/>
@@ -66,8 +68,6 @@ const FlexContainer = styled('div')`
   display: flex;
   flex-direction: row;
   align-items: stretch;
-  padding-top: 64px;
-  height: 100vh;
 `;
 
 injectGlobal`
@@ -81,6 +81,7 @@ injectGlobal`
     font-size: 14px;
     margin: 0;
     color: var(--mdc-theme-on-primary);
+    overflow-x: hidden;
   }
 
   .ellipsis {

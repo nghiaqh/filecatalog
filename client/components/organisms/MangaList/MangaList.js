@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import styled from 'react-emotion';
 import { connect } from 'react-redux';
 import { fetchMangasIfNeeded, fetchMangas } from './actions';
-import ElevatedPaginatorControl from '../../molecules/ElevatedPaginatorControl';
+import { ElevatedPaginatorControl } from '../../molecules/PaginatorControl';
 import ContentGrid from '../ContentGrid';
 import MangaCard from '../../molecules/MangaCard';
 
@@ -114,6 +114,7 @@ export class MangaList extends PureComponent {
 }
 
 const StyledMangaList = styled('section')`
+  position: relative;
 `;
 
 // container

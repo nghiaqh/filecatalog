@@ -49,11 +49,11 @@ export class MangaList extends PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    const { dispatch, searchText } = this.props;
+    const { dispatch, searchText, pageSize } = this.props;
 
     if (searchText !== prevProps.searchText) {
       const filter = { title: searchText };
-      dispatch(fetchMangasIfNeeded(12, 1, filter));
+      dispatch(fetchMangasIfNeeded(pageSize, 1, filter));
     }
   }
 
@@ -126,7 +126,8 @@ const mapStateToProps = (state) => {
     mangas: paginator.items.map(index => mangas[index]),
     total: total,
     totalPages: Math.ceil(total / pageSize),
-    pageNumber: paginator.pageNumber
+    pageNumber: paginator.pageNumber,
+    pageSize: pageSize
   };
 };
 

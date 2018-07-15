@@ -33,7 +33,7 @@ export class PaginatorControl extends PureComponent {
           {...prevDisabled}
           page-index={current - 1}
           onClick={this.handleClick}>
-          [AL] Prev
+          Prev
         </Button>
 
         <Select value={current} options={options} onChange={this.handleSelect}/>
@@ -42,7 +42,7 @@ export class PaginatorControl extends PureComponent {
           {...nextDisabled}
           page-index={current + 1}
           onClick={this.handleClick}>
-          Next [AR]
+          Next
         </Button>
       </div>
     );
@@ -88,9 +88,10 @@ const StyledElevation = styled(Elevation)(props => `
   border: 1px solid ${props.z ? 'var(--mdc-theme-text-disabled-on-light)' : 'transparent'};
   position: ${props.z ? 'fixed' : 'relative'};
   bottom: 0;
-  height: 60px;
   left: 50%;
   transform: translateX(-50%);
   padding-bottom: 10px;
   text-align: center;
+  min-width: 320px;
+  min-height: 60px;
 `);

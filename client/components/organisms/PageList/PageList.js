@@ -15,6 +15,7 @@ export class PageList extends PureComponent {
     this.state = {
       pcEvation: 24
     };
+
     this.renderCard = this.renderCard.bind(this);
     this.renderContent = this.renderContent.bind(this);
     this.handlePagination = this.handlePagination.bind(this);
@@ -23,8 +24,9 @@ export class PageList extends PureComponent {
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handleTouchStart = this.handleTouchStart.bind(this);
     this.handleTouchEnd = this.handleTouchEnd.bind(this);
-    this.handleClick = this.handleClick.bind(this);
+    this.handlePageClick = this.handlePageClick.bind(this);
     this.updatePaginatorControlState = this.updatePaginatorControlState.bind(this);
+    this.togglePageFullScreen = this.togglePageFullScreen.bind(this);
   }
 
   render() {
@@ -32,9 +34,14 @@ export class PageList extends PureComponent {
     return (
       <StyledPageList>
         {this.props.display.type === 'page' ?
-        <Button dense onClick={this.switchToGridView}>
-          Show thumbnails
-        </Button>
+        <div>
+          <Button dense onClick={this.switchToGridView}>
+            Show thumbnails
+          </Button>
+          <Button dense onClick={this.togglePageFullScreen}>
+            Toggle fullscreen
+          </Button>
+        </div>
         : ''}
 
         {content}
@@ -74,7 +81,7 @@ export class PageList extends PureComponent {
             page={this.props.pages[0]}
             onTouchStart={this.handleTouchStart}
             onTouchEnd={this.handleTouchEnd}
-            onClick={this.handleClick}
+            onClick={this.handlePageClick}
           />);
       default:
         return (
@@ -158,9 +165,51 @@ export class PageList extends PureComponent {
     }
   }
 
-  handleClick(e) {
+  handlePageClick(e) {
     e.preventDefault();
     this.handlePagination(this.props.pageNumber + 1);
+  }
+
+  togglePageFullScreen() {
+    const page = document.getElementById('main');
+    this.toggleFullscreen(page);
+  }
+
+  toggleFullscreen(element) {
+    const fsPrefixes = [
+      'fullscreenEnabled',
+      'webkitFullscreenEnabled',
+      'mozFullscreenEnabled',
+      'msFullscreenEnabled'
+    ];
+    const fePrefixes = [
+      'fullscreenElement',
+      'webkitFullscreenElement',
+      'mozFullScreenElement',
+      'msFullscreenElement'
+    ];
+    const efPrefixes = [
+      'exitFullscreen',
+      'webkitExitFullscreen',
+      'mozCancelFullScreen',
+      'msExitFullscreen'
+    ];
+
+    const fs = fsPrefixes.filter(fs => element[fs]);
+    const fe = fePrefixes.filter(fe => element[fe]);
+    const ef = efPrefixes.filter(ef => document[ef]);
+
+    if (element[fs] && !element[fe]) {
+      element[fe]();
+    } else if (document[ef]) {
+      document[ef]();
+    }
+
+    if (element.requestFullscreen) {
+      element.requestFullscreen();
+    } else if (element.webkitRequestFullscreen) {
+      element.webkitRequestFullscreen();
+    }
   }
 }
 

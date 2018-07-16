@@ -1,19 +1,19 @@
 import React, { PureComponent } from 'react';
 import styled from 'react-emotion';
 import { connect } from 'react-redux';
-import { fetchMangasIfNeeded, fetchMangas } from './actions';
+import { fetchAuthorsIfNeeded, fetchAuthors } from './actions';
 import { ElevatedPaginatorControl } from '../../molecules/PaginatorControl';
-import ContentGrid from '../ContentGrid';
-import MangaCard from '../../molecules/MangaCard';
+import ContentList from '../ContentList';
+import AuthorListItem from '../../molecules/AuthorListItem';
 
 // component
-export class MangaList extends PureComponent {
+export class AuthorList extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       pcEvation: 24
     };
-    this.renderCard = this.renderCard.bind(this);
+    this.renderListItem = this.renderListItem.bind(this);
     this.handlePagination = this.handlePagination.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -22,11 +22,11 @@ export class MangaList extends PureComponent {
 
   render() {
     return (
-      <StyledMangaList>
-        <ContentGrid
+      <StyledAuthorList>
+        <ContentList
           id="main"
-          items={this.props.mangas}
-          render={this.renderCard}
+          items={this.props.authors}
+          render={this.renderListItem}
         />
 
         <ElevatedPaginatorControl
@@ -35,14 +35,14 @@ export class MangaList extends PureComponent {
           pageNumber={this.props.pageNumber}
           totalPages={this.props.totalPages}
         />
-      </StyledMangaList>
+      </StyledAuthorList>
     );
   }
 
   componentDidMount() {
-    const { dispatch, searchText, authorId } = this.props;
-    const filter = { title: searchText, authorId: authorId };
-    dispatch(fetchMangasIfNeeded(20, 1, filter));
+    const { dispatch, searchText } = this.props;
+    const filter = { name: searchText };
+    dispatch(fetchAuthorsIfNeeded(20, 1, filter));
     document.addEventListener('keydown', this.handleKeyDown);
     this.updatePaginatorControlState();
     window.addEventListener('scroll', this.updatePaginatorControlState);
@@ -52,8 +52,8 @@ export class MangaList extends PureComponent {
     const { dispatch, searchText, pageSize } = this.props;
 
     if (searchText !== prevProps.searchText) {
-      const filter = { title: searchText };
-      dispatch(fetchMangasIfNeeded(pageSize, 1, filter));
+      const filter = { name: searchText };
+      dispatch(fetchAuthorsIfNeeded(pageSize, 1, filter));
     }
   }
 
@@ -62,11 +62,12 @@ export class MangaList extends PureComponent {
     window.removeEventListener('scroll', this.updatePaginatorControlState);
   }
 
-  renderCard(item) {
+  renderListItem(item) {
     return (
-      <MangaCard
+      <AuthorListItem
+        key={'author-' + item.id}
         key={item.id}
-        manga={item}
+        author={item}
         onItemClick={this.handleClick}
       />
     );
@@ -74,24 +75,24 @@ export class MangaList extends PureComponent {
 
   handlePagination(pageNumber) {
     const { dispatch, searchText, pageSize, totalPages } = this.props;
-    const filter = { title: searchText };
+    const filter = { name: searchText };
     if (pageNumber !== this.props.pageNumber && pageNumber <= totalPages && pageNumber) {
-      dispatch(fetchMangas(pageSize, pageNumber, filter));
+      dispatch(fetchAuthors(pageSize, pageNumber, filter));
     }
   }
 
-  handleClick(manga) {
-    const target = `/mangas/${manga.id}`;
+  handleClick(author) {
+    const target = `/authors/${author.id}`;
     this.props.history.push(target);
   }
 
   handleKeyDown(e) {
     const {pageNumber, totalPages} = this.props;
-    switch (e.keyCode) {
-      case 37:
+    switch (e.key) {
+      case 'ArrowLeft':
         e.preventDefault();
         return this.handlePagination(pageNumber - 1);
-      case 39:
+      case 'ArrowRight':
         e.preventDefault();
         return this.handlePagination(pageNumber + 1);
       default:
@@ -113,18 +114,18 @@ export class MangaList extends PureComponent {
   }
 }
 
-const StyledMangaList = styled('section')`
+const StyledAuthorList = styled('section')`
   position: relative;
 `;
 
 // container
 const mapStateToProps = (state) => {
-  const { paginator } = state.mangaList;
-  const { mangas } = state;
+  const { paginator } = state.authorList;
+  const { authors } = state;
   const total = parseInt(paginator.total);
   const pageSize = parseInt(paginator.pageSize);
   return {
-    mangas: paginator.items.map(index => mangas[index]),
+    authors: paginator.items.map(index => authors[index]),
     total: total,
     totalPages: Math.ceil(total / pageSize),
     pageNumber: paginator.pageNumber,
@@ -132,4 +133,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(MangaList);
+export default connect(mapStateToProps)(AuthorList);

@@ -23,8 +23,7 @@
 - CardList, TextList, MangaList: organism -d
 - MangasHub: template - d
 
-6. Fix hot reload and redux
-7. Implement breadcrumb at top app bar
-8. Implement author filter for manga hub
+6. Fix hot reload and redux - 80% done, can we reload initial state?
+7. Implement author filter for manga hub - implement author hub and detail instead - d
+8. Implement breadcrumb at top app bar
 9. Implement load next at the end of manga
-10. Implement better search for author

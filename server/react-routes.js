@@ -12,6 +12,8 @@ const routes = [
   '/',
   '/mangas',
   '/mangas/:mangaId',
+  '/authors',
+  '/authors/:authorId'
 ];
 
 module.exports = (app) => app.get(routes, (req, res) => {

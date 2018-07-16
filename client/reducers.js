@@ -1,5 +1,7 @@
-import { mangaListReducer } from './components/organisms/MangaList/index';
-import { pageListReducer } from './components/organisms/PageList/index';
+import { authorDetailReducer } from './components/templates/AuthorDetail';
+import { authorListReducer } from './components/organisms/AuthorList';
+import { mangaListReducer } from './components/organisms/MangaList';
+import { pageListReducer } from './components/organisms/PageList';
 import { mangaDetailReducer } from './components/templates/MangaDetail';
 import { themePickerReducer } from './components/molecules/ThemePicker';
 
@@ -14,6 +16,8 @@ const reduceReducers = (...reducers) => (prevState, value, ...args) =>
   );
 
 const rootReducer = reduceReducers(
+  authorListReducer,
+  authorDetailReducer,
   mangaListReducer,
   pageListReducer,
   mangaDetailReducer,

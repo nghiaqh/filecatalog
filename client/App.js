@@ -15,6 +15,8 @@ import {
 import { ThemeProvider } from 'rmwc/Theme';
 import '../node_modules/material-components-web/dist/material-components-web.min.css';
 import NavigationDrawer from './components/organisms/NavigationDrawer';
+import { AuthorHub } from './components/templates/AuthorHub';
+import { AuthorDetail } from './components/templates/AuthorDetail';
 import { MangaHub } from './components/templates/MangaHub';
 import { MangaDetail } from './components/templates/MangaDetail';
 
@@ -51,6 +53,8 @@ class App extends Component {
             <Route exact path='/' component={MangaHub}/>
             <Route exact path='/mangas' component={MangaHub}/>
             <Route exact path='/mangas/:mangaId' component={MangaDetail}/>
+            <Route exact path='/authors' component={AuthorHub}/>
+            <Route exact path='/authors/:authorId' component={AuthorDetail}/>
           </Switch>
         </FlexContainer>
       </ThemeProvider>

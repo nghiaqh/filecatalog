@@ -10,17 +10,15 @@ export default class Page extends PureComponent {
     const { id, uri, number } = this.props.page;
 
     return (
-      <div id={this.props.id}>
-        <Image
-          id={id}
-          className={this.props.className}
-          src={uri}
-          title={`Page ${number}`}
-          onTouchStart={this.props.onTouchStart}
-          onTouchEnd={this.props.onTouchEnd}
-          onClick={this.props.onClick}
-          />
-      </div>
+      <Image
+        id={this.props.id}
+        className={this.props.className}
+        src={uri}
+        title={`Page ${number}`}
+        onTouchStart={this.props.onTouchStart}
+        onTouchEnd={this.props.onTouchEnd}
+        onClick={this.props.onClick}
+      />
     );
   }
 }

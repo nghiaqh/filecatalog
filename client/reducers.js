@@ -4,6 +4,7 @@ import { mangaListReducer } from './components/organisms/MangaList';
 import { pageListReducer } from './components/organisms/PageList';
 import { mangaDetailReducer } from './components/templates/MangaDetail';
 import { themePickerReducer } from './components/molecules/ThemePicker';
+import { breadcrumbReducer } from './components/organisms/TopAppBar';
 
 /**
  * Combine reducers to make a flat state
@@ -21,7 +22,8 @@ const rootReducer = reduceReducers(
   mangaListReducer,
   pageListReducer,
   mangaDetailReducer,
-  themePickerReducer
+  themePickerReducer,
+  breadcrumbReducer
 );
 
 export default rootReducer;

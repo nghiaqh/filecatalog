@@ -1,17 +1,9 @@
 import React, { Component } from 'react';
-import { Route, NavLink, Switch, withRouter } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import { injectGlobal } from 'emotion';
 import styled from 'react-emotion';
 import { hot } from 'react-hot-loader';
 import { connect } from 'react-redux';
-import {
-  TopAppBar,
-  TopAppBarRow,
-  TopAppBarSection,
-  TopAppBarNavigationIcon,
-  TopAppBarTitle,
-  TopAppBarFixedAdjust
-} from 'rmwc/TopAppBar';
 import { ThemeProvider } from 'rmwc/Theme';
 import '../node_modules/material-components-web/dist/material-components-web.min.css';
 import NavigationDrawer from './components/organisms/NavigationDrawer';
@@ -19,6 +11,7 @@ import { AuthorHub } from './components/templates/AuthorHub';
 import { AuthorDetail } from './components/templates/AuthorDetail';
 import { MangaHub } from './components/templates/MangaHub';
 import { MangaDetail } from './components/templates/MangaDetail';
+import { TopAppBar, setBreadcrumb } from './components/organisms/TopAppBar';
 
 class App extends Component {
   constructor(props) {
@@ -28,21 +21,10 @@ class App extends Component {
     };
     this.toggleDrawer = this.toggleDrawer.bind(this);
   }
-
   render() {
     return (
       <ThemeProvider options={this.props.theme}>
-        <TopAppBar fixed>
-          <TopAppBarRow>
-            <TopAppBarSection alignStart>
-              <TopAppBarNavigationIcon use="menu" onClick={this.toggleDrawer}/>
-              <TopAppBarTitle>
-                <NavLink to="/" exact>Manga Catalog</NavLink>
-              </TopAppBarTitle>
-            </TopAppBarSection>
-          </TopAppBarRow>
-        </TopAppBar>
-        <TopAppBarFixedAdjust/>
+        <TopAppBar toggleDrawer={this.toggleDrawer} />
 
         <FlexContainer>
           <NavigationDrawer
@@ -59,6 +41,18 @@ class App extends Component {
         </FlexContainer>
       </ThemeProvider>
     );
+  }
+
+  componentDidMount() {
+    const { dispatch, history, location } = this.props;
+    dispatch(setBreadcrumb(location.pathname));
+    this.unlisten = history.listen((location, action) =>
+      dispatch(setBreadcrumb(location.pathname))
+    );
+  }
+
+  componentWillUnmount() {
+    this.unlisten();
   }
 
   toggleDrawer(e) {
@@ -100,10 +94,6 @@ injectGlobal`
     text-decoration: none;
   }
 
-  .mdc-top-app-bar a {
-    color: var(--mdc-theme-on-primary);
-  }
-
   .mdc-button:not(:disabled) {
     color: var(--mdc-theme-text-primary-on-background);
   }
@@ -119,5 +109,5 @@ const mapStateToProps = (state) => {
 };
 
 export default withRouter(connect(mapStateToProps)(
-  hot(module)(App))
-);
+  hot(module)(App)
+));

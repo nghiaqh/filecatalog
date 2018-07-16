@@ -49,10 +49,10 @@ export class MangaList extends PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    const { dispatch, searchText, pageSize } = this.props;
+    const { dispatch, searchText, pageSize, authorId } = this.props;
 
-    if (searchText !== prevProps.searchText) {
-      const filter = { title: searchText };
+    if (searchText !== prevProps.searchText || authorId !== prevProps.authorId) {
+      const filter = { title: searchText, authorId: authorId };
       dispatch(fetchMangasIfNeeded(pageSize, 1, filter));
     }
   }

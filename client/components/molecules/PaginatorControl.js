@@ -92,6 +92,5 @@ const StyledElevation = styled(Elevation)(props => `
   transform: translateX(-50%);
   padding-bottom: 10px;
   text-align: center;
-  min-width: 320px;
   min-height: 60px;
 `);

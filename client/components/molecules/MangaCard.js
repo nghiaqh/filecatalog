@@ -19,7 +19,7 @@ const StyledCard = styled(Card)`
   margin: 10px 10px 0 0;
 
   .mdc-card__media {
-    height: calc(50vw * 4 / 3);
+    height: calc((50vw - 20px) * 1.417);
     min-height: 120px;
     max-height: 280px;
     background-size: contain;
@@ -62,7 +62,7 @@ export default class MangaCard extends PureComponent {
               <Icon use="fiber_new" />
             </div>
           : ''}
-          <div style={{ padding: '0 1rem 1rem' }}>
+          <div style={{ padding: '0 1rem 0' }}>
             <Typography className="manga-title ellipsis" use="subtitle1" tag="h3">
               {title}
             </Typography>
@@ -76,12 +76,6 @@ export default class MangaCard extends PureComponent {
             <CardAction onClick={this.viewManga}>Read</CardAction>
           </CardActionButtons>
           <CardActionIcons>
-            <CardAction
-              onLabel="Remove from favorites"
-              onContent="favorite"
-              offLabel="Add to favorites"
-              offContent="favorite_border"
-            />
             <CardAction use="more_vert" />
           </CardActionIcons>
         </CardActions>

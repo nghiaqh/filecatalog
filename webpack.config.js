@@ -1,14 +1,14 @@
 const path = require('path');
 const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
-
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const nodeEnv = process.env.NODE_ENV || 'development';
 const outputDirectory = 'dist';
 const hotMiddlewareScript = 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000';
 
 const common = {
   mode: nodeEnv,
-  devtool: 'cheap-inline-source-map',
+  devtool: 'inline-source-map',
   module: {
     rules: [
       {
@@ -43,10 +43,6 @@ const frontend = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      // http://stackoverflow.com/a/35372706/2177568
-      // for server side code, just require, don't chunk
-      // use `if (ONSERVER) { ...` for server specific code
-      ONSERVER: false,
       'process.env': {NODE_ENV: JSON.stringify(nodeEnv)},
     }),
     new webpack.HotModuleReplacementPlugin(),
@@ -71,11 +67,8 @@ const backend = {
     __dirname: true,
   },
   plugins: [
+    new CleanWebpackPlugin(outputDirectory),
     new webpack.DefinePlugin({
-      // http://stackoverflow.com/a/35372706/2177568
-      // for server side code, just require, don't chunk
-      // use `if (ONSERVER) { ...` for server specific code
-      ONSERVER: true,
       'process.env': {NODE_ENV: JSON.stringify(nodeEnv)},
     }),
     new webpack.HotModuleReplacementPlugin(),

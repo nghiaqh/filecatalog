@@ -10,7 +10,7 @@ export default class Page extends PureComponent {
     const { id, uri, number } = this.props.page;
 
     return (
-      <div>
+      <div id={this.props.id}>
         <Image
           id={id}
           className={this.props.className}

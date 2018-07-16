@@ -25,5 +25,6 @@
 
 6. Fix hot reload and redux - 80% done, can we reload initial state?
 7. Implement author filter for manga hub - implement author hub and detail instead - d
-8. Implement breadcrumb at top app bar
+8. Implement breadcrumb at top app bar - d
 9. Implement load next at the end of manga
+10. Add test

@@ -29,7 +29,7 @@ const StyledCard = styled(Card)`
     font-weight: 600;
   }
   .tag-groups {
-    position: fixed;
+    position: absolute;
     bottom: 73px;
     padding: 5px;
     width: 100%;

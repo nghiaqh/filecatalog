@@ -29,3 +29,4 @@
 9. Implement load next at the end of manga
 10. Add test
 11. Reduce logic/code duplication in client and server rendering (state, reducer, action)
+12. Find a way to distinguise filter of manga list between mangas and author detail

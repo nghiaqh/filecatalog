@@ -40,8 +40,8 @@ export class MangaList extends PureComponent {
   }
 
   componentDidMount() {
-    const { dispatch, searchText, authorId } = this.props;
-    const filter = { title: searchText, authorId: authorId };
+    let { dispatch, filter, searchText, authorId } = this.props;
+    filter = { title: searchText, authorId: authorId };
     dispatch(fetchMangasIfNeeded(20, 1, filter));
     document.addEventListener('keydown', this.handleKeyDown);
     this.updatePaginatorControlState();
@@ -73,8 +73,7 @@ export class MangaList extends PureComponent {
   }
 
   handlePagination(pageNumber) {
-    const { dispatch, searchText, pageSize, totalPages } = this.props;
-    const filter = { title: searchText };
+    const { dispatch, pageSize, totalPages, filter } = this.props;
     if (pageNumber !== this.props.pageNumber && pageNumber <= totalPages && pageNumber) {
       dispatch(fetchMangas(pageSize, pageNumber, filter));
     }
@@ -128,7 +127,8 @@ const mapStateToProps = (state) => {
     total: total,
     totalPages: Math.ceil(total / pageSize),
     pageNumber: paginator.pageNumber,
-    pageSize: pageSize
+    pageSize: pageSize,
+    filter: paginator.filter
   };
 };
 

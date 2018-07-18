@@ -40,8 +40,8 @@ export class AuthorList extends PureComponent {
   }
 
   componentDidMount() {
-    const { dispatch, searchText } = this.props;
-    const filter = { name: searchText };
+    let { dispatch, filter } = this.props;
+    filter = { name: searchText };
     dispatch(fetchAuthorsIfNeeded(20, 1, filter));
     document.addEventListener('keydown', this.handleKeyDown);
     this.updatePaginatorControlState();
@@ -74,8 +74,7 @@ export class AuthorList extends PureComponent {
   }
 
   handlePagination(pageNumber) {
-    const { dispatch, searchText, pageSize, totalPages } = this.props;
-    const filter = { name: searchText };
+    const { dispatch, filter, pageSize, totalPages } = this.props;
     if (pageNumber !== this.props.pageNumber && pageNumber <= totalPages && pageNumber) {
       dispatch(fetchAuthors(pageSize, pageNumber, filter));
     }
@@ -129,7 +128,8 @@ const mapStateToProps = (state) => {
     total: total,
     totalPages: Math.ceil(total / pageSize),
     pageNumber: paginator.pageNumber,
-    pageSize: pageSize
+    pageSize: pageSize,
+    filter: paginator.filter
   };
 };
 

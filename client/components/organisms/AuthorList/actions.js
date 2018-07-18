@@ -97,6 +97,7 @@ export const fetchAuthorsIfNeeded = (pageSize, pageNumber, filter) => {
   return (dispatch, getState) => {
     const { authorList } = getState();
     const currentFilter = authorList.paginator.filter;
+    if (typeof currentFilter.name === 'undefined') currentFilter.name = '';
     if (authorList.paginator.receivedItemsAt === null ||
       filter.name !== currentFilter.name) {
       dispatch(countAuthors(filter));

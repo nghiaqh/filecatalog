@@ -14,7 +14,7 @@ export class MangaDetail extends PureComponent {
   }
 
   render() {
-    const mangaId = this.props.match.params.mangaId;
+    const mangaId = parseInt(this.props.match.params.mangaId);
     const mangas = this.props.mangas;
 
     if (typeof mangas[mangaId] !== 'undefined' &&

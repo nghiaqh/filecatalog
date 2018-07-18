@@ -12,7 +12,7 @@ export default class ContentList extends PureComponent {
 
     items.forEach((item) => {
       list.push(
-        this.props.render(item, ...this.props)
+        this.props.render(item)
       );
     });
 

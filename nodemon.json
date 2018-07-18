@@ -7,7 +7,6 @@
     "docs",
     "bin",
     "client",
-    "server/react-routes.js",
     "server/components/cli"
   ],
   "exec": "npm run build && node .",

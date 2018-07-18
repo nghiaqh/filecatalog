@@ -20,7 +20,7 @@ export class AuthorDetail extends PureComponent {
   }
 
   render() {
-    const authorId = this.props.match.params.authorId;
+    const authorId = parseInt(this.props.match.params.authorId);
     const authors = this.props.authors;
 
     if (typeof authors[authorId] !== 'undefined' &&

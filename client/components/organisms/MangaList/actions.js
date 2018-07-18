@@ -98,8 +98,10 @@ export const fetchMangasIfNeeded = (pageSize, pageNumber, filter) => {
   return (dispatch, getState) => {
     const { mangaList } = getState();
     const currentFilter = mangaList.paginator.filter;
+    if (typeof currentFilter.title === 'undefined') currentFilter.title = '';
     if (mangaList.paginator.receivedItemsAt === null ||
-      filter.title !== currentFilter.title || filter.authorId !== currentFilter.authorId) {
+      filter.title !== currentFilter.title ||
+      filter.authorId !== currentFilter.authorId) {
       dispatch(countMangas(filter));
       dispatch(fetchMangas(pageSize, pageNumber, filter));
     }

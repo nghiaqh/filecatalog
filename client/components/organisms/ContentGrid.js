@@ -16,9 +16,9 @@ export default class ContentGrid extends PureComponent {
     const list = [];
     const { items } = this.props;
 
-    items.forEach((item, index) => {
+    items.forEach((item) => {
       list.push(
-        this.props.render(item, ...this.props)
+        this.props.render(item)
       );
     });
 

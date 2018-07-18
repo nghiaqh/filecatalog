@@ -28,3 +28,4 @@
 8. Implement breadcrumb at top app bar - d
 9. Implement load next at the end of manga
 10. Add test
+11. Reduce logic/code duplication in client and server rendering (state, reducer, action)

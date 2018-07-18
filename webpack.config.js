@@ -9,6 +9,23 @@ const hotMiddlewareScript = 'webpack-hot-middleware/client?path=/__webpack_hmr&t
 const common = {
   mode: nodeEnv,
   devtool: 'inline-source-map',
+};
+
+const frontend = {
+  entry: {
+    bundle: [ './client/index.js', hotMiddlewareScript ]
+  },
+  output: {
+    path: path.resolve(__dirname, outputDirectory + '/public'),
+    filename: '[name].js',
+    publicPath: 'http://localhost:8080/',
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {NODE_ENV: JSON.stringify(nodeEnv)},
+    }),
+    new webpack.HotModuleReplacementPlugin(),
+  ],
   module: {
     rules: [
       {
@@ -22,45 +39,26 @@ const common = {
           {
             loader: 'file-loader',
             options: {
-              name: '[name].[ext]',
-            },
-          },
-        ],
-      },
-    ],
-  },
-};
-
-const frontend = {
-  entry: [
-    './client/index.js',
-    hotMiddlewareScript,
-  ],
-  output: {
-    path: path.resolve(__dirname, outputDirectory),
-    filename: 'bundle.js',
-    publicPath: 'http://localhost:8080/',
-  },
-  plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {NODE_ENV: JSON.stringify(nodeEnv)},
-    }),
-    new webpack.HotModuleReplacementPlugin(),
-  ],
+              name: '[name].[ext]'
+            }
+          }
+        ]
+      }
+    ]
+  }
 };
 
 const backend = {
-  entry: [
-    './server/server.js',
-    hotMiddlewareScript,
-  ],
+  entry: {
+    server: './server/server.js',
+  },
   target: 'node',
   externals: [
     nodeExternals({whitelist: hotMiddlewareScript}),
   ],
   output: {
     path: path.resolve(__dirname, outputDirectory),
-    filename: 'server.js',
+    filename: '[name].js',
     publicPath: '/',
   },
   node: {
@@ -73,6 +71,15 @@ const backend = {
     }),
     new webpack.HotModuleReplacementPlugin(),
   ],
+  module: {
+    rules: [
+      {
+        test: /\.js?$/,
+        exclude: [/node_modules/],
+        use: ['babel-loader'],
+      }
+    ]
+  }
 };
 
 module.exports = [

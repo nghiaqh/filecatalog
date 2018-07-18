@@ -5,7 +5,6 @@ import styled from 'react-emotion';
 import { hot } from 'react-hot-loader';
 import { connect } from 'react-redux';
 import { ThemeProvider } from 'rmwc/Theme';
-import '../node_modules/material-components-web/dist/material-components-web.min.css';
 import NavigationDrawer from './components/organisms/NavigationDrawer';
 import { AuthorHub } from './components/templates/AuthorHub';
 import { AuthorDetail } from './components/templates/AuthorDetail';

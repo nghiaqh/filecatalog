@@ -8,7 +8,7 @@ const Html = ({ body, title, preloadedState }) => `
       <meta http-equiv="X-UA-Compatible" content="ie=edge">
       <title>${title}</title>
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-      <link href="/material-components-web.min.css" rel="stylesheet">
+      <link href="/public/material-components-web.min.css" rel="stylesheet">
   </head>
 
   <body>
@@ -18,7 +18,7 @@ const Html = ({ body, title, preloadedState }) => `
         // http://redux.js.org/recipes/ServerRendering.html#security-considerations
         window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}
       </script>
-      <script type="text/javascript" src="/bundle.js"></script>
+      <script type="text/javascript" src="/public/bundle.js"></script>
   </body>
 
   </html>

@@ -31,4 +31,5 @@ const Image = styled('img')`
   display: block;
   margin: 0 auto;
   cursor: pointer;
+  object-fit: contain;
 `;

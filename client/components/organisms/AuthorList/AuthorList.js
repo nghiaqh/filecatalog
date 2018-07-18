@@ -40,7 +40,7 @@ export class AuthorList extends PureComponent {
   }
 
   componentDidMount() {
-    let { dispatch, filter } = this.props;
+    let { dispatch, filter, searchText } = this.props;
     filter = { name: searchText };
     dispatch(fetchAuthorsIfNeeded(20, 1, filter));
     document.addEventListener('keydown', this.handleKeyDown);

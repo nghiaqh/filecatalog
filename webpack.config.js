@@ -18,7 +18,7 @@ const frontend = {
   output: {
     path: path.resolve(__dirname, outputDirectory + '/public'),
     filename: '[name].js',
-    publicPath: 'http://localhost:8080/',
+    publicPath: 'http://localhost:8181/',
   },
   plugins: [
     new webpack.DefinePlugin({

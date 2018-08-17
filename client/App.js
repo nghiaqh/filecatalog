@@ -16,18 +16,20 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      persistentOpen: false
+      drawOpen: false
     };
-    this.toggleDrawer = this.toggleDrawer.bind(this);
+    this.openDrawer = this.openDrawer.bind(this);
+    this.closeDrawer = this.closeDrawer.bind(this);
   }
   render() {
     return (
       <ThemeProvider options={this.props.theme}>
-        <TopAppBar toggleDrawer={this.toggleDrawer} />
+        <TopAppBar onClickMenuIcon={this.openDrawer} />
 
         <FlexContainer>
           <NavigationDrawer
-            persistentOpen={this.state.persistentOpen}
+            open={this.state.drawOpen}
+            onClose={this.closeDrawer}
           />
 
           <Switch>
@@ -54,11 +56,13 @@ class App extends Component {
     this.unlisten();
   }
 
-  toggleDrawer(e) {
+  openDrawer(e) {
     e.preventDefault();
-    this.setState(prevState => ({
-      persistentOpen: !prevState.persistentOpen
-    }));
+    this.setState({ drawOpen: true });
+  }
+
+  closeDrawer(e) {
+    this.setState({ drawOpen: false });
   }
 }
 

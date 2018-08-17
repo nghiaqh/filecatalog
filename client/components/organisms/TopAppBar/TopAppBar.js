@@ -42,7 +42,10 @@ export class TopAppBar extends PureComponent {
         <RMWCTopAppBar fixed>
           <TopAppBarRow>
             <TopAppBarSection alignStart>
-              <TopAppBarNavigationIcon use="menu" onClick={this.props.toggleDrawer}/>
+              <TopAppBarNavigationIcon
+                use="menu"
+                onClick={this.props.onClickMenuIcon}
+              />
               <TopAppBarTitle>
                 {links}
               </TopAppBarTitle>

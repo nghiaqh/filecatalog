@@ -20,7 +20,7 @@ export default class NavigationDrawer extends PureComponent {
 
   render() {
     return (
-      <StyledDrawer persistent open={this.props.persistentOpen === undefined ? true : this.props.persistentOpen}>
+      <StyledDrawer temporary open={this.props.open} onClose={this.props.onClose}>
           <DrawerContent>
             <NavLink to="/mangas">
               <ListItem>
@@ -47,12 +47,11 @@ const StyledDrawer = styled(Drawer)`
   height: 100%;
   flex-shrink: 0;
 
-  &.mdc-drawer--persistent.mdc-drawer--open,
-  &.mdc-drawer--persistent .mdc-drawer__drawer {
+  & .mdc-drawer__drawer {
     background-color: var(--mdc-theme-surface);
   }
 
-  &.mdc-drawer--persistent .mdc-drawer__drawer {
+  & .mdc-drawer__drawer {
     position: fixed;
   }
 

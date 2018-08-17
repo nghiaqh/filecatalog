@@ -1,4 +1,3 @@
-import { normalize, schema } from 'normalizr';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router';
@@ -21,7 +20,6 @@ module.exports = (app) => {
       .then(state => renderPage(req, res, state));
   });
   app.get('/mangas/:id', (req, res) => {
-    // renderPage(req, res, {});
     preloadManga(Manga, parseInt(req.params.id), Page)
       .then(state => renderPage(req, res, state));
   });
@@ -37,9 +35,12 @@ module.exports = (app) => {
 
 function renderPage(req, res, preloadedState) {
   const middleware = [ thunk ];
-  let store = createStore(rootReducer, preloadedState, applyMiddleware(...middleware));
-  const finalState = store.getState();
-  store = createStore(rootReducer, applyMiddleware(...middleware));
+  const finalState = createStore(
+    rootReducer,
+    preloadedState,
+    applyMiddleware(...middleware))
+    .getState();
+  const store = createStore(rootReducer, applyMiddleware(...middleware));
 
   const context = {};
   let application = renderToString(
@@ -105,7 +106,6 @@ async function preloadAuthor(Author, id, Manga) {
   };
 }
 
-
 async function getFirstPage(Model, pageSize, filter, order, include) {
   const list = {
     display: {
@@ -126,7 +126,7 @@ async function getFirstPage(Model, pageSize, filter, order, include) {
   };
 
   list.paginator.total = await Model.count(filter);
-  console.log(Model.name, filter, list.paginator.total);
+
   const result = await Model.find({
     where: filter,
     limit: pageSize,

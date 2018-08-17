@@ -42,5 +42,5 @@ boot(app, __dirname, function(err) {
   app.start();
 });
 
-const ReactRoutes = require('./react-routes');
-ReactRoutes(app);
+const ServerRender = require('./server-render');
+ServerRender(app);

@@ -4,7 +4,7 @@ import { Button } from 'rmwc/Button';
 import { connect } from 'react-redux';
 import { fetchPagesIfNeeded, fetchPages, changeDisplay } from './actions';
 import { ElevatedPaginatorControl } from '../../molecules/PaginatorControl';
-import ContentGrid from '../ContentGrid';
+import { ContentGrid } from '../ContentGrid/';
 import PageCard from '../../molecules/PageCard';
 import Page from '../../molecules/Page';
 

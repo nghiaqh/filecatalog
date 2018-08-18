@@ -1,2 +1,2 @@
 export * from './reducers';
-export * from './WithLoadMore';
+export { default as WithLoadMore } from './WithLoadMore';

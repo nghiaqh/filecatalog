@@ -1,49 +1,71 @@
-/*
- * action types
- */
-export const REQUEST_AUTHORS = 'REQUEST_AUTHORS';
-export const RECEIVE_AUTHORS = 'RECEIVE_AUTHORS';
-export const REQUEST_AUTHOR_NUMBER = 'REQUEST_AUTHOR_NUMBER'
-export const RECEIVE_AUTHOR_NUMBER = 'RECEIVE_AUTHOR_NUMBER';
+import { normalize, schema } from 'normalizr';
 
-/*
- * Sync action creators
- */
-export const requestAuthors = (pageSize, pageNumber, filter, order) => ({
-  type: REQUEST_AUTHORS,
-  pageSize,
-  pageNumber,
-  filter,
-  order
-});
+const REQUEST_AUTHORS = 'REQUEST_AUTHORS';
+const RECEIVE_AUTHORS = 'RECEIVE_AUTHORS';
+const REQUEST_AUTHOR_NUMBER = 'REQUEST_AUTHOR_NUMBER'
+const RECEIVE_AUTHOR_NUMBER = 'RECEIVE_AUTHOR_NUMBER';
 
-export const receiveAuthors = (json) => ({
-  type: RECEIVE_AUTHORS,
-  authors: json,
-  receivedAt: Date.now()
-});
+function requestAuthors(id, pageSize, pageNumber, filter, order) {
+  return {
+    type: REQUEST_AUTHORS,
+    id,
+    pageSize,
+    pageNumber,
+    filter,
+    order
+  };
+}
 
-export const requestAuthorNumber = (filter) => ({
-  type: REQUEST_AUTHOR_NUMBER,
-  filter: filter
-});
+function receiveAuthors(id, json) {
+  const data = normalizeData(json);
+  return {
+    type: RECEIVE_AUTHORS,
+    id,
+    items: data.result,
+    entities: data.entities,
+    receivedAt: Date.now()
+  };
+}
 
-export const receiveAuthorNumber = (json) => ({
-  type: RECEIVE_AUTHOR_NUMBER,
-  total: json.count,
-  receivedAt: Date.now()
-});
+function requestAuthorNumber(id, filter) {
+  return {
+    type: REQUEST_AUTHOR_NUMBER,
+    id,
+    filter
+  };
+}
+
+function receiveAuthorNumber(id, json) {
+  return {
+    type: RECEIVE_AUTHOR_NUMBER,
+    id,
+    total: json.count,
+    receivedAt: Date.now()
+  };
+}
+
+function normalizeData(json) {
+  const author = new schema.Entity('authors');
+  return normalize(json, [author]);
+}
 
 /**
  * Request a list of authors
+ * @param {String} id
  * @param {Integer} pageSize number of items per page
  * @param {Integer} pageNumber
- * @param {Object} filter { name: x } if defined, we will request only authors with name contains string x
+ * @param {Object} filter { name: x }
  * @param {String} order mysql order input
  */
-export const fetchAuthors = (pageSize = 12, pageNumber = 1, filter = {}, order = 'name') => {
+function fetchAuthors(
+  id,
+  pageSize = 12,
+  pageNumber = 1,
+  filter = {},
+  order = 'name'
+) {
   return (dispatch) => {
-    dispatch(requestAuthors(pageSize, pageNumber, filter, order));
+    dispatch(requestAuthors(id, pageSize, pageNumber, filter, order));
     const { name } = filter;
 
     const where = {};
@@ -63,17 +85,18 @@ export const fetchAuthors = (pageSize = 12, pageNumber = 1, filter = {}, order =
 
     return fetch(`/api/authors?filter=${JSON.stringify(filterObj)}`)
       .then(res => res.json())
-      .then(json => dispatch(receiveAuthors(json)));
+      .then(json => dispatch(receiveAuthors(id, json)));
   };
-};
+}
 
 /**
  * Request total number of authors
- * @param {filter} { name: x } if defined, we will request only authors with name contains string x
+ * @param {String} id
+ * @param {filter} { name: x }
  */
-export const countAuthors = (filter = {}) => {
+function countAuthors(id, filter = {}) {
   return (dispatch) => {
-    dispatch(requestAuthorNumber(filter));
+    dispatch(requestAuthorNumber(id, filter));
 
     const { name } = filter;
     const where = {};
@@ -86,22 +109,44 @@ export const countAuthors = (filter = {}) => {
 
     return fetch(`/api/authors/count?where=${JSON.stringify(where)}`)
       .then(res => res.json())
-      .then(json => dispatch(receiveAuthorNumber(json)));
+      .then(json => dispatch(receiveAuthorNumber(id, json)));
   };
-};
+}
 
 /**
- * Use to determine if we need to call authors api again, using stored state
+ *
+ * @param {String} id
+ * @param {Integer} pageSize
+ * @param {Integer} pageNumber
+ * @param {Object} filter
  */
-export const fetchAuthorsIfNeeded = (pageSize, pageNumber, filter) => {
+function loadMoreAuthors(
+  id,
+  pageSize = 12,
+  pageNumber = 1,
+  filter = {},
+  order = 'name'
+) {
   return (dispatch, getState) => {
-    const { authorList } = getState();
-    const currentFilter = authorList.paginator.filter;
-    if (typeof currentFilter.name === 'undefined') currentFilter.name = '';
-    if (authorList.paginator.receivedItemsAt === null ||
-      filter.name !== currentFilter.name) {
-      dispatch(countAuthors(filter));
-      dispatch(fetchAuthors(pageSize, pageNumber, filter));
+    const { withLoadMore } = getState();
+    const data = withLoadMore[id];
+    if (
+      typeof data !== 'undefined'
+      && data.filter.name === filter.name
+      && data.pageNumber >= pageNumber
+    ) {
+      return;
     }
-  }
+
+    dispatch(countAuthors(id, filter));
+    dispatch(fetchAuthors(id, pageSize, pageNumber, filter, order));
+  };
+}
+
+export {
+  REQUEST_AUTHORS,
+  RECEIVE_AUTHORS,
+  REQUEST_AUTHOR_NUMBER,
+  RECEIVE_AUTHOR_NUMBER,
+  loadMoreAuthors
 }

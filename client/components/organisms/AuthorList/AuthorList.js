@@ -1,65 +1,59 @@
 import React, { PureComponent } from 'react';
-import styled from 'react-emotion';
 import { connect } from 'react-redux';
-import { fetchAuthorsIfNeeded, fetchAuthors } from './actions';
-import { ElevatedPaginatorControl } from '../../molecules/PaginatorControl';
-import ContentList from '../ContentList';
+import styled from 'react-emotion';
+
 import AuthorListItem from '../../molecules/AuthorListItem';
+import ContentList from '../ContentList';
+import { WithLoadMore } from '../WithLoadMore';
+import { loadMoreAuthors } from './actions';
 
 // component
 export class AuthorList extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      pcEvation: 24
-    };
+
     this.renderListItem = this.renderListItem.bind(this);
-    this.handlePagination = this.handlePagination.bind(this);
-    this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.renderList = this.renderList.bind(this);
+    this.loadMore = this.loadMore.bind(this);
     this.handleClick = this.handleClick.bind(this);
-    this.updatePaginatorControlState = this.updatePaginatorControlState.bind(this);
+    this.id = 'author-list-' + props.uid;
   }
 
   render() {
+    const { withLoadMore, entities } = this.props;
+    const data = withLoadMore[this.id] || {
+      items: [],
+      pageNumber: 1,
+      pageSize: 20,
+      total: 0
+    };
+    const { items, pageNumber, total, pageSize } = data;
+    const authors = Array.isArray(items) ? items.map(i => entities.authors[i]) : [];
+    const totalPages = Math.ceil(total / pageSize);
     return (
-      <StyledAuthorList>
-        <ContentList
-          id="main"
-          items={this.props.authors}
-          render={this.renderListItem}
-        />
-
-        <ElevatedPaginatorControl
-          z={this.state.pcEvation}
-          handlePagination={this.handlePagination}
-          pageNumber={this.props.pageNumber}
-          totalPages={this.props.totalPages}
-        />
-      </StyledAuthorList>
+      <WithLoadMore
+        items={authors}
+        render={this.renderList}
+        loadMore={this.loadMore}
+        totalPages={totalPages || 1}
+        pageNumber={pageNumber || 1}
+      />
     );
   }
 
   componentDidMount() {
-    let { dispatch, filter, searchText } = this.props;
-    filter = { name: searchText };
-    dispatch(fetchAuthorsIfNeeded(20, 1, filter));
-    document.addEventListener('keydown', this.handleKeyDown);
-    this.updatePaginatorControlState();
-    window.addEventListener('scroll', this.updatePaginatorControlState);
+    const { dispatch, searchText } = this.props;
+    const filter = { name: searchText };
+    dispatch(loadMoreAuthors(this.id, 20, 1, filter));
   }
 
   componentDidUpdate(prevProps) {
-    const { dispatch, searchText, pageSize } = this.props;
-
+    const { dispatch, searchText, withLoadMore } = this.props;
     if (searchText !== prevProps.searchText) {
       const filter = { name: searchText };
-      dispatch(fetchAuthorsIfNeeded(pageSize, 1, filter));
+      const { pageSize } = withLoadMore[this.id];
+      dispatch(loadMoreAuthors(this.id, pageSize, 1, filter));
     }
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('keydown', this.handleKeyDown);
-    window.removeEventListener('scroll', this.updatePaginatorControlState);
   }
 
   renderListItem(item) {
@@ -73,10 +67,21 @@ export class AuthorList extends PureComponent {
     );
   }
 
-  handlePagination(pageNumber) {
-    const { dispatch, filter, pageSize, totalPages } = this.props;
-    if (pageNumber !== this.props.pageNumber && pageNumber <= totalPages && pageNumber) {
-      dispatch(fetchAuthors(pageSize, pageNumber, filter));
+  renderList(items) {
+    return (
+      <StyledAuthorList
+        items={items}
+        render={this.renderListItem}
+      />
+    )
+  }
+
+  loadMore(number) {
+    const { dispatch, withLoadMore } = this.props;
+    const { pageNumber, total, pageSize, filter } = withLoadMore[this.id];
+    const totalPages = Math.ceil(total / pageSize);
+    if (number && number !== pageNumber && number <= totalPages) {
+      dispatch(loadMoreAuthors(this.id, pageSize, number, filter));
     }
   }
 
@@ -84,52 +89,19 @@ export class AuthorList extends PureComponent {
     const target = `/authors/${author.id}`;
     this.props.history.push(target);
   }
-
-  handleKeyDown(e) {
-    const {pageNumber, totalPages} = this.props;
-    switch (e.key) {
-      case 'ArrowLeft':
-        e.preventDefault();
-        return this.handlePagination(pageNumber - 1);
-      case 'ArrowRight':
-        e.preventDefault();
-        return this.handlePagination(pageNumber + 1);
-      default:
-        return;
-    }
-  }
-
-  updatePaginatorControlState() {
-    const el = document.getElementById('main');
-    if (!el) return;
-    const pageHeight = window.innerHeight;
-    const { bottom } = el.getClientRects()[0];
-    const x = pageHeight - bottom;
-    if (x >= 0 && this.state.pcEvation) {
-      this.setState({pcEvation: 0});
-    } else if (x < 0 && this.state.pcEvation === 0) {
-      this.setState({pcEvation: 24});
-    }
-  }
 }
 
-const StyledAuthorList = styled('section')`
+const StyledAuthorList = styled(ContentList)`
   position: relative;
 `;
 
 // container
 const mapStateToProps = (state) => {
-  const { paginator } = state.authorList;
-  const { authors } = state;
-  const total = parseInt(paginator.total);
-  const pageSize = parseInt(paginator.pageSize);
+  const { withLoadMore, entities } = state;
+
   return {
-    authors: paginator.items.map(index => authors[index]),
-    total: total,
-    totalPages: Math.ceil(total / pageSize),
-    pageNumber: paginator.pageNumber,
-    pageSize: pageSize,
-    filter: paginator.filter
+    withLoadMore,
+    entities
   };
 };
 

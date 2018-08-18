@@ -18,6 +18,7 @@ export default class AuthorHub extends PureComponent {
         <SearchBox onSearch={this.handleSearch} />
         <br/>
         <AuthorList
+          uid={'author-hub'}
           searchText={this.state.searchText}
           history={this.props.history}
         />

@@ -41,6 +41,7 @@
     "rmwc": "^1.8.1",
     "serve-favicon": "^2.0.1",
     "strong-error-handler": "^2.0.0",
+    "uuid": "^3.3.2",
     "winston": "^3.0.0"
   },
   "devDependencies": {

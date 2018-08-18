@@ -18,6 +18,7 @@ export default class MangaHub extends PureComponent {
         <SearchBox onSearch={this.handleSearch} />
         <br/>
         <MangaList
+          uid='manga-hub'
           searchText={this.state.searchText}
           history={this.props.history}
         />

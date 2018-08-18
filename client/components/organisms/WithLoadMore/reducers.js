@@ -1,4 +1,4 @@
-import { normalize, schema } from 'normalizr';
+import merge from 'lodash/merge';
 
 const initialState = {
   entities: {},
@@ -32,18 +32,19 @@ const onDataRequested = (state, action) => {
 
 const onDataReceived = (state, action) => {
   const { id, items, receivedAt, entities } = action;
+  const prevItems = state.withLoadMore[id].items || [];
   return {
     ...state,
     withLoadMore: {
       ...state.withLoadMore,
       [id]: {
         ...state.withLoadMore[id],
-        items: items,
+        items: prevItems.concat(items),
         retrievingItems: false,
         receivedItemsAt: receivedAt
       }
     },
-    entities: Object.assign({}, state.entities, entities)
+    entities: merge(state.entities, entities)
   };
 };
 

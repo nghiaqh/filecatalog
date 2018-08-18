@@ -22,13 +22,16 @@ export class AuthorDetail extends PureComponent {
   render() {
     const authorId = parseInt(this.props.match.params.authorId);
     const authors = this.props.authors;
+    const mangaListUid = `author-${authorId}`;
 
     if (typeof authors[authorId] !== 'undefined' &&
       typeof authors[authorId].id !== 'undefined') {
       return (
         <StyledSection>
           <SearchBox onSearch={this.handleSearch} />
-          <MangaList authorId={authorId}
+          <MangaList
+            uid={mangaListUid}
+            authorId={authorId}
             history={this.props.history}
             searchText={this.state.searchText}
           />

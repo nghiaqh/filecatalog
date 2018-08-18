@@ -1,2 +1,2 @@
 export * from './reducers';
-export * from './MangaList';
+export * from './WithLoadMore';

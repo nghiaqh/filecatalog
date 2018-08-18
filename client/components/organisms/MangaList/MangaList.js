@@ -1,65 +1,79 @@
 import React, { PureComponent } from 'react';
-import styled from 'react-emotion';
 import { connect } from 'react-redux';
-import { fetchMangasIfNeeded, fetchMangas } from './actions';
-import { ElevatedPaginatorControl } from '../../molecules/PaginatorControl';
-import { ContentGrid } from '../ContentGrid/';
+import styled from 'react-emotion';
+
 import MangaCard from '../../molecules/MangaCard';
+import { WithLoadMore } from '../WithLoadMore';
+import { ContentGrid } from '../ContentGrid';
+import { loadMoreMangas } from './actions';
+
 
 // component
 export class MangaList extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      pcEvation: 24
-    };
+
     this.renderCard = this.renderCard.bind(this);
-    this.handlePagination = this.handlePagination.bind(this);
-    this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.renderGrid = this.renderGrid.bind(this);
+    this.loadMore = this.loadMore.bind(this);
     this.handleClick = this.handleClick.bind(this);
-    this.updatePaginatorControlState = this.updatePaginatorControlState.bind(this);
+    this.handleScroll = this.handleScroll.bind(this);
+    this.id = 'manga-list-' + props.uid;
   }
 
   render() {
+    const { withLoadMore, entities } = this.props;
+    const data = withLoadMore[this.id] || {
+      items: [],
+      pageNumber: 1,
+      pageSize: 20,
+      total: 0
+    };
+    const { items, pageNumber, total, pageSize } = data;
+    const mangas = Array.isArray(items) ? items.map(i => entities.mangas[i]) : [];
+    const totalPages = Math.ceil(total / pageSize);
     return (
-      <StyledMangaList>
-        <ContentGrid
-          id="main"
-          items={this.props.mangas}
-          render={this.renderCard}
-        />
-
-        <ElevatedPaginatorControl
-          z={this.state.pcEvation}
-          handlePagination={this.handlePagination}
-          pageNumber={this.props.pageNumber}
-          totalPages={this.props.totalPages}
-        />
-      </StyledMangaList>
+      <WithLoadMore
+        items={mangas}
+        render={this.renderGrid}
+        loadMore={this.loadMore}
+        totalPages={totalPages || 1}
+        pageNumber={pageNumber || 1}
+      />
     );
   }
 
   componentDidMount() {
-    let { dispatch, filter, searchText, authorId } = this.props;
-    filter = { title: searchText, authorId: authorId };
-    dispatch(fetchMangasIfNeeded(20, 1, filter));
-    document.addEventListener('keydown', this.handleKeyDown);
-    this.updatePaginatorControlState();
-    window.addEventListener('scroll', this.updatePaginatorControlState);
+    const { dispatch, searchText, authorId } = this.props;
+    const filter = {
+      title: searchText,
+      authorId: authorId
+    };
+
+    dispatch(loadMoreMangas(this.id, 20, 1, filter));
+    window.addEventListener('scroll', this.handleScroll);
   }
 
   componentDidUpdate(prevProps) {
-    const { dispatch, searchText, pageSize, authorId } = this.props;
+    const {
+      dispatch,
+      searchText,
+      authorId,
+      withLoadMore
+    } = this.props;
 
-    if (searchText !== prevProps.searchText || authorId !== prevProps.authorId) {
+    if (
+      searchText !== prevProps.searchText ||
+      authorId !== prevProps.authorId
+    ) {
       const filter = { title: searchText, authorId: authorId };
-      dispatch(fetchMangasIfNeeded(pageSize, 1, filter));
+      const { pageSize } = withLoadMore[this.id];
+      dispatch(loadMoreMangas(this.id, pageSize, 1, filter));
     }
   }
 
   componentWillUnmount() {
-    document.removeEventListener('keydown', this.handleKeyDown);
-    window.removeEventListener('scroll', this.updatePaginatorControlState);
+    window.removeEventListener('scroll', this.handleScroll);
   }
 
   renderCard(item) {
@@ -72,10 +86,21 @@ export class MangaList extends PureComponent {
     );
   }
 
-  handlePagination(pageNumber) {
-    const { dispatch, pageSize, totalPages, filter } = this.props;
-    if (pageNumber !== this.props.pageNumber && pageNumber <= totalPages && pageNumber) {
-      dispatch(fetchMangas(pageSize, pageNumber, filter));
+  renderGrid(items) {
+    return (
+      <StyledMangaList
+        items={items}
+        render={this.renderCard}
+      />
+    )
+  }
+
+  loadMore(number) {
+    const { dispatch, withLoadMore } = this.props;
+    const { pageNumber, total, pageSize, filter } = withLoadMore[this.id];
+    const totalPages = Math.ceil(total / pageSize);
+    if (number && number !== pageNumber && number <= totalPages) {
+      dispatch(loadMoreMangas(this.id, pageSize, number, filter));
     }
   }
 
@@ -84,51 +109,22 @@ export class MangaList extends PureComponent {
     this.props.history.push(target);
   }
 
-  handleKeyDown(e) {
-    const {pageNumber, totalPages} = this.props;
-    switch (e.keyCode) {
-      case 37:
-        e.preventDefault();
-        return this.handlePagination(pageNumber - 1);
-      case 39:
-        e.preventDefault();
-        return this.handlePagination(pageNumber + 1);
-      default:
-        return;
-    }
-  }
+  handleScroll() {
 
-  updatePaginatorControlState() {
-    const el = document.getElementById('main');
-    if (!el) return;
-    const pageHeight = window.innerHeight;
-    const { bottom } = el.getClientRects()[0];
-    const x = pageHeight - bottom;
-    if (x >= 0 && this.state.pcEvation) {
-      this.setState({pcEvation: 0});
-    } else if (x < 0 && this.state.pcEvation === 0) {
-      this.setState({pcEvation: 24});
-    }
   }
 }
 
-const StyledMangaList = styled('section')`
+const StyledMangaList = styled(ContentGrid)`
   position: relative;
 `;
 
 // container
 const mapStateToProps = (state) => {
-  const { paginator } = state.mangaList;
-  const { mangas } = state;
-  const total = parseInt(paginator.total);
-  const pageSize = parseInt(paginator.pageSize);
+  const { withLoadMore, entities } = state;
+
   return {
-    mangas: paginator.items.map(index => mangas[index]),
-    total: total,
-    totalPages: Math.ceil(total / pageSize),
-    pageNumber: paginator.pageNumber,
-    pageSize: pageSize,
-    filter: paginator.filter
+    withLoadMore,
+    entities
   };
 };
 

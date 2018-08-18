@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
-import { connect } from 'react-redux';
 import { Button } from 'rmwc/Button';
+import styled from 'react-emotion';
 
 export class WithLoadMore extends PureComponent {
   constructor(props) {
@@ -9,22 +9,24 @@ export class WithLoadMore extends PureComponent {
   }
 
   render() {
-    const total = parseInt(this.props.totalPages);
-    const current = parseInt(this.props.pageNumber);
-    const disabled = current === total ? { disabled: true } : null;
+    const { totalPages, pageNumber, items, render } = this.props;
+    const content = render(items);
+    const hideButton = totalPages === pageNumber;
+    const pageIndex = parseInt(pageNumber) + 1;
 
     return (
       <React.Fragment>
-        {this.props.render}
+        {content}
 
-        <Button
-          dense
-          {...disabled}
-          page-index={current + 1}
-          onClick={this.handleClick}
-        >
-          Load More
-        </Button>
+        {hideButton ? '' :
+        <StyledButton
+            dense outlined
+            page-index={pageIndex}
+            onClick={this.handleClick}
+          >
+            Load More
+          </StyledButton>
+        }
       </React.Fragment>
     );
   }
@@ -35,3 +37,8 @@ export class WithLoadMore extends PureComponent {
     this.props.loadMore(i);
   }
 }
+
+const StyledButton = styled(Button)`
+  display: block;
+  margin: 10px auto;
+`

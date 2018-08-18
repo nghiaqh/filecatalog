@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from './reducers';
 import App from './App';
 import '../node_modules/material-components-web/dist/material-components-web.min.css';
@@ -15,7 +16,12 @@ const preloadedState = window.__PRELOADED_STATE__;
 delete window.__PRELOADED_STATE__;
 
 const middleware = [ thunk ];
-const store = createStore(rootReducer, preloadedState, applyMiddleware(...middleware));
+const store = createStore(
+  rootReducer,
+  preloadedState,
+  composeWithDevTools(applyMiddleware(...middleware))
+);
+
 if (module.hot) {
   // Enable Webpack hot module replacement for reducers
   module.hot.accept('./reducers', () => {

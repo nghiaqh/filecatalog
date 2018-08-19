@@ -8,6 +8,7 @@ import styled from 'react-emotion';
 class WithPagination extends PureComponent {
   constructor(props) {
     super(props);
+    this.renderPaginationControl = this.renderPaginationControl.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
     this.loadPagination = this.loadPagination.bind(this);
@@ -16,52 +17,19 @@ class WithPagination extends PureComponent {
 
   render() {
     const { withPagination, entities, id, render, entityType } = this.props;
-    const data = withPagination[id] || {
-      items: [],
-      pageNumber: 1,
-      pageSize: 20,
-      total: 0
-    };
-    const { items, pageNumber, total, pageSize } = data;
+    const data = withPagination[id] || { items: [] };
+    const { items } = data;
 
     const contents = Array.isArray(items)
       ? items.map(i => entities[entityType][i])
       : [];
-    const dom = render(contents);
-
-    const totalPages = Math.ceil(total / pageSize);
-    const current = parseInt(pageNumber);
-    let i = 0;
-    const options = Array(total).fill('').map(n => ({
-      label: ++i, value: i
-    }));
-
-    const prevDisabled = current === 1 ? { disabled: true } : null;
-    const nextDisabled = current === totalPages ? { disabled: true } : null;
+    const content = render(contents);
+    const control = this.renderPaginationControl();
 
     return (
       <React.Fragment>
-        {dom}
-
-        { total <= 1 ? '' :
-        <PaginationControl>
-          <Button dense
-            {...prevDisabled}
-            page-index={current - 1}
-            onClick={this.handleClick}>
-            Prev
-          </Button>
-
-          <Select value={current} options={options} onChange={this.handleSelect}/>
-
-          <Button dense
-            {...nextDisabled}
-            page-index={current + 1}
-            onClick={this.handleClick}>
-            Next
-          </Button>
-        </PaginationControl>
-        }
+        {content}
+        {control}
       </React.Fragment>
     );
   }
@@ -85,6 +53,48 @@ class WithPagination extends PureComponent {
     ) return;
 
     dispatch(load(id, pageSize, pageNumber, filter));
+  }
+
+  renderPaginationControl() {
+    const { withPagination, id } = this.props;
+    const data = withPagination[id] || {
+      pageNumber: 1,
+      pageSize: 20,
+      total: 0
+    };
+    const { pageNumber, total, pageSize } = data;
+
+    let i = 0;
+    const options = Array(total).fill('').map(n => ({
+      label: ++i, value: i
+    }));
+
+    const totalPages = Math.ceil(total / pageSize);
+    const current = parseInt(pageNumber);
+    const prevDisabled = current === 1 ? { disabled: true } : null;
+    const nextDisabled = current === totalPages ? { disabled: true } : null;
+
+    if (total <= 1) return null;
+
+    return (
+      <PaginationControl>
+        <Button dense
+          {...prevDisabled}
+          page-index={current - 1}
+          onClick={this.handleClick}>
+          Prev
+        </Button>
+
+        <Select value={current} options={options} onChange={this.handleSelect}/>
+
+        <Button dense
+          {...nextDisabled}
+          page-index={current + 1}
+          onClick={this.handleClick}>
+          Next
+        </Button>
+      </PaginationControl>
+    )
   }
 
   handleClick(e) {

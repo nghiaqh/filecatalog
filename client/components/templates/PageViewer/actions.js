@@ -104,7 +104,7 @@ function countPages(id, filter = {}, reducer) {
   };
 }
 
-function loadMorePages(
+function paginatePages(
   id,
   pageSize = 12,
   pageNumber = 1,
@@ -112,17 +112,17 @@ function loadMorePages(
   order = 'number'
 ) {
   return (dispatch, getState) => {
-    const { withLoadMore } = getState();
-    const data = withLoadMore[id];
+    const { withPagination } = getState();
+    const data = withPagination[id];
     if (
       typeof data !== 'undefined'
       && data.filter.mangaId === filter.mangaId
-      && data.pageNumber >= pageNumber
+      && data.pageNumber === pageNumber
     ) {
       return;
     }
 
-    const reducer = 'WITH_LOAD_MORE';
+    const reducer = 'WITH_PAGINATION';
     dispatch(countPages(id, filter, reducer));
     dispatch(fetchPages(id, pageSize, pageNumber, filter, order, reducer));
   };
@@ -133,5 +133,5 @@ export {
   RECEIVE_PAGES,
   REQUEST_PAGE_NUMBER,
   RECEIVE_PAGE_NUMBER,
-  loadMorePages
+  paginatePages
 }

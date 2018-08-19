@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import { injectGlobal } from 'emotion';
-import styled from 'react-emotion';
 import { hot } from 'react-hot-loader';
 import { connect } from 'react-redux';
 import { ThemeProvider } from 'rmwc/Theme';
@@ -10,6 +9,7 @@ import { AuthorHub } from './components/templates/AuthorHub';
 import { AuthorDetail } from './components/templates/AuthorDetail';
 import { MangaHub } from './components/templates/MangaHub';
 import { MangaDetail } from './components/templates/MangaDetail';
+import { PageViewer } from './components/templates/PageViewer';
 import { TopAppBar, setBreadcrumb } from './components/organisms/TopAppBar';
 
 class App extends Component {
@@ -26,7 +26,7 @@ class App extends Component {
       <ThemeProvider options={this.props.theme}>
         <TopAppBar onClickMenuIcon={this.openDrawer} />
 
-        <FlexContainer>
+        <React.Fragment>
           <NavigationDrawer
             open={this.state.drawOpen}
             onClose={this.closeDrawer}
@@ -36,10 +36,11 @@ class App extends Component {
             <Route exact path='/' component={MangaHub}/>
             <Route exact path='/mangas' component={MangaHub}/>
             <Route exact path='/mangas/:mangaId' component={MangaDetail}/>
+            <Route exact path='/mangas/:mangaId/:pageNumber' component={PageViewer}/>
             <Route exact path='/authors' component={AuthorHub}/>
             <Route exact path='/authors/:authorId' component={AuthorDetail}/>
           </Switch>
-        </FlexContainer>
+        </React.Fragment>
       </ThemeProvider>
     );
   }
@@ -65,13 +66,6 @@ class App extends Component {
     this.setState({ drawOpen: false });
   }
 }
-
-const FlexContainer = styled('div')`
-  display: flex;
-  flex-direction: row;
-  align-items: stretch;
-  padding-bottom: 10px;
-`;
 
 injectGlobal`
   * {

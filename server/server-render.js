@@ -31,6 +31,10 @@ module.exports = (app) => {
     preloadAuthor(Author, parseInt(req.params.id), Manga)
       .then(state => renderPage(req, res, state));
   });
+  app.get('/mangas/:id/:pageNumber', (req, res) => {
+    preloadManga(Manga, parseInt(req.params.id), Page)
+      .then(state => renderPage(req, res, state));
+  });
 }
 
 function renderPage(req, res, preloadedState) {
@@ -70,8 +74,12 @@ async function preloadMangas(Manga) {
   const m = await getFirstPage(Manga, 20, {}, 'created DESC', 'author');
 
   return {
-    mangaList: m.list,
-    mangas: m.entities
+    withLoadMore: {
+      [`manga-list-manga-hub`]: m.list
+    },
+    entities: {
+      mangas: m.entities
+    }
   };
 }
 
@@ -80,9 +88,13 @@ async function preloadManga(Manga, id, Page) {
   const p = await getFirstPage(Page, 20, { mangaId: id }, 'title');
 
   return {
-    pageList: p.list,
-    pages: p.entities,
-    mangas: m.entities
+    withLoadMore: {
+      [`page-list-manga-${id}`]: p.list
+    },
+    entities: {
+      mangas: m.entities,
+      pages: p.entities
+    }
   };
 }
 
@@ -90,8 +102,12 @@ async function preloadAuthors(Author) {
   const a = await getFirstPage(Author, 20, {}, 'name');
 
   return {
-    authorList: a.list,
-    authors: a.entities,
+    withLoadMore: {
+      [`author-list-author-hub`]: a.list
+    },
+    entities: {
+      authors: a.entities,
+    }
   };
 }
 
@@ -100,32 +116,31 @@ async function preloadAuthor(Author, id, Manga) {
   const m = await getFirstPage(Manga, 20, { authorId: id }, 'created DESC', 'author');
 
   return {
-    mangaList: m.list,
-    authors: a.entities,
-    mangas: m.entities
+    withLoadMore: {
+      [`manga-list-author-${id}`]: m.list
+    },
+    entities: {
+      authors: a.entities,
+      mangas: m.entities
+    }
   };
 }
 
 async function getFirstPage(Model, pageSize, filter, order, include) {
   const list = {
-    display: {
-      type: 'grid'
-    },
-    paginator: {
-      items: [],
-      total: 0,
-      pageNumber: 1,
-      pageSize: pageSize,
-      order: order,
-      filter: filter,
-      retrievingItems: true,
-      retrievingTotal: true,
-      receivedItemsAt: new Date(),
-      receivedTotalAt: new Date(),
-    }
+    items: [],
+    total: 0,
+    pageNumber: 1,
+    pageSize: pageSize,
+    order: order,
+    filter: filter,
+    retrievingItems: true,
+    retrievingTotal: true,
+    receivedItemsAt: new Date(),
+    receivedTotalAt: new Date(),
   };
 
-  list.paginator.total = await Model.count(filter);
+  list.total = await Model.count(filter);
 
   const result = await Model.find({
     where: filter,
@@ -136,7 +151,7 @@ async function getFirstPage(Model, pageSize, filter, order, include) {
 
   const entities = {};
   result.forEach(item => {
-    list.paginator.items.push(item.id);
+    list.items.push(item.id);
     entities[item.id] = item;
   });
 

@@ -7,11 +7,14 @@ export default class Page extends PureComponent {
   }
 
   render() {
-    const { id, uri, number } = this.props.page;
+    const { id, uri, number } = this.props.page || {};
+    if (!id) {
+      return null;
+    }
 
     return (
       <Image
-        id={this.props.id}
+        id={id}
         className={this.props.className}
         src={uri}
         title={`Page ${number}`}
@@ -27,7 +30,7 @@ const Image = styled('img')`
   width: auto;
   max-width: 100%;
   height: auto;
-  max-height: 100%;
+  max-height: 100vh;
   display: block;
   margin: 0 auto;
   cursor: pointer;

@@ -99,7 +99,7 @@ const mapStateToProps = (state) => {
   const { breadcrumb } = state;
 
   return {
-    breadcrumb: state.breadcrumb
+    breadcrumb
   };
 };
 

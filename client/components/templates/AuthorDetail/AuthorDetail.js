@@ -57,7 +57,7 @@ const StyledSection = styled('section')`
 
 const mapStateToProps = (state) => {
   return {
-    authors: state.authors
+    authors: state.entities.authors || {}
   };
 };
 

@@ -26,9 +26,13 @@ const breadcrumbReducer = (prevState = {}, action) => {
       const nameOrTitle = type === 'mangas' ? 'title' : 'name';
 
       parts.forEach((item, index) => {
+        const text = index === 1 ? state.entities[type][id][nameOrTitle] : item;
+        const url = index === parts.length - 1
+          ? '#'
+          : `/${parts.slice(0, index + 1).join('/')}`;
         breadcrumb[index + 1] = {
-          text: index === 0 ? item : state[type][id][nameOrTitle],
-          url: index === 0 ? `/${item}` : '#'
+          text,
+          url
         };
       });
     }

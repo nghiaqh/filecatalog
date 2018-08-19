@@ -41,7 +41,7 @@ export const fetchAuthor = (id) => {
  */
 export const fetchAuthorIfNeeded = (id) => {
   return (dispatch, getState) => {
-    const { authors } = getState();
+    const { authors } = getState().entities;
     if (typeof authors === 'undefined' || typeof authors[id] === 'undefined') {
       dispatch(fetchAuthor(id));
     }

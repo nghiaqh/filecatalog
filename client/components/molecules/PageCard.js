@@ -16,7 +16,7 @@ const StyledCard = styled(Card)`
   width: calc(50% - 20px);
   min-width: 90px;
   max-width: 210px;
-  margin: 10px 10px 0 0;
+  margin: 10px 0 0 10px;
 
   .mdc-card__media {
     height: calc(50vw * 4 / 3);

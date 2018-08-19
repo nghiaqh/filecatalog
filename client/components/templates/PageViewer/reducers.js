@@ -11,11 +11,11 @@ import {
   onDataReceived,
   onTotalRequested,
   onTotalReceived
-} from '../WithLoadMore';
+} from '../../organisms/WithPagination';
 
-const pageListReducer = (prevState = {}, action) => {
+const pageViewerReducer = (prevState = {}, action) => {
   const state = Object.assign({}, initialState, prevState);
-  if (action.reducer !== 'WITH_LOAD_MORE') return state;
+  if (action.reducer !== 'WITH_PAGINATION') return state;
 
   switch (action.type) {
     case REQUEST_PAGES:
@@ -31,4 +31,6 @@ const pageListReducer = (prevState = {}, action) => {
   }
 };
 
-export default pageListReducer;
+export {
+  pageViewerReducer
+};

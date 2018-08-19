@@ -4,7 +4,9 @@ import {
 } from './actions';
 
 const initialState = {
-  authors: {}
+  entities: {
+    authors: {}
+  }
 };
 
 const authorDetailReducer = (prevState, action) => {
@@ -23,10 +25,13 @@ const handleRequestAuthorAction = (state, action) => {
   const { id } = action;
   return {
     ...state,
-    authors: {
-      ...state.authors,
-      [id]: {
-        retrieving: true
+    entities: {
+      ...state.entities,
+      authors: {
+        ...state.entities.authors,
+        [id]: {
+          retrieving: true
+        }
       }
     }
   };
@@ -40,9 +45,12 @@ const handleReceiveAuthorAction = (state, action) => {
 
   return {
     ...state,
-    authors: {
-      ...state.authors,
-      [id]: Object.assign({}, state.authors[id], author)
+    entities: {
+      ...state.entities,
+      authors: {
+        ...state.entities.authors,
+        [id]: Object.assign({}, state.entities.authors[id], author)
+      }
     }
   }
 }

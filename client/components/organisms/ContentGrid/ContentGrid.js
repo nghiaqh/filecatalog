@@ -4,6 +4,7 @@ import styled from 'react-emotion';
 const StyledGrid = styled('section')`
   display: flex;
   flex-flow: row wrap;
+  width: 100%;
 `;
 
 export default class ContentGrid extends PureComponent {

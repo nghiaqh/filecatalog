@@ -1,17 +1,21 @@
 import React, { PureComponent } from 'react';
 import styled from 'react-emotion';
 import { connect } from 'react-redux';
+import { Grid, GridCell, GridInner } from 'rmwc/Grid';
+import SearchBox from '../../atoms/SearchBox';
+import { AuthorList } from '../../organisms/AuthorList';
 import { MangaList } from '../../organisms/MangaList';
 import { fetchAuthorIfNeeded } from './actions';
-import SearchBox from '../../atoms/SearchBox';
 
 export class AuthorDetail extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      searchText: ''
+      searchAuthor: '',
+      searchManga: '',
     };
-    this.handleSearch = this.handleSearch.bind(this);
+    this.searchAuthor = this.searchAuthor.bind(this);
+    this.searchManga = this.searchManga.bind(this);
   }
 
   componentDidMount() {
@@ -24,25 +28,46 @@ export class AuthorDetail extends PureComponent {
     const authors = this.props.authors;
     const mangaListUid = `author-${authorId}`;
 
-    if (typeof authors[authorId] !== 'undefined' &&
-      typeof authors[authorId].id !== 'undefined') {
+    if (
+      typeof authors[authorId] !== 'undefined'
+      && typeof authors[authorId].id !== 'undefined'
+    ) {
       return (
-        <StyledSection>
-          <SearchBox onSearch={this.handleSearch} />
-          <MangaList
-            uid={mangaListUid}
-            authorId={authorId}
-            history={this.props.history}
-            searchText={this.state.searchText}
-          />
-        </StyledSection>
+        <Grid>
+          <GridCell span="0" tablet="6" desktop="9">
+            <StyledSection>
+              <SearchBox onSearch={this.searchManga} />
+              <MangaList
+                uid={mangaListUid}
+                authorId={authorId}
+                history={this.props.history}
+                searchText={this.state.searchManga}
+              />
+            </StyledSection>
+          </GridCell>
+          <GridCell phone="0" tablet="2" desktop="3">
+            <StyledSection>
+              <SearchBox onSearch={this.searchAuthor} />
+              <br/>
+              <AuthorList
+                uid={'author-hub'}
+                searchText={this.state.searchAuthor}
+                history={this.props.history}
+              />
+            </StyledSection>
+          </GridCell>
+        </Grid>
       );
     }
     return null;
   }
 
-  handleSearch(text) {
-    this.setState({ searchText: text });
+  searchAuthor(text) {
+    this.setState({ searchAuthor: text });
+  }
+
+  searchManga(text) {
+    this.setState({ searchManga: text });
   }
 }
 

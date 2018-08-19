@@ -27,7 +27,14 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "manga": {
+      "type": "hasMany",
+      "model": "Manga",
+      "foreignKey": "authorId",
+      "through": ""
+    }
+  },
   "acls": [],
   "methods": {}
 }

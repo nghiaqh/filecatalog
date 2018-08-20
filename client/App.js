@@ -85,6 +85,12 @@ injectGlobal`
     white-space: nowrap;
     overflow: hidden;
     display: block;
+
+    &:hover {
+      text-overflow: unset;
+      width: fit-content;
+      white-space: normal;
+    }
   }
 
   a {

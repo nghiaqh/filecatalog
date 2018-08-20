@@ -31,7 +31,6 @@ const StyledCard = styled(Card)`
   }
   .tag-groups {
     position: absolute;
-    bottom: 73px;
     padding: 5px;
     width: 100%;
   }

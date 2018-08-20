@@ -11,14 +11,21 @@ class WithLoadMore extends PureComponent {
   }
 
   render() {
-    const { withLoadMore, entities, id, render, entityType } = this.props;
+    const {
+      withLoadMore,
+      entities,
+      id,
+      render,
+      entityType,
+      pageSize
+    } = this.props;
     const data = withLoadMore[id] || {
       items: [],
       pageNumber: 1,
       pageSize: 20,
       total: 0
     };
-    const { items, pageNumber, total, pageSize } = data;
+    const { items, pageNumber, total } = data;
 
     const contents = Array.isArray(items)
       ? items.map(i => entities[entityType][i])
@@ -42,16 +49,21 @@ class WithLoadMore extends PureComponent {
   }
 
   componentDidMount() {
-    const { dispatch, filter, loadMore, id } = this.props;
-    dispatch(loadMore(id, 20, 1, filter));
+    const { dispatch, filter, loadMore, id, pageSize } = this.props;
+    dispatch(loadMore(id, pageSize, 1, filter));
     // window.addEventListener('scroll', this.handleScroll);
   }
 
   componentDidUpdate(prevProps) {
-    const { dispatch, withLoadMore, filter, id, loadMore } = this.props;
+    const {
+      dispatch,
+      filter,
+      id,
+      loadMore,
+      pageSize
+    } = this.props;
     if (equal(filter, prevProps.filter)) return;
 
-    const { pageSize } = withLoadMore[id];
     dispatch(loadMore(id, pageSize, 1, filter));
   }
 

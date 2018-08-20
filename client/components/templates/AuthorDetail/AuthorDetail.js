@@ -79,6 +79,10 @@ const StyledDrawer = styled(Drawer)`
   height: calc(100vh - 64px);
   position: fixed;
   overflow-y: auto;
+
+  @media (max-width: 640px) {
+    display: none;
+  }
 `
 
 const StyledSection = styled('section')`
@@ -91,6 +95,11 @@ const StyledSection = styled('section')`
     margin-left: 240px;
     padding: 8px;
     max-width: calc(100% - 240px);
+
+    @media (max-width: 640px) {
+      margin-left: 0;
+      max-width: 100%;
+    }
   }
 `
 

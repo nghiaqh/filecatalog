@@ -9,8 +9,6 @@ module.exports = function(Series) {
       ctx.instance.created = created || now;
       ctx.instance.updated = now;
     } else {
-      let {created} = ctx.data;
-      ctx.data.created = created || now;
       ctx.data.updated = now;
     }
     next();

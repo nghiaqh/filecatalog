@@ -48,6 +48,7 @@ function scan(input) {
 // Return an array of Promises resolve [author, mangas, pages]
 async function createContent(folder, newOnly) {
   const mtime = fs.statSync(folder).mtime;
+  console.log('folder mtime: ', mtime);
   const images = findImages(folder);
 
   if (!images.length) return [];
@@ -77,8 +78,12 @@ async function createContent(folder, newOnly) {
     {title: bookTitle, authorId: author.id, created: mtime}
   );
   const manga = m[0];
-  const newManga = m[1];
-  manga.updateAttribute('coverPicture', images[0]);
+  const isNewManga = m[1];
+
+  if (manga.coverPicture !== images[0]) {
+    manga.updateAttribute('coverPicture', images[0]);
+  }
+
   manga.save();
 
   let promises = [
@@ -93,7 +98,7 @@ async function createContent(folder, newOnly) {
     }),
   ];
 
-  if (newOnly && !newManga) {
+  if (newOnly && !isNewManga) {
     return promises;
   }
 

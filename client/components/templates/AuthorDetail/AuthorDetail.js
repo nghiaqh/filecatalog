@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react';
 import styled from 'react-emotion';
 import { connect } from 'react-redux';
-import { Grid, GridCell, GridInner } from 'rmwc/Grid';
+import { Grid, GridCell } from 'rmwc/Grid';
+import { Drawer, DrawerContent } from 'rmwc/Drawer';
 import SearchBox from '../../atoms/SearchBox';
 import { AuthorList } from '../../organisms/AuthorList';
 import { MangaList } from '../../organisms/MangaList';
@@ -33,30 +34,33 @@ export class AuthorDetail extends PureComponent {
       && typeof authors[authorId].id !== 'undefined'
     ) {
       return (
-        <Grid>
-          <GridCell span="0" tablet="6" desktop="9">
-            <StyledSection>
-              <SearchBox onSearch={this.searchManga} />
-              <MangaList
-                uid={mangaListUid}
-                authorId={authorId}
-                history={this.props.history}
-                searchText={this.state.searchManga}
-              />
-            </StyledSection>
-          </GridCell>
-          <GridCell phone="0" tablet="2" desktop="3">
-            <StyledSection>
-              <SearchBox onSearch={this.searchAuthor} />
-              <br/>
-              <AuthorList
-                uid={'author-hub'}
-                searchText={this.state.searchAuthor}
-                history={this.props.history}
-              />
-            </StyledSection>
-          </GridCell>
-        </Grid>
+        <React.Fragment>
+
+          <StyledDrawer permanent>
+            <DrawerContent>
+              <StyledSection>
+                <SearchBox onSearch={this.searchAuthor} />
+                <br/>
+                <AuthorList
+                  uid={'author-hub'}
+                  searchText={this.state.searchAuthor}
+                  history={this.props.history}
+                />
+              </StyledSection>
+            </DrawerContent>
+          </StyledDrawer>
+
+          <StyledSection className='main-content'>
+            <SearchBox onSearch={this.searchManga} />
+            <MangaList
+              uid={mangaListUid}
+              authorId={authorId}
+              history={this.props.history}
+              searchText={this.state.searchManga}
+            />
+          </StyledSection>
+
+        </React.Fragment>
       );
     }
     return null;
@@ -71,12 +75,22 @@ export class AuthorDetail extends PureComponent {
   }
 }
 
-const StyledSection = styled('section')`
-  width: 100%;
+const StyledDrawer = styled(Drawer)`
+  height: calc(100vh - 64px);
+  position: fixed;
+  overflow-y: auto;
+`
 
+const StyledSection = styled('section')`
   .mdc-text-field {
     width: calc(100% - 20px);
     margin: 0 auto;
+  }
+
+  &.main-content {
+    margin-left: 240px;
+    padding: 8px;
+    max-width: calc(100% - 240px);
   }
 `
 

@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
 import styled from 'react-emotion';
 import {
   Card,
@@ -36,7 +37,7 @@ const StyledCard = styled(Card)`
   }
 `;
 
-export default class MangaCard extends PureComponent {
+export class MangaCard extends PureComponent {
   constructor(props) {
     super(props);
     this.viewManga = this.viewManga.bind(this);
@@ -47,7 +48,8 @@ export default class MangaCard extends PureComponent {
   }
 
   render() {
-    const { title, author, coverPicture, isNew } = this.props.manga;
+    const { title, coverPicture, isNew, authorId } = this.props.manga;
+    const author = this.props.authors[authorId] || {};
     const coverUrl = window.location.origin + encodeURI(coverPicture);
     return (
       <StyledCard>
@@ -83,3 +85,11 @@ export default class MangaCard extends PureComponent {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    authors: state.entities.authors || {}
+  };
+};
+
+export default connect(mapStateToProps)(MangaCard);

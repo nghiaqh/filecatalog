@@ -28,6 +28,7 @@ class AuthorList extends PureComponent {
         loadMore={loadMoreAuthors}
         id={this.id}
         filter={filter}
+        pageSize={20}
       />
     );
   }

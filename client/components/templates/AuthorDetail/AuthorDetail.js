@@ -44,6 +44,7 @@ export class AuthorDetail extends PureComponent {
                   uid={'author-hub'}
                   searchText={this.state.searchAuthor}
                   history={this.props.history}
+                  pageSize={20}
                 />
               </StyledSection>
             </DrawerContent>
@@ -56,6 +57,7 @@ export class AuthorDetail extends PureComponent {
               authorId={authorId}
               history={this.props.history}
               searchText={this.state.searchManga}
+              pageSize={20}
             />
           </StyledSection>
 

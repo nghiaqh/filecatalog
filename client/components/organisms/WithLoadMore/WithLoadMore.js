@@ -16,16 +16,15 @@ class WithLoadMore extends PureComponent {
       entities,
       id,
       render,
-      entityType,
-      pageSize
+      entityType
     } = this.props;
     const data = withLoadMore[id] || {
       items: [],
       pageNumber: 1,
-      pageSize: 20,
       total: 0
     };
     const { items, pageNumber, total } = data;
+    const pageSize = this.props.pageSize || 20;
 
     const contents = Array.isArray(items)
       ? items.map(i => entities[entityType][i])

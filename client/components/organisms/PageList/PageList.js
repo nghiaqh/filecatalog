@@ -1,5 +1,5 @@
+import equal from 'deep-equal';
 import React, { PureComponent } from 'react';
-import styled from 'react-emotion';
 
 import PageCard from '../../molecules/PageCard';
 import { ContentGrid } from '../ContentGrid';
@@ -10,7 +10,12 @@ import { loadMorePages } from './actions';
 export default class PageList extends PureComponent {
   constructor(props) {
     super(props);
-    this.id = 'page-list-' + props.uid;
+    this.state = {
+      id: 'page-list-' + props.uid,
+      filter: {
+        mangaId: props.manga.id
+      }
+    };
 
     this.renderCard = this.renderCard.bind(this);
     this.renderGrid = this.renderGrid.bind(this);
@@ -18,20 +23,28 @@ export default class PageList extends PureComponent {
   }
 
   render() {
-    const { manga } = this.props;
-    const filter = {
-      mangaId: manga.id
-    };
-
     return (
       <WithLoadMore
         entityType='pages'
         render={this.renderGrid}
         loadMore={loadMorePages}
-        id={this.id}
-        filter={filter}
+        id={this.state.id}
+        filter={this.state.filter}
+        pageSize={20}
       />
     );
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { uid, manga } = this.props;
+    const id = `page-list-${uid}`;
+    const filter = {
+      mangaId: manga.id
+    };
+
+    if (!equal(filter, prevState.filter) || id !== prevState.id) {
+      this.setState({ id, filter })
+    }
   }
 
   renderCard(item) {

@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import styled from 'react-emotion';
 import { connect } from 'react-redux';
-import { Grid, GridCell } from 'rmwc/Grid';
 import { Drawer, DrawerContent } from 'rmwc/Drawer';
 import SearchBox from '../../atoms/SearchBox';
 import { AuthorList } from '../../organisms/AuthorList';

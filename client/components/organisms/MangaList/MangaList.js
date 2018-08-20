@@ -45,7 +45,6 @@ class MangaList extends PureComponent {
       title: searchText,
       authorId: authorId
     };
-    const state = {}
 
     if (!equal(filter, prevState.filter) || id !== prevState.id) {
       this.setState({ id, filter })

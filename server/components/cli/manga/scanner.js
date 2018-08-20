@@ -48,7 +48,6 @@ function scan(input) {
 // Return an array of Promises resolve [author, mangas, pages]
 async function createContent(folder, newOnly) {
   const mtime = fs.statSync(folder).mtime;
-  console.log('folder mtime: ', mtime);
   const images = findImages(folder);
 
   if (!images.length) return [];

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
-import { injectGlobal } from 'emotion';
 import { hot } from 'react-hot-loader';
 import { connect } from 'react-redux';
 import { ThemeProvider } from 'rmwc/Theme';
@@ -11,6 +10,7 @@ import { MangaHub } from './components/templates/MangaHub';
 import { MangaDetail } from './components/templates/MangaDetail';
 import { PageViewer } from './components/templates/PageViewer';
 import { TopAppBar, setBreadcrumb } from './components/organisms/TopAppBar';
+import './Style';
 
 class App extends Component {
   constructor(props) {
@@ -66,41 +66,6 @@ class App extends Component {
     this.setState({ drawOpen: false });
   }
 }
-
-injectGlobal`
-  * {
-    box-sizing: border-box;
-  }
-
-  html, body {
-    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
-    -webkit-font-smoothing: antialiased;
-    font-size: 14px;
-    margin: 0;
-    overflow-x: hidden;
-  }
-
-  .ellipsis {
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-    display: block;
-
-    &:hover {
-      text-overflow: unset;
-      width: fit-content;
-      white-space: normal;
-    }
-  }
-
-  a {
-    text-decoration: none;
-  }
-
-  .mdc-button:not(:disabled) {
-    color: var(--mdc-theme-text-primary-on-background);
-  }
-`;
 
 // container
 const mapStateToProps = (state) => {

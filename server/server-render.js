@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import rootReducer from '../client/reducers';
 import ReactApp from '../client/App';
-import Html from '../client/components/templates/Html';
+import Html from './components/client/Html';
 
 module.exports = (app) => {
   const Author = app.models.Author;

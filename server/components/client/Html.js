@@ -1,4 +1,4 @@
-const Html = ({ body, title, preloadedState }) => `
+const Html = ({ body, title, preloadedState, css }) => `
   <!DOCTYPE html>
   <html lang="en">
 
@@ -9,6 +9,8 @@ const Html = ({ body, title, preloadedState }) => `
       <title>${title}</title>
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <link href="/public/material-components-web.min.css" rel="stylesheet">
+
+      ${css ? `<style>${css}</style>` : ''}
   </head>
 
   <body>

@@ -66,6 +66,7 @@ class MangaList extends PureComponent {
       <StyledMangaList
         items={items}
         render={this.renderCard}
+        colWidths={this.props.colWidths}
       />
     )
   }

@@ -3,27 +3,18 @@ import styled from 'react-emotion';
 import {
   Card,
   CardPrimaryAction,
-  CardMedia,
-  CardAction,
-  CardActions,
-  CardActionButtons,
-  CardActionIcons
+  CardMedia
 } from 'rmwc/Card';
 import { Typography } from 'rmwc/Typography';
-import { Icon } from 'rmwc/Icon';
 
 const StyledCard = styled(Card)`
-  width: calc(50% - 20px);
-  min-width: 90px;
-  max-width: 210px;
-  margin: 10px 0 0 10px;
+  margin: 5px auto;
 
   .mdc-card__media {
-    height: calc(50vw * 4 / 3);
-    min-height: 120px;
-    max-height: 280px;
+    padding-top: 130%;
     background-size: contain;
   }
+
   .manga-title {
     margin-bottom: 0;
     font-weight: 600;

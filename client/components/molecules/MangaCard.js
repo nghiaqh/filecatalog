@@ -14,21 +14,22 @@ import { Typography } from 'rmwc/Typography';
 import { Icon } from 'rmwc/Icon';
 
 const StyledCard = styled(Card)`
-  width: calc(50% - 20px);
-  min-width: 90px;
-  max-width: 210px;
-  margin: 10px 0 0 10px;
+  margin: 5px auto;
 
   .mdc-card__media {
-    height: calc((50vw - 20px) * 1.417);
-    min-height: 120px;
-    max-height: 280px;
+    padding-top: 130%;
     background-size: contain;
   }
+
+  .mdc-card__action-buttons+.mdc-card__action-icons {
+    margin-left: 0;
+  }
+
   .manga-title {
     margin-bottom: 0;
     font-weight: 600;
   }
+
   .tag-groups {
     position: absolute;
     padding: 5px;
@@ -57,6 +58,7 @@ export class MangaCard extends PureComponent {
             style={{
               backgroundImage: `url("${coverUrl}")`
             }}
+            title={title}
           />
           {isNew ?
             <div className="tag-groups">

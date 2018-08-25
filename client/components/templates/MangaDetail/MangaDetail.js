@@ -17,12 +17,19 @@ export class MangaDetail extends PureComponent {
   }
 
   render() {
-    const mangaId = parseInt(this.props.match.params.mangaId);
-    const mangas = this.props.mangas;
-    const pageListUid = `manga-${mangaId}`;
-    if (typeof mangas[mangaId] !== 'undefined' &&
-      typeof mangas[mangaId].id !== 'undefined') {
+    const { match, mangas, authors } = this.props;
+    const mangaId = parseInt(match.params.mangaId);
+
+    if (typeof mangas[mangaId] !== 'undefined') {
       const { authorId } = mangas[mangaId]
+      const pageListUid = `manga-${mangaId}`;
+      const author = authors[authorId];
+      const headline = `From ${author ? author.name : 'same author'}`;
+      const colWidths = {
+        tablet: '100px',
+        desktop: '100px'
+      };
+
       return (
         <React.Fragment>
           <PageList
@@ -31,11 +38,12 @@ export class MangaDetail extends PureComponent {
             history={this.props.history}
           />
           <StyledSection>
-            <Typography use="headline5">From same author</Typography>
+            <Typography use="headline5">{headline}</Typography>
             <MangaList
               uid={`author-${authorId}`}
               history={this.props.history}
               authorId={authorId}
+              colWidths={colWidths}
             />
           </StyledSection>
         </React.Fragment>
@@ -56,7 +64,8 @@ const StyledSection = styled('section')`
 
 const mapStateToProps = (state) => {
   return {
-    mangas: state.entities.mangas || {}
+    mangas: state.entities.mangas || {},
+    authors: state.entities.authors || {}
   };
 };
 

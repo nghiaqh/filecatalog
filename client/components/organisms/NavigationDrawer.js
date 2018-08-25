@@ -19,16 +19,18 @@ export default class NavigationDrawer extends PureComponent {
   }
 
   render() {
+    const { open, onClose } = this.props;
+
     return (
-      <StyledDrawer temporary open={this.props.open} onClose={this.props.onClose}>
+      <StyledDrawer temporary open={open} onClose={onClose}>
           <DrawerContent>
-            <NavLink to="/mangas">
+            <NavLink to="/mangas" onClick={onClose}>
               <ListItem>
                 <ListItemGraphic>photo_album</ListItemGraphic>
                 <ListItemText>Mangas</ListItemText>
               </ListItem>
             </NavLink>
-            <NavLink to="/authors">
+            <NavLink to="/authors" onClick={onClose}>
               <ListItem>
                 <ListItemGraphic>portrait</ListItemGraphic>
                 <ListItemText>Authors</ListItemText>

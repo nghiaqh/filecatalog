@@ -42,7 +42,7 @@ export class AuthorDetail extends PureComponent {
             <DrawerContent>
               <StyledSection>
                 <SearchBox onSearch={this.searchAuthor} />
-                <br/>
+
                 <AuthorList
                   uid={'author-hub'}
                   searchText={this.state.searchAuthor}

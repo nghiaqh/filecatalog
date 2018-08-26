@@ -21,7 +21,6 @@ class MangaList extends PureComponent {
     };
     this.renderCard = this.renderCard.bind(this);
     this.renderGrid = this.renderGrid.bind(this);
-    this.handleClick = this.handleClick.bind(this);
     this.id = 'manga-list-' + props.uid;
   }
 
@@ -56,7 +55,6 @@ class MangaList extends PureComponent {
       <MangaCard
         key={item.id}
         manga={item}
-        onItemClick={this.handleClick}
       />
     );
   }
@@ -69,11 +67,6 @@ class MangaList extends PureComponent {
         cols={this.props.cols}
       />
     )
-  }
-
-  handleClick(manga) {
-    const target = `/mangas/${manga.id}`;
-    this.props.history.push(target);
   }
 }
 

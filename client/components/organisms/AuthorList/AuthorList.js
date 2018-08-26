@@ -13,7 +13,6 @@ class AuthorList extends PureComponent {
 
     this.renderListItem = this.renderListItem.bind(this);
     this.renderList = this.renderList.bind(this);
-    this.handleClick = this.handleClick.bind(this);
     this.id = 'author-list-' + props.uid;
   }
 
@@ -28,7 +27,7 @@ class AuthorList extends PureComponent {
         loadMore={loadMoreAuthors}
         id={this.id}
         filter={filter}
-        pageSize={20}
+        pageSize={24}
       />
     );
   }
@@ -39,7 +38,6 @@ class AuthorList extends PureComponent {
         key={'author-' + item.id}
         key={item.id}
         author={item}
-        onItemClick={this.handleClick}
       />
     );
   }
@@ -51,11 +49,6 @@ class AuthorList extends PureComponent {
         render={this.renderListItem}
       />
     )
-  }
-
-  handleClick(author) {
-    const target = `/authors/${author.id}`;
-    this.props.history.push(target);
   }
 }
 

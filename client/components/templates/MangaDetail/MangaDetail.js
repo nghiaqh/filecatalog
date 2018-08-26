@@ -24,7 +24,7 @@ export class MangaDetail extends PureComponent {
       const { authorId } = mangas[mangaId]
       const pageListUid = `manga-${mangaId}`;
       const author = authors[authorId];
-      const headline = `From ${author ? author.name : 'same author'}`;
+      const headline = `Mangas by ${author ? author.name : 'same author'}`;
 
       return (
         <React.Fragment>

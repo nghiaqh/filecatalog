@@ -24,14 +24,17 @@ export class AuthorDetail extends PureComponent {
   }
 
   render() {
-    const authorId = parseInt(this.props.match.params.authorId);
-    const authors = this.props.authors;
+    const { match, mangas, authors } = this.props;
+    const authorId = parseInt(match.params.authorId);
     const mangaListUid = `author-${authorId}`;
 
-    if (
-      typeof authors[authorId] !== 'undefined'
-      && typeof authors[authorId].id !== 'undefined'
-    ) {
+    if (typeof authors[authorId] !== 'undefined') {
+      const cols = {
+        medium: 3,
+        large: 5,
+        xlarge: 10
+      };
+
       return (
         <React.Fragment>
 
@@ -44,7 +47,7 @@ export class AuthorDetail extends PureComponent {
                   uid={'author-hub'}
                   searchText={this.state.searchAuthor}
                   history={this.props.history}
-                  pageSize={20}
+                  pageSize={24}
                 />
               </StyledSection>
             </DrawerContent>
@@ -57,7 +60,8 @@ export class AuthorDetail extends PureComponent {
               authorId={authorId}
               history={this.props.history}
               searchText={this.state.searchManga}
-              pageSize={20}
+              pageSize={30}
+              cols={cols}
             />
           </StyledSection>
 
@@ -106,6 +110,7 @@ const StyledSection = styled('section')`
 
 const mapStateToProps = (state) => {
   return {
+    mangas: state.entities.mangas || {},
     authors: state.entities.authors || {}
   };
 };

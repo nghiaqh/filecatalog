@@ -25,10 +25,6 @@ export class MangaDetail extends PureComponent {
       const pageListUid = `manga-${mangaId}`;
       const author = authors[authorId];
       const headline = `From ${author ? author.name : 'same author'}`;
-      const colWidths = {
-        tablet: '100px',
-        desktop: '100px'
-      };
 
       return (
         <React.Fragment>
@@ -43,7 +39,6 @@ export class MangaDetail extends PureComponent {
               uid={`author-${authorId}`}
               history={this.props.history}
               authorId={authorId}
-              colWidths={colWidths}
             />
           </StyledSection>
         </React.Fragment>

@@ -85,7 +85,7 @@ async function preloadMangas(Manga) {
 
 async function preloadManga(Manga, id, Page) {
   const m = await getFirstPage(Manga, 1, { id: id });
-  const p = await getFirstPage(Page, 20, { mangaId: id }, 'title');
+  const p = await getFirstPage(Page, 24, { mangaId: id }, 'title');
 
   return {
     withLoadMore: {
@@ -99,7 +99,7 @@ async function preloadManga(Manga, id, Page) {
 }
 
 async function preloadAuthors(Author) {
-  const a = await getFirstPage(Author, 20, {}, 'name');
+  const a = await getFirstPage(Author, 24, {}, 'name');
 
   return {
     withLoadMore: {
@@ -113,7 +113,7 @@ async function preloadAuthors(Author) {
 
 async function preloadAuthor(Author, id, Manga) {
   const a = await getFirstPage(Author, 1, { id: id });
-  const m = await getFirstPage(Manga, 20, { authorId: id }, 'created DESC', 'author');
+  const m = await getFirstPage(Manga, 24, { authorId: id }, 'created DESC', 'author');
 
   return {
     withLoadMore: {

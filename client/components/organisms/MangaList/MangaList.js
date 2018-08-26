@@ -33,7 +33,7 @@ class MangaList extends PureComponent {
         loadMore={loadMoreMangas}
         id={this.state.id}
         filter={this.state.filter}
-        pageSize={20}
+        pageSize={24}
       />
     );
   }
@@ -66,7 +66,7 @@ class MangaList extends PureComponent {
       <StyledMangaList
         items={items}
         render={this.renderCard}
-        colWidths={this.props.colWidths}
+        cols={this.props.cols}
       />
     )
   }

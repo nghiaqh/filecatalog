@@ -30,7 +30,7 @@ export default class PageList extends PureComponent {
         loadMore={loadMorePages}
         id={this.state.id}
         filter={this.state.filter}
-        pageSize={20}
+        pageSize={24}
       />
     );
   }

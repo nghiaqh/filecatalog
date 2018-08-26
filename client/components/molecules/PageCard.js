@@ -28,8 +28,8 @@ export class PageCard extends PureComponent {
                 backgroundImage: `url("${imageUrl}")`
               }}
             />
-            <div style={{ padding: '8px' }}>
-              <Typography className="ellipsis" use="subtitle2">
+            <div style={{ padding: '5px 0' }}>
+              <Typography className="card-title ellipsis" use="subtitle2">
                 {number}
               </Typography>
             </div>
@@ -53,8 +53,7 @@ const StyledCard = styled(Card)(props => ({
   },
 
   '& .card-title': {
-    'marginBottom': 0,
-    'fontWeight': 600
+    textAlign: 'center'
   },
 
   '& .tag-groups': {
@@ -64,7 +63,7 @@ const StyledCard = styled(Card)(props => ({
   },
 
   a: {
-    color: props.theme.onSecondary,
+    color: props.theme.onSurface,
     textTransform: 'capitalise'
   }
 }));

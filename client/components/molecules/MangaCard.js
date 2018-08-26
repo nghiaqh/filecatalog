@@ -95,7 +95,7 @@ const StyledCard = styled(Card)(props => ({
   },
 
   a: {
-    color: props.theme.onSecondary,
+    color: props.theme.onSurface,
     textTransform: 'capitalise'
   }
 }));

@@ -14,35 +14,6 @@ import {
 import { Typography } from 'rmwc/Typography';
 import { Icon } from 'rmwc/Icon';
 
-const StyledCard = styled(Card)(props => ({
-  margin: '5px auto',
-
-  '& .mdc-card__media': {
-    paddingTop: '130%',
-    backgroundSize: 'contain'
-  },
-
-  '& .mdc-card__action-buttons+.mdc-card__action-icons': {
-    marginLeft: 0
-  },
-
-  '& .manga-title': {
-    'marginBottom': 0,
-    'fontWeight': 600
-  },
-
-  '& .tag-groups': {
-    position: 'absolute',
-    padding: '5px',
-    width: '100%'
-  },
-
-  a: {
-    color: props.theme.onSecondary,
-    textTransform: 'capitalise'
-  }
-}));
-
 export class MangaCard extends PureComponent {
   constructor(props) {
     super(props);
@@ -72,8 +43,8 @@ export class MangaCard extends PureComponent {
               </div>
             : ''}
 
-            <div style={{ padding: '0 1rem 0' }}>
-              <Typography className="manga-title ellipsis" use="subtitle1" tag="h3">
+            <div style={{ padding: '0 8px' }}>
+              <Typography className="card-title ellipsis" use="subtitle1" tag="h3">
                 {title}
               </Typography>
               <Typography className="ellipsis" use="subtitle2">
@@ -99,6 +70,35 @@ export class MangaCard extends PureComponent {
     );
   }
 }
+
+const StyledCard = styled(Card)(props => ({
+  margin: '5px auto',
+
+  '& .mdc-card__media': {
+    paddingTop: '140%',
+    backgroundSize: 'contain'
+  },
+
+  '& .mdc-card__action-buttons+.mdc-card__action-icons': {
+    marginLeft: 0
+  },
+
+  '& .card-title': {
+    'marginBottom': 0,
+    'fontWeight': 600
+  },
+
+  '& .tag-groups': {
+    position: 'absolute',
+    padding: '5px',
+    width: '100%'
+  },
+
+  a: {
+    color: props.theme.onSecondary,
+    textTransform: 'capitalise'
+  }
+}));
 
 const mapStateToProps = (state) => {
   return {

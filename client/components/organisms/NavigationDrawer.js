@@ -9,9 +9,10 @@ import {
   ListItemGraphic,
   ListDivider
 } from 'rmwc/List';
-import { NavLink } from 'react-router-dom';
 import styled from 'react-emotion';
 import { ThemePicker } from '../molecules/ThemePicker';
+import NavLink from '../atoms/NavLink';
+// import { NavLink } from 'react-router-dom';
 
 export default class NavigationDrawer extends PureComponent {
   constructor(props) {
@@ -19,18 +20,23 @@ export default class NavigationDrawer extends PureComponent {
   }
 
   render() {
-    const { open, onClose } = this.props;
+    const { open, onClose, theme } = this.props;
 
     return (
-      <StyledDrawer temporary open={open} onClose={onClose}>
+      <Block theme={theme}>
+        <Drawer
+          temporary
+          open={open}
+          onClose={onClose}
+        >
           <DrawerContent>
-            <NavLink to="/mangas" onClick={onClose}>
+            <NavLink to='/mangas' onClick={onClose}>
               <ListItem>
                 <ListItemGraphic>photo_album</ListItemGraphic>
                 <ListItemText>Mangas</ListItemText>
               </ListItem>
             </NavLink>
-            <NavLink to="/authors" onClick={onClose}>
+            <NavLink to='/authors' onClick={onClose}>
               <ListItem>
                 <ListItemGraphic>portrait</ListItemGraphic>
                 <ListItemText>Authors</ListItemText>
@@ -40,41 +46,19 @@ export default class NavigationDrawer extends PureComponent {
             <ThemePicker/>
             <ListDivider/>
           </DrawerContent>
-        </StyledDrawer>
+        </Drawer>
+      </Block>
     );
   }
 }
 
-const StyledDrawer = styled(Drawer)`
-  height: 100%;
-  flex-shrink: 0;
-
-  & .mdc-drawer__drawer {
-    background-color: var(--mdc-theme-surface);
-  }
-
-  & .mdc-drawer__drawer {
-    position: fixed;
-  }
-
-  a {
-    text-transform: uppercase;
-    color: var(--mdc-theme-on-surface);
-    .mdc-list-item__graphic {
-      color: var(--mdc-theme-on-surface);
-    }
-
-    &.active {
-      color: var(--mdc-theme-on-primary);
-      .mdc-list-item {
-        background-color: var(--mdc-theme-primary);
-      }
-      .mdc-list-item__text {
-        font-weight: bold;
-      }
-      .mdc-list-item__graphic {
-        color: var(--mdc-theme-on-primary);
-      }
+const Block = styled('div')(props => (
+  {
+    '.mdc-drawer__drawer': {
+      backgroundColor: props.theme.surface
+    },
+    a: {
+      textTransform: 'uppercase'
     }
   }
-`;
+));

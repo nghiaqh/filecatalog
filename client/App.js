@@ -1,6 +1,6 @@
+import { hot } from 'react-hot-loader';
 import React, { Component } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
-import { hot } from 'react-hot-loader';
 import { connect } from 'react-redux';
 import { ThemeProvider } from 'rmwc/Theme';
 import NavigationDrawer from './components/organisms/NavigationDrawer';
@@ -22,14 +22,17 @@ class App extends Component {
     this.closeDrawer = this.closeDrawer.bind(this);
   }
   render() {
+    const { theme } = this.props;
+
     return (
-      <ThemeProvider options={this.props.theme}>
+      <ThemeProvider options={theme}>
         <TopAppBar onClickMenuIcon={this.openDrawer} />
 
         <React.Fragment>
           <NavigationDrawer
             open={this.state.drawOpen}
             onClose={this.closeDrawer}
+            theme={theme}
           />
 
           <Switch>

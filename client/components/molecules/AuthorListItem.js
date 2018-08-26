@@ -1,30 +1,24 @@
 import React, { PureComponent } from 'react';
-import styled from 'react-emotion';
 import { SimpleListItem } from 'rmwc/List';
+import NavLink from '../atoms/NavLink';
 
 export default class AuthorListItem extends PureComponent {
   constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick(e) {
-    e.preventDefault();
-    this.props.onItemClick(this.props.author);
   }
 
   render() {
-    const { name } = this.props.author;
+    const { name, id } = this.props.author;
+    const authorUrl = `/authors/${id}`;
+
     return (
-      <StyledSimpleListItem
-        graphic="portrait"
-        onClick={this.handleClick}
-        text={name}
-      />
+      <NavLink to={authorUrl} bgColor='background'>
+        <SimpleListItem
+          graphic='portrait'
+          onClick={this.handleClick}
+          text={name}
+        />
+      </NavLink>
     );
   }
 }
-
-const StyledSimpleListItem = styled(SimpleListItem)`
-  cursor: pointer;
-`;

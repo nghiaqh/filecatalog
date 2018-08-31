@@ -75,8 +75,14 @@ export class PageViewer extends PureComponent {
 
   handlePagination(number) {
     const { mangaId } = this.props.match.params;
-    const target = `/mangas/${mangaId}/${number}`;
-    this.props.history.push(target);
+    const { withPagination } = this.props;
+    const { total, pageSize } = withPagination[this.id];
+    const totalPages = Math.ceil(total / pageSize);
+
+    if ( 0 <= number && number <= totalPages) {
+      const target = `/mangas/${mangaId}/${number}`;
+      this.props.history.push(target);
+    }
   }
 
   handleKeyDown(e) {
@@ -94,14 +100,10 @@ export class PageViewer extends PureComponent {
   handleTouchEnd(e) {
     this.touchendX = e.changedTouches[0].screenX;
     const pageNumber = parseInt(this.props.match.params.pageNumber);
-    const { withPagination } = this.props;
-    const { total, pageSize } = withPagination[this.id];
-    const totalPages = Math.ceil(total / pageSize);
-
     let x = this.touchendX - this.touchstartX;
-    if (x < -100 && pageNumber < totalPages) {
+    if (x < -100) {
       this.handlePagination(pageNumber + 1);
-    } else if (x > 100 && pageNumber > 1) {
+    } else if (x > 100) {
       this.handlePagination(pageNumber - 1);
     }
   }

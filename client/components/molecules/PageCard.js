@@ -1,13 +1,12 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import styled from 'react-emotion';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {
-  Card,
   CardPrimaryAction,
   CardMedia
 } from 'rmwc/Card';
 import { Typography } from 'rmwc/Typography';
+import { StyledCard } from './MangaCard';
 
 export class PageCard extends PureComponent {
   constructor(props) {
@@ -21,7 +20,7 @@ export class PageCard extends PureComponent {
 
     return (
       <StyledCard theme={this.props.theme}>
-        <NavLink to={pageUrl}>
+        <Link to={pageUrl}>
           <CardPrimaryAction onClick={this.viewPage}>
             <CardMedia
               style={{
@@ -29,44 +28,16 @@ export class PageCard extends PureComponent {
               }}
             />
             <div style={{ padding: '5px 0' }}>
-              <Typography className="card-title ellipsis" use="subtitle2">
+              <Typography className="card-title ellipsis text-center" use="subtitle2">
                 {number}
               </Typography>
             </div>
           </CardPrimaryAction>
-        </NavLink>
+        </Link>
       </StyledCard>
     );
   }
 }
-
-const StyledCard = styled(Card)(props => ({
-  margin: '5px auto',
-
-  '& .mdc-card__media': {
-    paddingTop: '140%',
-    backgroundSize: 'contain'
-  },
-
-  '& .mdc-card__action-buttons+.mdc-card__action-icons': {
-    marginLeft: 0
-  },
-
-  '& .card-title': {
-    textAlign: 'center'
-  },
-
-  '& .tag-groups': {
-    position: 'absolute',
-    padding: '5px',
-    width: '100%'
-  },
-
-  a: {
-    color: props.theme.onSurface,
-    textTransform: 'capitalise'
-  }
-}));
 
 const mapStateToProps = (state) => {
   return {

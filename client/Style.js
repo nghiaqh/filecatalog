@@ -1,6 +1,9 @@
 import { injectGlobal } from 'emotion';
 
 injectGlobal`
+
+  /* Reset global styles */
+
   * {
     box-sizing: border-box;
   }
@@ -13,6 +16,20 @@ injectGlobal`
     overflow-x: hidden;
   }
 
+  a {
+    text-decoration: none;
+  }
+
+
+  /* Material overwrite */
+
+  .mdc-button:not(:disabled) {
+    color: var(--mdc-theme-text-primary-on-background);
+  }
+
+
+  /* Utility classes */
+
   .ellipsis {
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -20,11 +37,7 @@ injectGlobal`
     display: block;
   }
 
-  a {
-    text-decoration: none;
-  }
-
-  .mdc-button:not(:disabled) {
-    color: var(--mdc-theme-text-primary-on-background);
+  .text-center {
+    text-align: center;
   }
 `;

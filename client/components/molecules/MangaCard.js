@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import styled from 'react-emotion';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {
   Card,
   CardPrimaryAction,
@@ -24,11 +24,12 @@ export class MangaCard extends PureComponent {
     const author = this.props.authors[authorId] || {};
     const coverUrl = window.location.origin + encodeURI(coverPicture);
     const mangaUrl = `/mangas/${id}`;
+    const mangaUrlPageOne = `/mangas/${id}/1`;
 
     return (
       <StyledCard theme={this.props.theme}>
 
-        <NavLink to={mangaUrl}>
+        <Link to={mangaUrl}>
           <CardPrimaryAction>
               <CardMedia
                 style={{
@@ -52,13 +53,13 @@ export class MangaCard extends PureComponent {
               </Typography>
             </div>
           </CardPrimaryAction>
-        </NavLink>
+        </Link>
 
         <CardActions>
           <CardActionButtons>
-            <NavLink to={mangaUrl}>
+            <Link to={mangaUrlPageOne}>
               <CardAction>Read</CardAction>
-            </NavLink>
+            </Link>
           </CardActionButtons>
 
           <CardActionIcons>
@@ -71,7 +72,7 @@ export class MangaCard extends PureComponent {
   }
 }
 
-const StyledCard = styled(Card)(props => ({
+export const StyledCard = styled(Card)(props => ({
   margin: '5px auto',
 
   '& .mdc-card__media': {
@@ -94,7 +95,7 @@ const StyledCard = styled(Card)(props => ({
     width: '100%'
   },
 
-  a: {
+  'a, .mdc-button:not(:disabled)': {
     color: props.theme.onSurface,
     textTransform: 'capitalise'
   }

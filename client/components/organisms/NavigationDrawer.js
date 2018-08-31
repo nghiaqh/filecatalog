@@ -12,7 +12,6 @@ import {
 import styled from 'react-emotion';
 import { ThemePicker } from '../molecules/ThemePicker';
 import NavLink from '../atoms/NavLink';
-// import { NavLink } from 'react-router-dom';
 
 export default class NavigationDrawer extends PureComponent {
   constructor(props) {

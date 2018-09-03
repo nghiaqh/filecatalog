@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import styled from 'react-emotion';
 
-export default class Page extends PureComponent {
+export default class MangaPage extends PureComponent {
   constructor(props) {
     super(props);
   }

@@ -3,7 +3,7 @@ import { Button } from 'rmwc/Button';
 import styled from 'react-emotion';
 import { connect } from 'react-redux';
 
-import Page from '../../molecules/Page';
+import MangaPage from '../../atoms/MangaPage';
 import { WithPagination } from '../../organisms/WithPagination';
 import { fetchMangaIfNeeded } from '../MangaDetail';
 import { paginatePages } from './actions';
@@ -63,7 +63,7 @@ export class PageViewer extends PureComponent {
   renderPage(items) {
     return (
       <div id='page-viewer'>
-        <Page
+        <MangaPage
           page={items[0]}
           onTouchStart={this.handleTouchStart}
           onTouchEnd={this.handleTouchEnd}

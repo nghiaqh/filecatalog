@@ -13,62 +13,85 @@ import {
 } from 'rmwc/Card';
 import { Typography } from 'rmwc/Typography';
 import { Icon } from 'rmwc/Icon';
+import { SimpleMenu, MenuItem } from 'rmwc/Menu';
 
 export class MangaCard extends PureComponent {
   constructor(props) {
     super(props);
+    this.state = {
+      openMenu: false
+    };
+
+    this.renderCardPrimaryAction = this.renderCardPrimaryAction.bind(this)
+    this.renderCardActions = this.renderCardActions.bind(this)
   }
 
   render() {
+    return (
+      <StyledCard theme={this.props.theme}>
+        {this.renderCardPrimaryAction()}
+        {this.renderCardActions()}
+      </StyledCard>
+    );
+  }
+
+  renderCardPrimaryAction() {
     const { id, title, coverPicture, isNew, authorId } = this.props.manga;
     const author = this.props.authors[authorId] || {};
     const coverUrl = window.location.origin + encodeURI(coverPicture);
     const mangaUrl = `/mangas/${id}`;
+
+    return (
+      <Link to={mangaUrl}>
+        <CardPrimaryAction>
+            <CardMedia
+              style={{
+                backgroundImage: `url("${coverUrl}")`
+              }}
+              title={title}
+            />
+
+          {isNew &&
+            <div className="tag-groups">
+              <Icon use="fiber_new" />
+            </div>
+          }
+
+          <div style={{ padding: '0 8px' }}>
+            <Typography className="card-title ellipsis" use="subtitle1" tag="h3">
+              {title}
+            </Typography>
+            <Typography className="ellipsis" use="subtitle2">
+              {author.name}
+            </Typography>
+          </div>
+        </CardPrimaryAction>
+      </Link>
+    )
+  }
+
+  renderCardActions() {
+    const { id } = this.props.manga;
     const mangaUrlPageOne = `/mangas/${id}/1`;
 
     return (
-      <StyledCard theme={this.props.theme}>
+      <CardActions>
+        <CardActionButtons>
+          <Link to={mangaUrlPageOne}>
+            <CardAction>Read</CardAction>
+          </Link>
+        </CardActionButtons>
 
-        <Link to={mangaUrl}>
-          <CardPrimaryAction>
-              <CardMedia
-                style={{
-                  backgroundImage: `url("${coverUrl}")`
-                }}
-                title={title}
-              />
-
-            {isNew ?
-              <div className="tag-groups">
-                <Icon use="fiber_new" />
-              </div>
-            : ''}
-
-            <div style={{ padding: '0 8px' }}>
-              <Typography className="card-title ellipsis" use="subtitle1" tag="h3">
-                {title}
-              </Typography>
-              <Typography className="ellipsis" use="subtitle2">
-                {author.name}
-              </Typography>
-            </div>
-          </CardPrimaryAction>
-        </Link>
-
-        <CardActions>
-          <CardActionButtons>
-            <Link to={mangaUrlPageOne}>
-              <CardAction>Read</CardAction>
-            </Link>
-          </CardActionButtons>
-
-          <CardActionIcons>
-            <CardAction use="more_vert" />
-          </CardActionIcons>
-        </CardActions>
-
-      </StyledCard>
-    );
+        <CardActionIcons>
+          <SimpleMenu
+            handle={<CardAction use="more_vert" onClick={this.openMenu} />}
+          >
+            <MenuItem>Add to favorite</MenuItem>
+            <MenuItem>Edit</MenuItem>
+          </SimpleMenu>
+        </CardActionIcons>
+      </CardActions>
+    )
   }
 }
 

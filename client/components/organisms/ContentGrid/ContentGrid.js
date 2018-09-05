@@ -9,7 +9,8 @@ export default class ContentGrid extends PureComponent {
   render() {
     const { items } = this.props;
     const cols = Object.assign({
-      small: 2,
+      xsmall: 2,
+      small: 4,
       medium: 6,
       large: 8,
       xlarge: 12
@@ -29,26 +30,29 @@ export default class ContentGrid extends PureComponent {
   }
 }
 
-const breakpoints = [641, 1008, 1921];
+const breakpoints = [400, 641, 1008, 1921];
 const mq = breakpoints.map(
   bp => `@media (min-width: ${bp}px)`
 );
 const Grid = styled('div')(props => {
-  const { small, medium, large, xlarge } = props;
+  const { xsmall, small, medium, large, xlarge } = props;
   return {
     display: 'grid',
     gridGap: '10px',
     gridTemplateRows: 'auto',
-    gridTemplateColumns: `repeat(${small}, calc((100% - 10px) / ${small}))`,
+    gridTemplateColumns: `repeat(${xsmall}, calc((100% - 10px) / ${xsmall}))`,
     padding: '10px',
 
     [mq[0]]: {
-      gridTemplateColumns: `repeat(${medium}, calc((100% - 10px * (${medium} - 1)) / ${medium}))`,
+      gridTemplateColumns: `repeat(${small}, calc((100% - 10px * (${small} - 1)) / ${small}))`,
     },
     [mq[1]]: {
-      gridTemplateColumns: `repeat(${large}, calc((100% - 10px * (${large} - 1)) / ${large}))`,
+      gridTemplateColumns: `repeat(${medium}, calc((100% - 10px * (${medium} - 1)) / ${medium}))`,
     },
     [mq[2]]: {
+      gridTemplateColumns: `repeat(${large}, calc((100% - 10px * (${large} - 1)) / ${large}))`,
+    },
+    [mq[3]]: {
       gridTemplateColumns: `repeat(${xlarge}, calc((100% - 10px * (${xlarge} - 1)) / ${xlarge}))`,
     }
   };

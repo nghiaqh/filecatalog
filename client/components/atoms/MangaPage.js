@@ -17,7 +17,7 @@ export default class MangaPage extends PureComponent {
         id={id}
         className={this.props.className}
         src={uri}
-        title={`Page ${number}`}
+        alt={`Page ${number}`}
         onTouchStart={this.props.onTouchStart}
         onTouchEnd={this.props.onTouchEnd}
         onClick={this.props.onClick}

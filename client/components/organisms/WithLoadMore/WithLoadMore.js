@@ -32,7 +32,7 @@ class WithLoadMore extends PureComponent {
     const dom = render(contents);
 
     const totalPages = Math.ceil(total / pageSize);
-    const hideButton = totalPages === pageNumber;
+    const hideButton = (totalPages === pageNumber) && totalPages > 0;
 
     return (
       <React.Fragment>

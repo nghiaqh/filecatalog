@@ -17,8 +17,8 @@ class AuthorList extends PureComponent {
   }
 
   render() {
-    const { searchText } = this.props;
-    const filter = { name: searchText };
+    const { searchText, order } = this.props;
+    const filter = { name: searchText, order: order };
 
     return (
       <WithLoadMore

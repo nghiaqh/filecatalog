@@ -1,5 +1,6 @@
 const mysql = require('mysql');
 const url = require('url');
+const isEmpty = require('lodash/isEmpty')
 const db = require('../../datasources.json').mysqlDs;
 
 /**
@@ -8,7 +9,7 @@ const db = require('../../datasources.json').mysqlDs;
  * @param {Function} cb callback function
  * @return {Array} author records
  */
-function getAuthors(filter, cb) {
+function getAuthors(filter = {}, cb) {
   const connection = mysql.createConnection(`mysql://${db.user}:${db.password}@${db.host}/${db.database}`);
   const sql = `SELECT
     DISTINCT Author.id,
@@ -20,29 +21,47 @@ function getAuthors(filter, cb) {
     (SELECT COUNT(*) FROM Manga WHERE Manga.authorId = Author.id) AS mangasCount
   FROM Author LEFT JOIN Manga
   ON Author.id = Manga.authorId
-  ${filter && filter.where ? 'WHERE ?' : ''}
-  ${filter && filter.order ? 'ORDER BY ?' : 'ORDER BY Author.name'}
+  WHERE ??
+  ORDER BY ??
   LIMIT ?
   OFFSET ?`;
 
-  connection.query({
+  const q = connection.query(
     sql,
-    values: [
+    [
+      prepareWhereStatement(filter.where),
+      filter.order,
       parseInt(filter && filter.limit || 200),
       parseInt(filter && filter.skip || 0)
-    ]
-  },
-  (err, results, fields) => {
-    console.log(err, results);
-    cb(results)
-  });
+    ],
+    (err, results, fields) => {
+      if (err) console.log(err);
+      cb(results);
+    }
+  );
 }
 
+function prepareWhereStatement(where) {
+  if (isEmpty(where)) return 'Author.id'
+
+  let statement = '';
+  Object.keys(where).map(key => {
+    statement += `${key} `;
+    Object.keys(where[key]).map(operator => {
+      statement += `${operator} ${where[key][operator]} `
+    });
+  });
+
+  return statement;
+}
 
 function setAuthorsRoute(router) {
   return router.get('/api/v2/authors', (req, res) => {
-    const filter = url.parse(req.url, true).query.filter;
+    const filter = JSON.parse(
+      url.parse(req.url, true).query.filter
+    );
     getAuthors(filter, (r) => res.send(r));
   })
 }
+
 module.exports = { setAuthorsRoute }

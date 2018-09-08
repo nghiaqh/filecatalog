@@ -42,5 +42,5 @@ boot(app, __dirname, function(err) {
   app.start();
 });
 
-const ServerRender = require('./server-render');
+const ServerRender = require('./components/client/server-render');
 ServerRender(app);

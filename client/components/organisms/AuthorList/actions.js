@@ -72,7 +72,7 @@ function fetchAuthors(
     if (typeof name !== 'undefined' && name !== '') {
       where.name = {
         regexp: '.*' + name + '.*',
-        options: 'i'
+        // options: 'i'
       }
     }
 

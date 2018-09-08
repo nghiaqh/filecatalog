@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { List } from 'rmwc/List';
+import { Typography } from 'rmwc/Typography';
 
 export default class ContentList extends PureComponent {
   constructor(props) {
@@ -7,19 +8,28 @@ export default class ContentList extends PureComponent {
   }
 
   render() {
-    const list = [];
     const { items } = this.props;
+    if (!items || items.length === 0) {
+      return this.renderNoContent();
+    }
 
-    items.forEach((item) => {
-      list.push(
-        this.props.render(item)
-      );
-    });
+    const list = items.map(item => this.props.render(item));
 
     return (
       <List id={this.props.id}>
         {list}
       </List>
     );
+  }
+
+  renderNoContent() {
+    return (
+      <div className='text-center'>
+        <br/><br/>
+        <Typography use='headline1'>( ˚ Δ ˚ ) b</Typography>
+        <br/><br/>
+        <Typography use='body1'>No contents found!</Typography>
+      </div>
+    )
   }
 }

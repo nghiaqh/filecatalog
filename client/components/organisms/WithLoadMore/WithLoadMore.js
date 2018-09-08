@@ -32,13 +32,13 @@ class WithLoadMore extends PureComponent {
     const dom = render(contents);
 
     const totalPages = Math.ceil(total / pageSize);
-    const hideButton = (totalPages === pageNumber) && totalPages > 0;
+    const showButton = totalPages > pageNumber;
 
     return (
       <React.Fragment>
         {dom}
 
-        {hideButton ? '' :
+        {showButton &&
           <StyledButton dense outlined onClick={this.handleClick}>
             Load More
           </StyledButton>
@@ -48,8 +48,8 @@ class WithLoadMore extends PureComponent {
   }
 
   componentDidMount() {
-    const { dispatch, filter, loadMore, id, pageSize } = this.props;
-    dispatch(loadMore(id, pageSize, 1, filter));
+    const { dispatch, filter, loadMore, id, pageSize, order } = this.props;
+    dispatch(loadMore(id, pageSize, 1, filter, order));
     // window.addEventListener('scroll', this.handleScroll);
   }
 
@@ -59,20 +59,21 @@ class WithLoadMore extends PureComponent {
       filter,
       id,
       loadMore,
-      pageSize
+      pageSize,
+      order
     } = this.props;
-    if (equal(filter, prevProps.filter)) return;
+    if (equal(filter, prevProps.filter) && order === prevProps.order) return;
 
-    dispatch(loadMore(id, pageSize, 1, filter));
+    dispatch(loadMore(id, pageSize, 1, filter, order));
   }
 
   handleClick(e) {
     e.preventDefault();
-    const { dispatch, withLoadMore, id, loadMore } = this.props;
+    const { dispatch, withLoadMore, id, loadMore, order } = this.props;
     const { pageNumber, total, pageSize, filter } = withLoadMore[id];
     const totalPages = Math.ceil(total / pageSize);
     if (pageNumber + 1 <= totalPages) {
-      dispatch(loadMore(id, pageSize, pageNumber + 1, filter));
+      dispatch(loadMore(id, pageSize, pageNumber + 1, filter, order));
     }
   }
 }

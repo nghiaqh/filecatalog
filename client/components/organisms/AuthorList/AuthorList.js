@@ -18,7 +18,7 @@ class AuthorList extends PureComponent {
 
   render() {
     const { searchText, order } = this.props;
-    const filter = { name: searchText, order: order };
+    const filter = { name: searchText };
 
     return (
       <WithLoadMore
@@ -28,6 +28,7 @@ class AuthorList extends PureComponent {
         id={this.id}
         filter={filter}
         pageSize={24}
+        order={order}
       />
     );
   }

@@ -7,7 +7,8 @@ export default class AuthorHub extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      searchText: ''
+      searchText: '',
+      authorListOrder: 'mangasCount DESC'
     };
     this.handleSearch = this.handleSearch.bind(this);
   }
@@ -21,6 +22,7 @@ export default class AuthorHub extends PureComponent {
           uid={'author-hub'}
           searchText={this.state.searchText}
           history={this.props.history}
+          order={this.state.authorListOrder}
         />
       </StyledAuthorHub>
     );

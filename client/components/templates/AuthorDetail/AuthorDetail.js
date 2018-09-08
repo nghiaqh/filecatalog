@@ -13,6 +13,7 @@ export class AuthorDetail extends PureComponent {
     this.state = {
       searchAuthor: '',
       searchManga: '',
+      authorListOrder: 'mangasCount DESC'
     };
     this.searchAuthor = this.searchAuthor.bind(this);
     this.searchManga = this.searchManga.bind(this);
@@ -48,6 +49,7 @@ export class AuthorDetail extends PureComponent {
                   searchText={this.state.searchAuthor}
                   history={this.props.history}
                   pageSize={24}
+                  order={this.state.authorListOrder}
                 />
               </StyledSection>
             </DrawerContent>

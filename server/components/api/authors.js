@@ -1,6 +1,7 @@
 const mysql = require('mysql');
 const url = require('url');
-const isEmpty = require('lodash/isEmpty')
+const isEmpty = require('lodash/isEmpty');
+const flatten = require('lodash/flatten');
 const db = require('../../datasources.json').mysqlDs;
 
 /**
@@ -21,20 +22,19 @@ function getAuthors(filter = {}, cb) {
     (SELECT COUNT(*) FROM Manga WHERE Manga.authorId = Author.id) AS mangasCount
   FROM Author LEFT JOIN Manga
   ON Author.id = Manga.authorId
-  WHERE ??
-  ORDER BY ??
+  WHERE ${prepareWhereStatement(filter.where)}
+  ORDER BY ?? ${filter.order.search(/\s(desc)$/i) ? 'DESC' : ''}
   LIMIT ?
   OFFSET ?`;
 
-  const q = connection.query(
+  connection.query(
     sql,
-    [
-      prepareWhereStatement(filter.where),
-      filter.order,
+    flatten([
+      (filter.order || 'name').replace(/\s(asc|desc)$/i, ''),
       parseInt(filter && filter.limit || 200),
       parseInt(filter && filter.skip || 0)
-    ],
-    (err, results, fields) => {
+    ]),
+    (err, results) => {
       if (err) console.log(err);
       cb(results);
     }
@@ -48,10 +48,11 @@ function prepareWhereStatement(where) {
   Object.keys(where).map(key => {
     statement += `${key} `;
     Object.keys(where[key]).map(operator => {
-      statement += `${operator} ${where[key][operator]} `
+      statement += `${operator} ${mysql.escape(where[key][operator])} `
     });
   });
 
+  console.log(statement)
   return statement;
 }
 

@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import styled from 'react-emotion';
+import { Typography } from 'rmwc/Typography';
 
 export default class ContentGrid extends PureComponent {
   constructor(props) {
@@ -8,6 +9,11 @@ export default class ContentGrid extends PureComponent {
 
   render() {
     const { items } = this.props;
+
+    if (!items || items.length === 0) {
+      return this.renderNoContent();
+    }
+
     const cols = Object.assign({
       xsmall: 2,
       small: 4,
@@ -16,7 +22,7 @@ export default class ContentGrid extends PureComponent {
       xlarge: 12
     }, this.props.cols);
 
-    const list = items.map((item) => (
+    const list = items.map(item => (
       <div key={item.id} className='grid-item'>
         {this.props.render(item)}
       </div>
@@ -27,6 +33,17 @@ export default class ContentGrid extends PureComponent {
         {list}
       </Grid>
     );
+  }
+
+  renderNoContent() {
+    return (
+      <div className='text-center'>
+        <br/><br/>
+        <Typography use='headline1'>( ˚ Δ ˚ ) b</Typography>
+        <br/><br/>
+        <Typography use='body1'>No contents found!</Typography>
+      </div>
+    )
   }
 }
 

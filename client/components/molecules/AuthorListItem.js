@@ -15,7 +15,7 @@ export default class AuthorListItem extends PureComponent {
     return (
       <NavLink to={authorUrl} bgColor='background'>
         <SimpleListItem
-          graphic='person'
+          graphic='portrait'
           onClick={this.handleClick}
           text={name}
           secondaryText={secondaryText}

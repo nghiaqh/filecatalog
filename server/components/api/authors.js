@@ -17,7 +17,7 @@ function getAuthors(filter, cb) {
     Author.description,
     Author.created,
     Author.updated,
-    (SELECT COUNT(*) FROM Manga WHERE Manga.authorId = Author.id) AS mangas_count
+    (SELECT COUNT(*) FROM Manga WHERE Manga.authorId = Author.id) AS mangasCount
   FROM Author LEFT JOIN Manga
   ON Author.id = Manga.authorId
   ${filter && filter.where ? 'WHERE ?' : ''}

@@ -8,15 +8,17 @@ export default class AuthorListItem extends PureComponent {
   }
 
   render() {
-    const { name, id } = this.props.author;
+    const { name, id, mangasCount } = this.props.author;
     const authorUrl = `/authors/${id}`;
+    const secondaryText = `${mangasCount} ${mangasCount > 1 ? 'mangas' : 'manga'}`
 
     return (
       <NavLink to={authorUrl} bgColor='background'>
         <SimpleListItem
-          graphic='portrait'
+          graphic='person'
           onClick={this.handleClick}
           text={name}
+          secondaryText={secondaryText}
         />
       </NavLink>
     );

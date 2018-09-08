@@ -83,7 +83,7 @@ function fetchAuthors(
       order: order
     };
 
-    return fetch(`/api/authors?filter=${JSON.stringify(filterObj)}`)
+    return fetch(`/api/v2/authors?filter=${JSON.stringify(filterObj)}`)
       .then(res => res.json())
       .then(json => dispatch(receiveAuthors(id, json)));
   };

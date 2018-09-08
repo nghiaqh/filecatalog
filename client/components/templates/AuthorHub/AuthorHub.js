@@ -16,7 +16,7 @@ export default class AuthorHub extends PureComponent {
   render() {
     return (
       <StyledAuthorHub>
-        <SearchBox onSearch={this.handleSearch} placeholder='Author'/>
+        <SearchBox onSearch={this.handleSearch} placeholder='Search author'/>
 
         <AuthorList
           uid={'author-hub'}

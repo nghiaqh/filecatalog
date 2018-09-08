@@ -9,16 +9,17 @@ export default class ContentList extends PureComponent {
 
   render() {
     const { items } = this.props;
-    if (!items || items.length === 0) {
-      return this.renderNoContent();
-    }
 
     const list = items.map(item => this.props.render(item));
+    const notFoundMessage = list.length === 0 ? this.renderNoContent() : '';
 
     return (
-      <List id={this.props.id}>
-        {list}
-      </List>
+      <React.Fragment>
+        <List id={this.props.id}>
+          {list}
+        </List>
+        {notFoundMessage}
+      </React.Fragment>
     );
   }
 
@@ -26,7 +27,7 @@ export default class ContentList extends PureComponent {
     return (
       <div className='text-center'>
         <br/><br/>
-        <Typography use='headline1'>( ˚ Δ ˚ ) b</Typography>
+        <Typography use='headline2'>( ˚ Δ ˚ ) b</Typography>
         <br/><br/>
         <Typography use='body1'>No contents found!</Typography>
       </div>

@@ -10,10 +10,6 @@ export default class ContentGrid extends PureComponent {
   render() {
     const { items } = this.props;
 
-    if (!items || items.length === 0) {
-      return this.renderNoContent();
-    }
-
     const cols = Object.assign({
       xsmall: 2,
       small: 4,
@@ -28,10 +24,15 @@ export default class ContentGrid extends PureComponent {
       </div>
     ));
 
+    const notFoundMessage = list.length === 0 ? this.renderNoContent() : '';
+
     return (
-      <Grid id={this.props.id} {...cols}>
-        {list}
-      </Grid>
+      <React.Fragment>
+        <Grid id={this.props.id} {...cols}>
+          {list}
+        </Grid>
+        {notFoundMessage}
+      </React.Fragment>
     );
   }
 
@@ -39,7 +40,7 @@ export default class ContentGrid extends PureComponent {
     return (
       <div className='text-center'>
         <br/><br/>
-        <Typography use='headline1'>( ˚ Δ ˚ ) b</Typography>
+        <Typography use='headline2'>( ˚ Δ ˚ ) b</Typography>
         <br/><br/>
         <Typography use='body1'>No contents found!</Typography>
       </div>

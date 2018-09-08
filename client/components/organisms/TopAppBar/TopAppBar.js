@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import styled from 'react-emotion';
 import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
 import {
   TopAppBar as RMWCTopAppBar,
   TopAppBarRow,
@@ -8,8 +9,7 @@ import {
   TopAppBarNavigationIcon,
   TopAppBarTitle,
   TopAppBarFixedAdjust
-} from 'rmwc/TopAppBar';
-import { connect } from 'react-redux';
+} from '@rmwc/top-app-bar';
 
 export class TopAppBar extends PureComponent {
   constructor(props) {
@@ -43,7 +43,7 @@ export class TopAppBar extends PureComponent {
           <TopAppBarRow>
             <TopAppBarSection alignStart>
               <TopAppBarNavigationIcon
-                use="menu"
+                icon="menu"
                 onClick={this.props.onClickMenuIcon}
               />
               <TopAppBarTitle>

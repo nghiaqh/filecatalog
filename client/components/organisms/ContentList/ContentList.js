@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
-import { List } from 'rmwc/List';
-import { Typography } from 'rmwc/Typography';
+import { List } from '@rmwc/list';
+import { Typography } from '@rmwc/typography';
 
 export default class ContentList extends PureComponent {
   constructor(props) {
@@ -15,7 +15,7 @@ export default class ContentList extends PureComponent {
 
     return (
       <React.Fragment>
-        <List id={this.props.id}>
+        <List id={this.props.id} twoLine={this.props.twoLine}>
           {list}
         </List>
         {notFoundMessage}

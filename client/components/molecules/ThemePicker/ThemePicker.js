@@ -4,8 +4,8 @@ import {
   ListItemText,
   ListItemGraphic,
   ListItemMeta
-} from 'rmwc/List';
-import { Typography } from 'rmwc/Typography';
+} from '@rmwc/list';
+import { Typography } from '@rmwc/typography';
 import styled from 'react-emotion';
 import { connect } from 'react-redux';
 import { setTheme } from './actions';
@@ -61,7 +61,7 @@ const Box = styled('div')(props => `
   width: 24px;
   height: 24px;
   background: ${props.color};
-  border: 1px solid var(--mdc-theme-on-surface);
+  border: 1px solid var(--mdc-theme-on-secondary);
   display: inline-block;
   margin: 0 5px;
 `);

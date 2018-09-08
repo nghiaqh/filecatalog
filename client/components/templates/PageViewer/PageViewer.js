@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Button } from 'rmwc/Button';
+import { Button } from '@rmwc/button';
 import styled from 'react-emotion';
 import { connect } from 'react-redux';
 

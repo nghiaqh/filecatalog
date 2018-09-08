@@ -1,9 +1,9 @@
 const shrine = {
-  primary: '#ffdbcf',
-  secondary: '#feeae6',
+  primary: '#442c2e',
+  secondary: '#ffdbcf',
   background: '#fff',
-  surface: '#ffdbcf',
-  onPrimary: '#442b2d',
+  surface: '#feeae6',
+  onPrimary: '#fff',
   onSecondary: '#442b2d',
   onSurface: '#442b2d',
   textPrimaryOnBackground: 'rgba(0, 0, 0, 0.87)',

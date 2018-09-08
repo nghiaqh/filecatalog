@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import styled from 'react-emotion';
-import { Typography } from 'rmwc/Typography';
+import { Typography } from '@rmwc/typography';
 
 export default class ContentGrid extends PureComponent {
   constructor(props) {

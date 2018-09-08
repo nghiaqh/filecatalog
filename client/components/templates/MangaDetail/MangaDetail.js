@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import styled from 'react-emotion';
-import { Typography } from 'rmwc/Typography';
+import { Typography } from '@rmwc/typography';
 import { PageList } from '../../organisms/PageList';
 import { MangaList } from '../../organisms/MangaList';
 import { fetchMangaIfNeeded } from './actions';

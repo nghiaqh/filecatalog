@@ -1,14 +1,16 @@
 import React, { PureComponent } from 'react';
 import {
   Drawer,
+  DrawerHeader,
+  DrawerTitle,
   DrawerContent
-} from 'rmwc/Drawer';
+} from '@rmwc/drawer';
 import {
   ListItem,
   ListItemText,
   ListItemGraphic,
   ListDivider
-} from 'rmwc/List';
+} from '@rmwc/list';
 import styled from 'react-emotion';
 import { ThemePicker } from '../molecules/ThemePicker';
 import NavLink from '../atoms/NavLink';
@@ -22,42 +24,58 @@ export default class NavigationDrawer extends PureComponent {
     const { open, onClose, theme } = this.props;
 
     return (
-      <Block theme={theme}>
-        <Drawer
-          temporary
-          open={open}
-          onClose={onClose}
-        >
-          <DrawerContent>
-            <NavLink to='/mangas' onClick={onClose}>
-              <ListItem>
-                <ListItemGraphic>photo_album</ListItemGraphic>
-                <ListItemText>Mangas</ListItemText>
-              </ListItem>
-            </NavLink>
-            <NavLink to='/authors' onClick={onClose}>
-              <ListItem>
-                <ListItemGraphic>portrait</ListItemGraphic>
-                <ListItemText>Authors</ListItemText>
-              </ListItem>
-            </NavLink>
-            <ListDivider/>
-            <ThemePicker/>
-            <ListDivider/>
-          </DrawerContent>
-        </Drawer>
-      </Block>
+      <StyledDrawer
+        theme={theme}
+        modal
+        open={open}
+        onClose={onClose}
+      >
+        <DrawerHeader>
+          <DrawerTitle>File Catalog</DrawerTitle>
+        </DrawerHeader>
+
+        <DrawerContent>
+          <NavLink to='/mangas' onClick={onClose}>
+            <ListItem>
+              <ListItemGraphic>photo_album</ListItemGraphic>
+              <ListItemText>Mangas</ListItemText>
+            </ListItem>
+          </NavLink>
+          <NavLink to='/authors' onClick={onClose}>
+            <ListItem>
+              <ListItemGraphic>portrait</ListItemGraphic>
+              <ListItemText>Authors</ListItemText>
+            </ListItem>
+          </NavLink>
+
+          <ListDivider/>
+
+          <ThemePicker/>
+
+          <ListDivider/>
+
+        </DrawerContent>
+      </StyledDrawer>
     );
   }
 }
 
-const Block = styled('div')(props => (
+const StyledDrawer = styled(Drawer)(props => (
   {
-    '.mdc-drawer__drawer': {
-      backgroundColor: props.theme.surface
-    },
+    backgroundColor: props.theme.secondary,
+    color: props.theme.onSecondary,
+    top: 0,
+
     a: {
       textTransform: 'uppercase'
+    },
+
+    '.mdc-drawer-scrim': {
+      top: '64px'
+    },
+
+    '.mdc-drawer__title, .mdc-list-item, .mdc-list-item__graphic': {
+      color: props.theme.onSecondary
     }
   }
 ));

@@ -21,10 +21,10 @@ export class StyledNavLink extends React.PureComponent {
     } = this.props;
 
     const style = {
-      color: theme[color || 'onSurface'],
-      bgColor: theme[bgColor || 'surface'],
-      activeColor: theme[activeColor || 'onSecondary'],
-      activeBgColor: theme[activeBgColor || 'secondary']
+      color: theme[color || 'onSecondary'],
+      bgColor: theme[bgColor || 'secondary'],
+      activeColor: theme[activeColor || 'onSurface'],
+      activeBgColor: theme[activeBgColor || 'surface']
     }
 
     return (
@@ -60,6 +60,7 @@ const Wrapper = styled('div')(props => {
       },
 
       '.mdc-list-item': {
+        color: activeColor,
         backgroundColor: activeBgColor
       },
 

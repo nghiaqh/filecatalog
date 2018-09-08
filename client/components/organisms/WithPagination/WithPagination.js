@@ -1,8 +1,8 @@
 import equal from 'deep-equal';
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import { Button } from 'rmwc/Button';
-import { Select } from 'rmwc/Select';
+import { Button } from '@rmwc/button';
+import { Select } from '@rmwc/select';
 import styled from 'react-emotion';
 
 class WithPagination extends PureComponent {

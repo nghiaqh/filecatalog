@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { SimpleListItem } from 'rmwc/List';
+import { SimpleListItem } from '@rmwc/list';
 import NavLink from '../atoms/NavLink';
 
 export default class AuthorListItem extends PureComponent {
@@ -16,9 +16,9 @@ export default class AuthorListItem extends PureComponent {
       <NavLink to={authorUrl} bgColor='background'>
         <SimpleListItem
           graphic='portrait'
-          onClick={this.handleClick}
           text={name}
           secondaryText={secondaryText}
+          onClick={this.handleClick}
         />
       </NavLink>
     );

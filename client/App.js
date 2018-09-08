@@ -2,7 +2,7 @@ import { hot } from 'react-hot-loader';
 import React, { Component } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { ThemeProvider } from 'rmwc/Theme';
+import { ThemeProvider } from '@rmwc/theme';
 import NavigationDrawer from './components/organisms/NavigationDrawer';
 import { AuthorHub } from './components/templates/AuthorHub';
 import { AuthorDetail } from './components/templates/AuthorDetail';

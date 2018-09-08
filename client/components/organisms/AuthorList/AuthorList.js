@@ -48,6 +48,7 @@ class AuthorList extends PureComponent {
       <StyledAuthorList
         items={items}
         render={this.renderListItem}
+        twoLine
       />
     )
   }

@@ -10,10 +10,10 @@ import {
   CardActions,
   CardActionButtons,
   CardActionIcons
-} from 'rmwc/Card';
-import { Typography } from 'rmwc/Typography';
-import { Icon } from 'rmwc/Icon';
-import { SimpleMenu, MenuItem } from 'rmwc/Menu';
+} from '@rmwc/card';
+import { Typography } from '@rmwc/typography';
+import { Icon } from '@rmwc/icon';
+import { SimpleMenu, MenuItem } from '@rmwc/menu';
 
 export class MangaCard extends PureComponent {
   constructor(props) {
@@ -53,7 +53,7 @@ export class MangaCard extends PureComponent {
 
           {isNew &&
             <div className="tag-groups">
-              <Icon use="fiber_new" />
+              <Icon icon="fiber_new" />
             </div>
           }
 
@@ -84,7 +84,7 @@ export class MangaCard extends PureComponent {
 
         <CardActionIcons>
           <SimpleMenu
-            handle={<CardAction use="more_vert" onClick={this.openMenu} />}
+            handle={<CardAction icon="more_vert" onClick={this.openMenu} />}
           >
             <MenuItem>Add to favorite</MenuItem>
             <MenuItem>Edit</MenuItem>

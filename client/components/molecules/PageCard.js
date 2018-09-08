@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import {
   CardPrimaryAction,
   CardMedia
-} from 'rmwc/Card';
-import { Typography } from 'rmwc/Typography';
+} from '@rmwc/card';
+import { Typography } from '@rmwc/typography';
 import { StyledCard } from './MangaCard';
 
 export class PageCard extends PureComponent {

@@ -15,7 +15,7 @@ export default class MangaHub extends PureComponent {
   render() {
     return (
       <StyledMangaHub>
-        <SearchBox onSearch={this.handleSearch} placeholder='Manga'/>
+        <SearchBox onSearch={this.handleSearch} placeholder='Search manga'/>
         <br/>
         <MangaList
           uid='manga-hub'

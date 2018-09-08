@@ -1,9 +1,10 @@
 import React, { PureComponent } from 'react';
 import ReactDOM from 'react-dom';
-import { TextField } from 'rmwc/TextField';
+import { TextField } from '@rmwc/textfield';
 import styled from 'react-emotion';
+import { connect } from 'react-redux';
 
-export default class SearchBox extends PureComponent {
+class SearchBox extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,6 +23,7 @@ export default class SearchBox extends PureComponent {
         withTrailingIcon='clear'
         onChange={this.handleTextChange}
         iconvisibility={this.state.iconVisibility}
+        theme={this.props.theme}
       />
     );
   }
@@ -51,9 +53,21 @@ export default class SearchBox extends PureComponent {
 }
 
 const StyledTextField = styled(TextField)(props => `
+  border-bottom: 1px solid ${props.theme.textPrimaryOnBackground};
+
   .mdc-text-field__icon {
     cursor: pointer;
     pointer-events: visible;
     visibility: ${props.iconvisibility};
   }
 `);
+
+const mapStateToProps = (state) => {
+  const { themes, enabledTheme } = state;
+
+  return {
+    theme: themes[enabledTheme]
+  };
+};
+
+export default connect(mapStateToProps)(SearchBox);

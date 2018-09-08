@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import styled from 'react-emotion';
 import { connect } from 'react-redux';
-import { Drawer, DrawerContent } from 'rmwc/Drawer';
 import SearchBox from '../../atoms/SearchBox';
 import { AuthorList } from '../../organisms/AuthorList';
 import { MangaList } from '../../organisms/MangaList';
@@ -39,27 +38,21 @@ export class AuthorDetail extends PureComponent {
 
       return (
         <React.Fragment>
+          <StyledSection className='sidebar'>
+            <SearchBox onSearch={this.searchAuthor} placeholder='Search author'/>
 
-          <StyledDrawer permanent>
-            <DrawerContent>
-              <StyledSection>
-                <SearchBox onSearch={this.searchAuthor} placeholder='Author'/>
-
-                <AuthorList
-                  uid={'author-hub'}
-                  searchText={this.state.searchAuthor}
-                  history={this.props.history}
-                  pageSize={24}
-                  order={this.state.authorListOrder}
-                />
-              </StyledSection>
-            </DrawerContent>
-          </StyledDrawer>
-
+            <AuthorList
+              uid={'author-hub'}
+              searchText={this.state.searchAuthor}
+              history={this.props.history}
+              pageSize={24}
+              order={this.state.authorListOrder}
+            />
+          </StyledSection>
           <StyledSection className='main-content'>
             <SearchBox
               onSearch={this.searchManga}
-              placeholder={`Manga by ${author.name}`}
+              placeholder={`Search manga by ${author.name}`}
             />
             <MangaList
               uid={mangaListUid}
@@ -86,26 +79,25 @@ export class AuthorDetail extends PureComponent {
   }
 }
 
-const StyledDrawer = styled(Drawer)`
-  height: calc(100vh - 64px);
-  position: fixed;
-  overflow-y: auto;
-
-  @media (max-width: 640px) {
-    display: none;
-  }
-`
-
 const StyledSection = styled('section')`
   .mdc-text-field {
     width: calc(100% - 20px);
     margin: 0 auto;
   }
 
+  &.sidebar {
+    height: calc(100vh - 64px);
+    position: fixed;
+    overflow-y: auto;
+
+    @media (max-width: 640px) {
+      display: none;
+    }
+  }
+
   &.main-content {
-    margin-left: 240px;
-    padding: 8px;
-    max-width: calc(100% - 240px);
+    margin-left: 260px;
+    max-width: calc(100% - 260px);
 
     @media (max-width: 640px) {
       margin-left: 0;

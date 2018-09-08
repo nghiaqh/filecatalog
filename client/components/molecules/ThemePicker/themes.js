@@ -1,5 +1,5 @@
 const shrine = {
-  primary: '#442c2e',
+  primary: '#8d6e63',
   secondary: '#ffdbcf',
   background: '#fff',
   surface: '#feeae6',
@@ -25,7 +25,7 @@ const shrine = {
 
 const fortnightly = {
   primary: '#303030',
-  secondary: '#661fff',
+  secondary: '#78909c',
   background: '#fff',
   surface: '#fff',
   onPrimary: '#fff',
@@ -49,15 +49,40 @@ const fortnightly = {
 };
 
 const aqua = {
-  primary: '#3bafda',
-  secondary: '#ffcc80',
+  primary: '#1976d2',
+  secondary: '#2196f3',
   background: '#fff',
-  surface: '#b2ebf2',
+  surface: '#bbdefb',
   onPrimary: '#fff',
-  onSecondary: 'rgba(0, 0, 0, 0.87)',
+  onSecondary: '#fff',
   onSurface: 'rgba(0, 0, 0, 0.87)',
-  textPrimaryOnBackground: 'rgba(0, 0, 0, 0.87)',
-  textSecondaryOnBackground: 'rgba(0, 0, 0, 0.54)',
+  textPrimaryOnBackground: '#212121',
+  textSecondaryOnBackground: '#757575',
+  textHintOnBackground: 'rgba(0, 0, 0, 0.38)',
+  textDisabledOnBackground: 'rgba(0, 0, 0, 0.38)',
+  textIconOnBackground: 'rgba(0, 0, 0, 0.38)',
+  textPrimaryOnLight: 'rgba(0, 0, 0, 0.87)',
+  textSecondaryOnLight: 'rgba(0, 0, 0, 0.54)',
+  textHintOnLight: 'rgba(0, 0, 0, 0.38)',
+  textDisabledOnLight: 'rgba(0, 0, 0, 0.38)',
+  textIconOnLight: 'rgba(0, 0, 0, 0.38)',
+  textPrimaryOnDark: 'white',
+  textSecondaryOnDark: 'rgba(255, 255, 255, 0.7)',
+  textHintOnDark: 'rgba(255, 255, 255, 0.5)',
+  textDisabledOnDark: 'rgba(255, 255, 255, 0.5)',
+  textIconOnDark: 'rgba(255, 255, 255, 0.5)'
+};
+
+const lime = {
+  primary: '#afb42b',
+  secondary: '#cddc39',
+  background: '#fff',
+  surface: '#f0f4c3',
+  onPrimary: '#fff',
+  onSecondary: '#212121',
+  onSurface: '#212121',
+  textPrimaryOnBackground: '#212121',
+  textSecondaryOnBackground: '#757575',
   textHintOnBackground: 'rgba(0, 0, 0, 0.38)',
   textDisabledOnBackground: 'rgba(0, 0, 0, 0.38)',
   textIconOnBackground: 'rgba(0, 0, 0, 0.38)',
@@ -76,5 +101,6 @@ const aqua = {
 export default {
   shrine,
   fortnightly,
-  aqua
+  aqua,
+  lime
 };

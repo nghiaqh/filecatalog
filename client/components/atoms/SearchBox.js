@@ -18,7 +18,7 @@ export default class SearchBox extends PureComponent {
     return (
       <StyledTextField
         fullwidth dense
-        placeholder='Search'
+        placeholder={this.props.placeholder || 'Search'}
         withTrailingIcon='clear'
         onChange={this.handleTextChange}
         iconvisibility={this.state.iconVisibility}

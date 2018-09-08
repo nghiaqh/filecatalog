@@ -28,8 +28,9 @@ export class AuthorDetail extends PureComponent {
     const { match, mangas, authors } = this.props;
     const authorId = parseInt(match.params.authorId);
     const mangaListUid = `author-${authorId}`;
+    const author = authors[authorId]
 
-    if (typeof authors[authorId] !== 'undefined') {
+    if (typeof author !== 'undefined') {
       const cols = {
         medium: 3,
         large: 5,
@@ -42,7 +43,7 @@ export class AuthorDetail extends PureComponent {
           <StyledDrawer permanent>
             <DrawerContent>
               <StyledSection>
-                <SearchBox onSearch={this.searchAuthor} />
+                <SearchBox onSearch={this.searchAuthor} placeholder='Author'/>
 
                 <AuthorList
                   uid={'author-hub'}
@@ -56,7 +57,10 @@ export class AuthorDetail extends PureComponent {
           </StyledDrawer>
 
           <StyledSection className='main-content'>
-            <SearchBox onSearch={this.searchManga} />
+            <SearchBox
+              onSearch={this.searchManga}
+              placeholder={`Manga by ${author.name}`}
+            />
             <MangaList
               uid={mangaListUid}
               authorId={authorId}

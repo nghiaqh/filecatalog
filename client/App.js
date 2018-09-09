@@ -7,7 +7,7 @@ import NavigationDrawer from './components/organisms/NavigationDrawer';
 import { AuthorHub } from './components/templates/AuthorHub';
 import { AuthorDetail } from './components/templates/AuthorDetail';
 import { MangaHub } from './components/templates/MangaHub';
-import { MangaDetail } from './components/templates/MangaDetail';
+import { MangaDetail, MangaEdit } from './components/templates/MangaDetail';
 import { PageViewer } from './components/templates/PageViewer';
 import { TopAppBar, setBreadcrumb } from './components/organisms/TopAppBar';
 import './Style';
@@ -39,6 +39,7 @@ class App extends Component {
             <Route exact path='/' component={MangaHub}/>
             <Route exact path='/mangas' component={MangaHub}/>
             <Route exact path='/mangas/:mangaId' component={MangaDetail}/>
+            <Route exact path='/mangas/:mangaId/edit' component={MangaEdit}/>
             <Route exact path='/mangas/:mangaId/:pageNumber' component={PageViewer}/>
             <Route exact path='/authors' component={AuthorHub}/>
             <Route exact path='/authors/:authorId' component={AuthorDetail}/>

@@ -1,6 +1,10 @@
 import {
   REQUEST_MANGA,
   RECEIVE_MANGA,
+  UPDATE_MANGA,
+  DELETE_MANGA,
+  RECEIVE_UPDATE_MANGA_STATUS,
+  RECEIVE_DELETE_MANGA_STATUS
 } from './actions';
 
 const initialState = {
@@ -13,15 +17,19 @@ const mangaDetailReducer = (prevState, action) => {
   const state = Object.assign({}, initialState, prevState);
   switch (action.type) {
     case REQUEST_MANGA:
-      return handleRequestMangaAction(state, action);
+      return handleRequestManga(state, action);
     case RECEIVE_MANGA:
-      return handleReceiveMangaAction(state, action);
+      return handleReceiveManga(state, action);
+    case UPDATE_MANGA:
+      return handleUpdateManga(state, action);
+    case RECEIVE_UPDATE_MANGA_STATUS:
+      return handleReceiveUpdateStatus(state, action);
     default:
       return state;
   }
 };
 
-const handleRequestMangaAction = (state, action) => {
+const handleRequestManga = (state, action) => {
   const { id } = action;
   return {
     ...state,
@@ -37,7 +45,7 @@ const handleRequestMangaAction = (state, action) => {
   };
 };
 
-const handleReceiveMangaAction = (state, action) => {
+const handleReceiveManga = (state, action) => {
   const { manga, receivedAt } = action;
   const now = new Date();
   const then = new Date(manga.updated);
@@ -45,6 +53,40 @@ const handleReceiveMangaAction = (state, action) => {
   manga.retrieving = false;
   manga.receivedAt = receivedAt;
   const id = manga.id;
+
+  return {
+    ...state,
+    entities: {
+      ...state.entities,
+      mangas: {
+        ...state.entities.mangas,
+        [id]: Object.assign({}, state.entities.mangas[id], manga)
+      }
+    }
+  }
+}
+
+const handleUpdateManga = (state, action) => {
+  const { manga } = action;
+  const id = manga.id;
+  manga.beingUpdated = true;
+
+  return {
+    ...state,
+    entities: {
+      ...state.entities,
+      mangas: {
+        ...state.entities.mangas,
+        [id]: Object.assign({}, state.entities.mangas[id], manga)
+      }
+    }
+  }
+}
+
+const handleReceiveUpdateStatus = (state, action) => {
+  const { manga, receivedAt } = action;
+  const id = manga.id;
+  manga.beingUpdated = false;
 
   return {
     ...state,

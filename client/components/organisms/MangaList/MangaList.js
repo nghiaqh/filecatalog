@@ -55,6 +55,7 @@ class MangaList extends PureComponent {
       <MangaCard
         key={item.id}
         manga={item}
+        history={this.props.history}
       />
     );
   }

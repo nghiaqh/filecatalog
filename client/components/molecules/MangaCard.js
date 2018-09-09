@@ -24,6 +24,7 @@ export class MangaCard extends PureComponent {
 
     this.renderCardPrimaryAction = this.renderCardPrimaryAction.bind(this)
     this.renderCardActions = this.renderCardActions.bind(this)
+    this.handleMenuSelect = this.handleMenuSelect.bind(this)
   }
 
   render() {
@@ -73,6 +74,7 @@ export class MangaCard extends PureComponent {
   renderCardActions() {
     const { id } = this.props.manga;
     const mangaUrlPageOne = `/mangas/${id}/1`;
+    const mangaEditUrl = `/mangas/${id}/edit`;
 
     return (
       <CardActions>
@@ -85,13 +87,27 @@ export class MangaCard extends PureComponent {
         <CardActionIcons>
           <SimpleMenu
             handle={<CardAction icon="more_vert" onClick={this.openMenu} />}
+            onSelect={this.handleMenuSelect}
           >
             <MenuItem>Add to favorite</MenuItem>
-            <MenuItem>Edit</MenuItem>
+            <MenuItem><Link to={mangaEditUrl}>Edit</Link></MenuItem>
           </SimpleMenu>
         </CardActionIcons>
       </CardActions>
     )
+  }
+
+  handleMenuSelect(event) {
+    event.preventDefault();
+    switch(event.detail.index) {
+      case 0:
+        break;
+      case 1:
+        const { id } = this.props.manga;
+        const mangaEditUrl = `/mangas/${id}/edit`;
+        this.props.history.push(mangaEditUrl);
+        break;
+    }
   }
 }
 

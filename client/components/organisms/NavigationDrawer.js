@@ -7,7 +7,6 @@ import {
 } from '@rmwc/drawer';
 import {
   ListItem,
-  ListItemText,
   ListItemGraphic,
   ListDivider
 } from '@rmwc/list';
@@ -37,14 +36,14 @@ export default class NavigationDrawer extends PureComponent {
         <DrawerContent>
           <NavLink to='/mangas' onClick={onClose}>
             <ListItem>
-              <ListItemGraphic>photo_album</ListItemGraphic>
-              <ListItemText>Mangas</ListItemText>
+              <ListItemGraphic icon='photo_album'/>
+              Mangas
             </ListItem>
           </NavLink>
           <NavLink to='/authors' onClick={onClose}>
             <ListItem>
-              <ListItemGraphic>portrait</ListItemGraphic>
-              <ListItemText>Authors</ListItemText>
+              <ListItemGraphic icon='portrait'/>
+              Authors
             </ListItem>
           </NavLink>
 

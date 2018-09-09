@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import {
   ListItem,
-  ListItemText,
   ListItemGraphic,
   ListItemMeta
 } from '@rmwc/list';
@@ -20,8 +19,8 @@ export class ThemePicker extends PureComponent {
     const { themes, enabledTheme } = this.props;
     const list = Object.keys(themes).map(theme => (
       <ListItem key={theme} onClick={this.setTheme} data-theme={theme}>
-        <ListItemGraphic>{enabledTheme === theme ? 'check' : ''}</ListItemGraphic>
-        <ListItemText>{theme}</ListItemText>
+        <ListItemGraphic icon={enabledTheme === theme && 'check'} />
+        {theme}
         <ListItemMeta>
           <Box color={themes[theme].primary}/>
           <Box color={themes[theme].surface}/>

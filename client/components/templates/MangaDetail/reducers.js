@@ -24,6 +24,10 @@ const mangaDetailReducer = (prevState, action) => {
       return handleUpdateManga(state, action);
     case RECEIVE_UPDATE_MANGA_STATUS:
       return handleReceiveUpdateStatus(state, action);
+    case DELETE_MANGA:
+      return handleDeleteManga(state, action);
+    case RECEIVE_DELETE_MANGA_STATUS:
+      return handleReceiveDeleteStatus(state, action)
     default:
       return state;
   }
@@ -98,6 +102,28 @@ const handleReceiveUpdateStatus = (state, action) => {
       }
     }
   }
+}
+
+const handleDeleteManga = (state, action) => {
+  const id = action.id;
+  return {
+    ...state,
+    entities: {
+      ...state.entities,
+      mangas: {
+        ...state.entities.mangas,
+        [id]: Object.assign({}, state.entities.mangas[id], { markedForDelete: true })
+      }
+    }
+  }
+}
+
+const handleReceiveDeleteStatus = (state, action) => {
+  const id = action.message.id;
+  const newState = Object.assign({}, state);
+  delete newState.entities.mangas[id];
+
+  return newState;
 }
 
 export default mangaDetailReducer;

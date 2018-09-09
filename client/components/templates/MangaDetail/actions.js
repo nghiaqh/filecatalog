@@ -89,3 +89,20 @@ export const updateManga = (manga) => {
     .then(json => dispatch(receiveUpdateStatus(json)));
   }
 }
+
+export const deleteManga = (id) => {
+  return (dispatch) => {
+    dispatch(sendDeleteManga(id));
+    return fetch(`/api/mangas/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8'
+      }
+    })
+    .then(res => res.json())
+    .then(json => {
+      json.id = id;
+      return dispatch(receiveDeleteStatus(json));
+    });
+  }
+}

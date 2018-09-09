@@ -4,7 +4,7 @@ import styled from 'react-emotion';
 import { Typography } from '@rmwc/typography';
 import { TextField } from '@rmwc/textfield';
 import { Button } from '@rmwc/button';
-import { fetchMangaIfNeeded, updateManga } from './actions';
+import { fetchMangaIfNeeded, updateManga, deleteManga } from './actions';
 
 class MangaEdit extends PureComponent {
   constructor(props) {
@@ -19,6 +19,7 @@ class MangaEdit extends PureComponent {
 
     this.submitForm = this.submitForm.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
+    this.submitDelete = this.submitDelete.bind(this);
   }
 
   render() {
@@ -31,29 +32,30 @@ class MangaEdit extends PureComponent {
 
       return (
         <React.Fragment>
-        <Typography use='headline5'>Manga Edit</Typography>
+        <Typography use='headline5' style={{margin: '8px', display: 'block'}}>Manga Edit</Typography>
         <StyleForm>
-          <TextField outlined label='Title' type='text'
+          <TextField box label='Title' type='text'
             value={title || ''}
             onChange={this.onInputChange}
             data-key='title'
             />
-          <TextField outlined label='Description' type='text'
+          <TextField box label='Description' type='text'
             value={description || ''}
             onChange={this.onInputChange}
             data-key='description'
             />
-          <TextField outlined label='Cover Picture' type='text'
+          <TextField box label='Cover Picture' type='text'
             value={coverPicture || ''}
             onChange={this.onInputChange}
             data-key='coverPicture'
             />
-          <TextField outlined label='Author' type='text'
+          <TextField box label='Author' type='text'
             value={authorId | ''}
             onChange={this.onInputChange}
             data-key='authorId'
             />
-          <Button onClick={this.submitForm}>Save</Button>
+          <Button outlined onClick={this.submitForm}>Save</Button>
+          <Button outlined onClick={this.submitDelete}>Delete</Button>
         </StyleForm>
         </React.Fragment>
       )
@@ -86,10 +88,13 @@ class MangaEdit extends PureComponent {
 
   submitForm(event) {
     event.preventDefault();
+    const { id, title, description, authorId, coverPicture } = this.state;
     const modifiedManga = {
-      id: this.state.id,
-      title: this.state.title,
-      description: this.state.description
+      id,
+      title,
+      description,
+      coverPicture,
+      authorId
     }
     this.props.dispatch(updateManga(modifiedManga));
   }
@@ -102,17 +107,26 @@ class MangaEdit extends PureComponent {
       [key]: value
     });
   }
+
+  submitDelete(event) {
+    event.preventDefault();
+    this.props.dispatch(deleteManga(this.state.id));
+  }
 }
 
 const StyleForm = styled('form')`
   width: 100%;
   margin: 0;
-  padding: 10px;
+  padding: 0 10px;
 
   .mdc-text-field {
     width: 100%;
     display: block;
-    margin: 5px 0;
+    margin: 0 0 10px;
+  }
+
+  button {
+    margin: 10px 10px 10px 0;
   }
 `;
 

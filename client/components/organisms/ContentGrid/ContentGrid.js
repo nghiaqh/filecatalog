@@ -18,7 +18,8 @@ export default class ContentGrid extends PureComponent {
       xlarge: 12
     }, this.props.cols);
 
-    const list = items.map(item => (
+    const filtered = items.filter(item => item && item.id);
+    const list = filtered.map(item => (
       <div key={item.id} className='grid-item'>
         {this.props.render(item)}
       </div>

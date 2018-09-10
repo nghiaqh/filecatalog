@@ -8,7 +8,7 @@ export default class ContentGrid extends PureComponent {
   }
 
   render() {
-    const { items } = this.props;
+    const { items, retrievingItems } = this.props;
 
     const cols = Object.assign({
       xsmall: 2,
@@ -25,7 +25,9 @@ export default class ContentGrid extends PureComponent {
       </div>
     ));
 
-    const notFoundMessage = list.length === 0 ? this.renderNoContent() : '';
+    const notFoundMessage = (list.length === 0 && !retrievingItems)
+      ? this.renderNoContent()
+      : '';
 
     return (
       <React.Fragment>

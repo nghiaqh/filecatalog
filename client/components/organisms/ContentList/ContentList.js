@@ -8,10 +8,12 @@ export default class ContentList extends PureComponent {
   }
 
   render() {
-    const { items } = this.props;
+    const { items, retrievingItems } = this.props;
 
     const list = items.map(item => this.props.render(item));
-    const notFoundMessage = list.length === 0 ? this.renderNoContent() : '';
+    const notFoundMessage = (list.length === 0 && !retrievingItems)
+      ? this.renderNoContent()
+      : '';
 
     return (
       <React.Fragment>

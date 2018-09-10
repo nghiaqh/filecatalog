@@ -60,12 +60,13 @@ class MangaList extends PureComponent {
     );
   }
 
-  renderGrid(items) {
+  renderGrid(items, retrievingItems) {
     return (
       <StyledMangaList
         items={items}
         render={this.renderCard}
         cols={this.props.cols}
+        retrievingItems={retrievingItems}
       />
     )
   }

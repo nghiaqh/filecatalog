@@ -43,11 +43,12 @@ class AuthorList extends PureComponent {
     );
   }
 
-  renderList(items) {
+  renderList(items, retrievingItems) {
     return (
       <StyledAuthorList
         items={items}
         render={this.renderListItem}
+        retrievingItems={retrievingItems}
         twoLine
       />
     )

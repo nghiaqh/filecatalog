@@ -21,18 +21,19 @@ class WithLoadMore extends PureComponent {
     const data = withLoadMore[id] || {
       items: [],
       pageNumber: 1,
-      total: 0
+      total: 0,
+      retrievingItems: true
     };
-    const { items, pageNumber, total } = data;
+    const { items, pageNumber, total, retrievingItems } = data;
     const pageSize = this.props.pageSize || 20;
 
     const contents = Array.isArray(items)
       ? items.map(i => entities[entityType][i])
       : [];
-    const dom = render(contents);
+    const dom = render(contents, retrievingItems);
 
     const totalPages = Math.ceil(total / pageSize);
-    const showButton = totalPages > pageNumber;
+    const showButton = totalPages > pageNumber && !retrievingItems;
 
     return (
       <React.Fragment>

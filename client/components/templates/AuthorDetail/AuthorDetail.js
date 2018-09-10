@@ -24,7 +24,7 @@ export class AuthorDetail extends PureComponent {
   }
 
   render() {
-    const { match, mangas, authors } = this.props;
+    const { match, authors } = this.props;
     const authorId = parseInt(match.params.authorId);
     const mangaListUid = `author-${authorId}`;
     const author = authors[authorId]

@@ -1,6 +1,5 @@
 import equal from 'deep-equal';
 import React, { PureComponent } from 'react';
-import styled from 'react-emotion';
 
 import MangaCard from '../../molecules/MangaCard';
 import { ContentGrid } from '../ContentGrid';
@@ -62,7 +61,7 @@ class MangaList extends PureComponent {
 
   renderGrid(items, retrievingItems) {
     return (
-      <StyledMangaList
+      <ContentGrid
         items={items}
         render={this.renderCard}
         cols={this.props.cols}
@@ -71,9 +70,5 @@ class MangaList extends PureComponent {
     )
   }
 }
-
-const StyledMangaList = styled(ContentGrid)`
-  position: relative;
-`;
 
 export default MangaList;

@@ -58,11 +58,12 @@ export default class PageList extends PureComponent {
     );
   }
 
-  renderGrid(items) {
+  renderGrid(items, retrievingItems) {
     return (
       <ContentGrid
         items={items}
         render={this.renderCard}
+        retrievingItems={retrievingItems}
       />
     );
   }

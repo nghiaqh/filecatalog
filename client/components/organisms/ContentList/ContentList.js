@@ -17,7 +17,10 @@ export default class ContentList extends PureComponent {
 
     return (
       <React.Fragment>
-        <List id={this.props.id} twoLine={this.props.twoLine}>
+        <List
+          id={this.props.id}
+          twoLine={this.props.twoLine}
+        >
           {list}
         </List>
         {notFoundMessage}

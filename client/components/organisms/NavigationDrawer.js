@@ -20,7 +20,7 @@ export default class NavigationDrawer extends PureComponent {
   }
 
   render() {
-    const { open, onClose, theme } = this.props;
+    const { open, onClose, theme, location } = this.props;
 
     return (
       <StyledDrawer
@@ -33,7 +33,7 @@ export default class NavigationDrawer extends PureComponent {
           <DrawerTitle>File Catalog</DrawerTitle>
         </DrawerHeader>
 
-        <DrawerContent>
+        <DrawerContent location={location}>
           <NavLink to='/mangas' onClick={onClose}>
             <ListItem>
               <ListItemGraphic icon='photo_album'/>

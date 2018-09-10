@@ -18,7 +18,6 @@ export default class AuthorListItem extends PureComponent {
           graphic='portrait'
           text={name}
           secondaryText={secondaryText}
-          onClick={this.handleClick}
         />
       </NavLink>
     );

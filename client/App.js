@@ -22,7 +22,7 @@ class App extends Component {
     this.closeDrawer = this.closeDrawer.bind(this);
   }
   render() {
-    const { theme } = this.props;
+    const { theme, location } = this.props;
 
     return (
       <ThemeProvider options={theme}>
@@ -33,6 +33,7 @@ class App extends Component {
             open={this.state.drawOpen}
             onClose={this.closeDrawer}
             theme={theme}
+            location={location}
           />
 
           <Switch>

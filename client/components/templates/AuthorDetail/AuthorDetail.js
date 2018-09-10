@@ -44,7 +44,7 @@ export class AuthorDetail extends PureComponent {
             <AuthorList
               uid={'author-hub'}
               searchText={this.state.searchAuthor}
-              history={this.props.history}
+              location={this.props.location}
               pageSize={24}
               order={this.state.authorListOrder}
             />

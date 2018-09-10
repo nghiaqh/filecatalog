@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import styled from 'react-emotion';
 import { connect } from 'react-redux';
 
@@ -28,23 +28,21 @@ export class StyledNavLink extends React.PureComponent {
     }
 
     return (
-      <Wrapper
-        customStyle={style}
-      >
-        <NavLink to={to} onClick={onClick}>{children}</NavLink>
-      </Wrapper>
+      <WrappedNavLink to={to} onClick={onClick} style={style}>
+        {children}
+      </WrappedNavLink>
     );
   }
 }
 
-const Wrapper = styled('div')(props => {
-  const { color, bgColor, activeColor, activeBgColor } = props.customStyle;
+const WrappedNavLink = styled(NavLink)(props => {
+  const { color, bgColor, activeColor, activeBgColor } = props.style;
 
   return {
     color: color,
     textTransform: 'capitalize',
 
-    'a, .mdc-list-item__graphic': {
+    '.mdc-list-item__graphic': {
       color: color,
     },
 
@@ -52,7 +50,7 @@ const Wrapper = styled('div')(props => {
       backgroundColor: bgColor
     },
 
-    'a.active': {
+    '&.active': {
       color: activeColor,
 
       '.mdc-list-item__text': {
@@ -80,6 +78,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default withRouter(
-  connect(mapStateToProps, null, null, { pure: false })(StyledNavLink)
-);
+export default connect(mapStateToProps)(StyledNavLink);

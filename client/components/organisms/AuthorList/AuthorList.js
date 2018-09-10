@@ -37,8 +37,8 @@ class AuthorList extends PureComponent {
     return (
       <AuthorListItem
         key={'author-' + item.id}
-        key={item.id}
         author={item}
+        location={this.props.location}
       />
     );
   }
@@ -46,10 +46,10 @@ class AuthorList extends PureComponent {
   renderList(items, retrievingItems) {
     return (
       <StyledAuthorList
+        twoLine
         items={items}
         render={this.renderListItem}
         retrievingItems={retrievingItems}
-        twoLine
       />
     )
   }

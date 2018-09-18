@@ -13,7 +13,9 @@ export default class AuthorListItem extends PureComponent {
     const secondaryText = `${mangasCount} ${mangasCount > 1 ? 'mangas' : 'manga'}`
 
     return (
-      <NavLink to={authorUrl} bgColor='background'>
+      <NavLink to={authorUrl}
+        color='textPrimaryOnBackground'
+        bgColor='background'>
         <SimpleListItem
           graphic='portrait'
           text={name}

@@ -13,7 +13,6 @@ injectGlobal`
     -webkit-font-smoothing: antialiased;
     font-size: 14px;
     margin: 0;
-    overflow-x: hidden;
   }
 
   a {

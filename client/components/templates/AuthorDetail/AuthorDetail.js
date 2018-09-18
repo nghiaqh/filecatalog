@@ -89,6 +89,7 @@ const StyledSection = styled('section')`
     height: calc(100vh - 64px);
     position: fixed;
     overflow-y: auto;
+    width: 260px;
 
     @media (max-width: 640px) {
       display: none;

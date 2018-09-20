@@ -36,10 +36,18 @@ export class ThemePicker extends PureComponent {
     );
   }
 
+  componentDidMount() {
+    const theme = localStorage.getItem('theme');
+    if (theme) {
+      this.props.dispatch(setTheme(theme));
+    }
+  }
+
   setTheme(e) {
     e.preventDefault();
     const theme = e.currentTarget.getAttribute('data-theme');
     this.props.dispatch(setTheme(theme));
+    localStorage.setItem('theme', theme);
   }
 }
 

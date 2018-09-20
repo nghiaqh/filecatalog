@@ -3,14 +3,14 @@ import React, { Component } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { ThemeProvider } from '@rmwc/theme';
-import NavigationDrawer from './components/organisms/NavigationDrawer';
-import { AuthorHub } from './components/templates/AuthorHub';
-import { AuthorDetail } from './components/templates/AuthorDetail';
-import { MangaHub } from './components/templates/MangaHub';
-import { MangaDetail, MangaEdit } from './components/templates/MangaDetail';
-import { PageViewer } from './components/templates/PageViewer';
-import { TopAppBar, setBreadcrumb } from './components/organisms/TopAppBar';
-import './Style';
+import NavigationDrawer from '@organism/NavigationDrawer';
+import { AuthorHub } from '@template/AuthorHub';
+import { AuthorDetail } from '@template/AuthorDetail';
+import { MangaHub } from '@template/MangaHub';
+import { MangaDetail, MangaEdit } from '@template/MangaDetail';
+import { PageViewer } from '@template/PageViewer';
+import { TopAppBar, setBreadcrumb } from '@organism/TopAppBar';
+import '@client/Style';
 
 class App extends Component {
   constructor(props) {

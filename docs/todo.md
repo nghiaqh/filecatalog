@@ -18,4 +18,9 @@
 10. Add test
 11. Reduce logic/code duplication in client and server rendering (state, reducer, action) - d
 12. Find a way to distinguise filter of manga list between mangas and author detail - d
-13. Update ContentList/Grid to show message when no content found for example (˚Δ˚)b no content found! and hide the load more button
+13. Update ContentList/Grid to show message when no content found for example (˚Δ˚)b no content found! and hide the load more button - d
+14. Implement <head></head>
+15. Refactor server-side-render: common route definition, first state loaded on server
+16. Notification component
+17. Slider component
+18. Import without relative path - d

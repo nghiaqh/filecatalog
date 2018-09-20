@@ -4,8 +4,8 @@ import { StaticRouter } from 'react-router';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
-import rootReducer from '../../../client/reducers';
-import ReactApp from '../../../client/App';
+import rootReducer from '@client/reducers';
+import ReactApp from '@client/App';
 import Html from './Html';
 
 module.exports = (app) => {

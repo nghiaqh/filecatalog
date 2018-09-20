@@ -5,8 +5,8 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import rootReducer from './reducers';
-import App from './App';
+import rootReducer from '@client/reducers';
+import App from '@client/App';
 import '../node_modules/material-components-web/dist/material-components-web.min.css';
 
 // Grab the state from a global variable injected into the server-generated HTML

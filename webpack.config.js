@@ -9,6 +9,17 @@ const hotMiddlewareScript = 'webpack-hot-middleware/client?path=/__webpack_hmr&t
 const common = {
   mode: nodeEnv,
   devtool: 'inline-source-map',
+  resolve: {
+    alias: {
+      '@client': path.resolve(__dirname, 'client'),
+      '@server': path.resolve(__dirname, 'server'),
+      '@common': path.resolve(__dirname, 'common'),
+      '@atom': path.resolve(__dirname, 'client/components/atoms'),
+      '@molecule': path.resolve(__dirname, 'client/components/molecules'),
+      '@organism': path.resolve(__dirname, 'client/components/organisms'),
+      '@template': path.resolve(__dirname, 'client/components/templates'),
+    }
+  }
 };
 
 const frontend = {

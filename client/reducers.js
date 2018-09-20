@@ -1,11 +1,11 @@
-import { authorDetailReducer } from './components/templates/AuthorDetail';
-import { authorListReducer } from './components/organisms/AuthorList';
-import { mangaListReducer } from './components/organisms/MangaList';
-import { pageListReducer } from './components/organisms/PageList';
-import { mangaDetailReducer } from './components/templates/MangaDetail';
-import { themePickerReducer } from './components/molecules/ThemePicker';
-import { breadcrumbReducer } from './components/organisms/TopAppBar';
-import { pageViewerReducer } from './components/templates/PageViewer';
+import { authorDetailReducer } from '@template/AuthorDetail';
+import { authorListReducer } from '@organism/AuthorList';
+import { mangaListReducer } from '@organism/MangaList';
+import { pageListReducer } from '@organism/PageList';
+import { mangaDetailReducer } from '@template/MangaDetail';
+import { themePickerReducer } from '@molecule/ThemePicker';
+import { breadcrumbReducer } from '@organism/TopAppBar';
+import { pageViewerReducer } from '@template/PageViewer';
 
 /**
  * Combine reducers to make a flat state

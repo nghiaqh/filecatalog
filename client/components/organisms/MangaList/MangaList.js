@@ -1,9 +1,9 @@
 import equal from 'deep-equal';
 import React, { PureComponent } from 'react';
 
-import MangaCard from '../../molecules/MangaCard';
-import { ContentGrid } from '../ContentGrid';
-import { WithLoadMore } from '../WithLoadMore';
+import MangaCard from '@molecule/MangaCard';
+import { ContentGrid } from '@organism/ContentGrid';
+import { WithLoadMore } from '@organism/WithLoadMore';
 import { loadMoreMangas } from './actions';
 
 

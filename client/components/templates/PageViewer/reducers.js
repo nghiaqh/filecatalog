@@ -11,7 +11,7 @@ import {
   onDataReceived,
   onTotalRequested,
   onTotalReceived
-} from '../../organisms/WithPagination';
+} from '@organism/WithPagination';
 
 const pageViewerReducer = (prevState = {}, action) => {
   const state = Object.assign({}, initialState, prevState);

@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react';
 import styled from 'react-emotion';
 
-import AuthorListItem from '../../molecules/AuthorListItem';
-import { ContentList } from '../ContentList';
-import { WithLoadMore } from '../WithLoadMore';
+import AuthorListItem from '@molecule/AuthorListItem';
+import { ContentList } from '@organism/ContentList';
+import { WithLoadMore } from '@organism/WithLoadMore';
 import { loadMoreAuthors } from './actions';
 
 // component

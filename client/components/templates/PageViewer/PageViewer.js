@@ -3,9 +3,9 @@ import { Button } from '@rmwc/button';
 import styled from 'react-emotion';
 import { connect } from 'react-redux';
 
-import MangaPage from '../../atoms/MangaPage';
-import { WithPagination } from '../../organisms/WithPagination';
-import { fetchMangaIfNeeded } from '../MangaDetail';
+import MangaPage from '@atom/MangaPage';
+import { WithPagination } from '@organism/WithPagination';
+import { fetchMangaIfNeeded } from '@template/MangaDetail';
 import { paginatePages } from './actions';
 
 // component

@@ -11,8 +11,8 @@ import {
   ListDivider
 } from '@rmwc/list';
 import styled from 'react-emotion';
-import { ThemePicker } from '../molecules/ThemePicker';
-import NavLink from '../atoms/NavLink';
+import { ThemePicker } from '@molecule/ThemePicker';
+import NavLink from '@atom/NavLink';
 
 export default class NavigationDrawer extends PureComponent {
   constructor(props) {

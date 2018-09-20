@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import styled from 'react-emotion';
-import SearchBox from '../../atoms/SearchBox';
-import { MangaList } from '../../organisms/MangaList';
+import SearchBox from '@atom/SearchBox';
+import { MangaList } from '@organism/MangaList';
 
 export default class MangaHub extends PureComponent {
   constructor(props) {

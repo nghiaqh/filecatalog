@@ -1,9 +1,9 @@
 import equal from 'deep-equal';
 import React, { PureComponent } from 'react';
 
-import PageCard from '../../molecules/PageCard';
-import { ContentGrid } from '../ContentGrid';
-import { WithLoadMore } from '../WithLoadMore';
+import PageCard from '@molecule/PageCard';
+import { ContentGrid } from '@organism/ContentGrid';
+import { WithLoadMore } from '@organism/WithLoadMore';
 import { loadMorePages } from './actions';
 
 // component

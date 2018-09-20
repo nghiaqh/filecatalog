@@ -6,7 +6,7 @@ import {
   CardMedia
 } from '@rmwc/card';
 import { Typography } from '@rmwc/typography';
-import { StyledCard } from './MangaCard';
+import { StyledCard } from '@molecule/MangaCard';
 
 export class PageCard extends PureComponent {
   constructor(props) {

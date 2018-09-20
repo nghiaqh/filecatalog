@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react';
 import styled from 'react-emotion';
 import { connect } from 'react-redux';
-import SearchBox from '../../atoms/SearchBox';
-import { AuthorList } from '../../organisms/AuthorList';
-import { MangaList } from '../../organisms/MangaList';
+import SearchBox from '@atom/SearchBox';
+import { AuthorList } from '@organism/AuthorList';
+import { MangaList } from '@organism/MangaList';
 import { fetchAuthorIfNeeded } from './actions';
 
 export class AuthorDetail extends PureComponent {

@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { SimpleListItem } from '@rmwc/list';
-import NavLink from '../atoms/NavLink';
+import NavLink from '@atom/NavLink';
 
 export default class AuthorListItem extends PureComponent {
   constructor(props) {

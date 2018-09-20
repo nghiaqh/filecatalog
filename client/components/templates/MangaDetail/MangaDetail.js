@@ -2,8 +2,8 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import styled from 'react-emotion';
 import { Typography } from '@rmwc/typography';
-import { PageList } from '../../organisms/PageList';
-import { MangaList } from '../../organisms/MangaList';
+import { PageList } from '@organism/PageList';
+import { MangaList } from '@organism/MangaList';
 import { fetchMangaIfNeeded } from './actions';
 
 export class MangaDetail extends PureComponent {

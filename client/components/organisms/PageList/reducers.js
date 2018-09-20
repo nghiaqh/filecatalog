@@ -11,7 +11,7 @@ import {
   onDataReceived,
   onTotalRequested,
   onTotalReceived
-} from '../WithLoadMore';
+} from '@organism/WithLoadMore';
 
 const pageListReducer = (prevState = {}, action) => {
   const state = Object.assign({}, initialState, prevState);

@@ -56,7 +56,7 @@ function prepareWhereStatement(where) {
   return statement;
 }
 
-function setAuthorsRoute(router) {
+function setupAuthorsRoute(router) {
   return router.get('/api/v2/authors', (req, res) => {
     const filter = JSON.parse(
       url.parse(req.url, true).query.filter
@@ -65,4 +65,4 @@ function setAuthorsRoute(router) {
   })
 }
 
-module.exports = { setAuthorsRoute }
+module.exports = { setupAuthorsRoute }

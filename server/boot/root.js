@@ -1,6 +1,6 @@
 const {
-  setImagesRoute,
-  setAuthorsRoute
+  setupImageProxy,
+  setupAuthorsRoute
 } = require('../components/api');
 
 module.exports = function(server) {
@@ -9,10 +9,10 @@ module.exports = function(server) {
   router.get('/status', server.loopback.status());
 
   // /mnt/d/* - proxy for images
-  setImagesRoute(router);
+  setupImageProxy(router);
 
   // /api/v2/authors
-  setAuthorsRoute(router);
+  setupAuthorsRoute(router);
 
   server.use(router);
 };

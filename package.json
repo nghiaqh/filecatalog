@@ -33,6 +33,7 @@
     "react": "^16.5.0",
     "react-dom": "^16.5.0",
     "react-emotion": "^9.2.8",
+    "react-head": "^3.0.1",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
     "react-siema": "^1.0.1",

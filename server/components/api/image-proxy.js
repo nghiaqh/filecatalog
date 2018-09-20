@@ -16,7 +16,7 @@ function getServerIPv4() {
   return ips;
 }
 
-function setImagesRoute(router) {
+function setupImageProxy(router) {
   const ips = getServerIPv4();
 
   return router.get('/mnt/d/*', (req, res) => {
@@ -26,4 +26,4 @@ function setImagesRoute(router) {
   });
 }
 
-module.exports = { setImagesRoute }
+module.exports = { setupImageProxy }

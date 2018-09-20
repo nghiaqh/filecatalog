@@ -1,7 +1,7 @@
-const { setImagesRoute } = require('./images');
-const { setAuthorsRoute } = require('./authors');
+const { setupImageProxy } = require('./image-proxy');
+const { setupAuthorsRoute } = require('./authors');
 
 module.exports = {
-  setImagesRoute,
-  setAuthorsRoute
+  setupImageProxy,
+  setupAuthorsRoute
 }

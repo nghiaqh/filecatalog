@@ -1,4 +1,4 @@
-const Html = ({ body, title, preloadedState, css }) => `
+export default ({ body, title, preloadedState, css }) => `
   <!DOCTYPE html>
   <html lang="en">
 
@@ -25,5 +25,3 @@ const Html = ({ body, title, preloadedState, css }) => `
 
   </html>
 `;
-
-export default Html;

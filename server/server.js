@@ -1,5 +1,5 @@
-const loopback = require('loopback');
-const boot = require('loopback-boot');
+import loopback from 'loopback';
+import boot from 'loopback-boot';
 import setupSSR from './components/render';
 
 const app = module.exports = loopback();
@@ -42,8 +42,5 @@ boot(app, __dirname, function(err) {
   if (err) throw err;
   app.start();
 });
-
-// const ServerRender = require('./components/client/server-render');
-// ServerRender(app);
 
 setupSSR(app);

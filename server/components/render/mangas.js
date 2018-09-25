@@ -1,7 +1,7 @@
 import getFirstPage from './preload-state';
 
 async function preloadMangas(Manga) {
-  const m = await getFirstPage(Manga, 20, {}, 'created DESC', 'author');
+  const m = await getFirstPage(Manga, 48, {}, 'created DESC', 'author');
 
   return {
     withLoadMore: {

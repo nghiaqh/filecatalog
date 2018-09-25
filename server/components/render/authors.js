@@ -1,7 +1,7 @@
 import getFirstPage from './preload-state';
 
 async function preloadAuthors(Author) {
-  const a = await getFirstPage(Author, 24, {}, 'name');
+  const a = await getFirstPage(Author, 48, {}, 'name');
 
   return {
     withLoadMore: {
@@ -15,7 +15,7 @@ async function preloadAuthors(Author) {
 
 async function preloadAuthor(Author, id, Manga) {
   const a = await getFirstPage(Author, 1, { id: id });
-  const m = await getFirstPage(Manga, 24, { authorId: id }, 'created DESC', 'author');
+  const m = await getFirstPage(Manga, 48, { authorId: id }, 'created DESC', 'author');
 
   return {
     withLoadMore: {

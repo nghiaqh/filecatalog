@@ -1,30 +1,35 @@
+import { normalize } from 'normalizr';
 import getFirstPage from './preload-state';
+import { author, manga } from './schemas';
 
 async function preloadAuthors(Author) {
   const a = await getFirstPage(Author, 48, {}, 'name');
+
+  // initialise filter so loadMore action doesn't trigger
+  a.list.filter = { name: '' };
+
+  const { entities } = normalize(a.data, [author]);
 
   return {
     withLoadMore: {
       [`author-list-author-hub`]: a.list
     },
-    entities: {
-      authors: a.entities,
-    }
+    entities
   };
 }
 
 async function preloadAuthor(Author, id, Manga) {
-  const a = await getFirstPage(Author, 1, { id: id });
   const m = await getFirstPage(Manga, 48, { authorId: id }, 'created DESC', 'author');
+  m.data.forEach(manga => {
+    manga.author = manga.author.__data
+  });
+  const { entities } = normalize(m.result, [manga]);
 
   return {
     withLoadMore: {
       [`manga-list-author-${id}`]: m.list
     },
-    entities: {
-      authors: a.entities,
-      mangas: m.entities
-    }
+    entities
   };
 }
 

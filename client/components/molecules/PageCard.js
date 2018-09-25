@@ -3,10 +3,12 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {
   CardPrimaryAction,
-  CardMedia
+  CardMedia,
+  CardMediaContent
 } from '@rmwc/card';
 import { Typography } from '@rmwc/typography';
 import { StyledCard } from '@molecule/MangaCard';
+import Picture from '@atom/Picture';
 
 export class PageCard extends PureComponent {
   constructor(props) {
@@ -15,23 +17,22 @@ export class PageCard extends PureComponent {
 
   render() {
     const { uri, number, mangaId } = this.props.page;
-    const imageUrl = window.location.origin + encodeURI(uri);
+    const imageUrl = `${encodeURI(uri)}`;
     const pageUrl = `/mangas/${mangaId}/${number}`;
 
     return (
       <StyledCard theme={this.props.theme}>
         <Link to={pageUrl}>
-          <CardPrimaryAction onClick={this.viewPage}>
-            <CardMedia
-              style={{
-                backgroundImage: `url("${imageUrl}")`
-              }}
-            />
-            <div style={{ padding: '5px 0' }}>
-              <Typography className="card-title ellipsis text-center" use="subtitle2">
-                {number}
-              </Typography>
-            </div>
+          <CardPrimaryAction>
+            <CardMedia>
+              <CardMediaContent>
+                <Picture src={imageUrl} />
+              </CardMediaContent>
+            </CardMedia>
+            <Typography className="card-title ellipsis text-center" use="subtitle2"
+              style={{ padding: '5px 0' }}>
+              {number}
+            </Typography>
           </CardPrimaryAction>
         </Link>
       </StyledCard>

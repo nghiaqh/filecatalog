@@ -16,23 +16,24 @@ class WithLoadMore extends PureComponent {
       entities,
       id,
       render,
-      entityType
+      entityType,
+      pageSize
     } = this.props;
     const data = withLoadMore[id] || {
       items: [],
       pageNumber: 1,
       total: 0,
+      pageSize,
       retrievingItems: true
     };
     const { items, pageNumber, total, retrievingItems } = data;
-    const pageSize = this.props.pageSize || 20;
 
     const contents = Array.isArray(items)
       ? items.map(i => entities[entityType][i])
       : [];
     const dom = render(contents, retrievingItems);
 
-    const totalPages = Math.ceil(total / pageSize);
+    const totalPages = 1 + Math.ceil((total - data.pageSize) / pageSize);
     const showButton = totalPages > pageNumber && !retrievingItems;
 
     return (
@@ -70,11 +71,13 @@ class WithLoadMore extends PureComponent {
 
   handleClick(e) {
     e.preventDefault();
-    const { dispatch, withLoadMore, id, loadMore, order } = this.props;
-    const { pageNumber, total, pageSize, filter } = withLoadMore[id];
+    const { dispatch, withLoadMore, id, loadMore, order, pageSize } = this.props;
+    const { pageNumber, total, filter } = withLoadMore[id];
     const totalPages = Math.ceil(total / pageSize);
-    if (pageNumber + 1 <= totalPages) {
-      dispatch(loadMore(id, pageSize, pageNumber + 1, filter, order));
+    const newPageNumber = Math.ceil(withLoadMore[id].pageSize / pageSize) + pageNumber;
+
+    if (newPageNumber <= totalPages) {
+      dispatch(loadMore(id, pageSize, newPageNumber, filter, order));
     }
   }
 }

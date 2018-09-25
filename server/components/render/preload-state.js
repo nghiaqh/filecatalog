@@ -6,8 +6,8 @@ async function getFirstPage(Model, pageSize, filter, order, include) {
     pageSize: pageSize,
     order: order,
     filter: filter,
-    retrievingItems: true,
-    retrievingTotal: true,
+    retrievingItems: false,
+    retrievingTotal: false,
     receivedItemsAt: new Date(),
     receivedTotalAt: new Date(),
   };
@@ -21,13 +21,13 @@ async function getFirstPage(Model, pageSize, filter, order, include) {
     order: order
   });
 
-  const entities = {};
   result.forEach(item => {
     list.items.push(item.id);
-    entities[item.id] = item;
   });
 
-  return { list, entities };
+  const data = result.map(item => item.__data);
+
+  return { list, data };
 }
 
 export default getFirstPage;

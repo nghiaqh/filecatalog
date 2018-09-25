@@ -1,5 +1,5 @@
-import { preloadMangas, preloadManga } from './mangas';
-import { preloadAuthors, preloadAuthor } from './authors';
+import { preloadMangas, preloadManga } from './preload-mangas';
+import { preloadAuthors, preloadAuthor } from './preload-authors';
 import renderPage from './render-page';
 
 export default (app) => {

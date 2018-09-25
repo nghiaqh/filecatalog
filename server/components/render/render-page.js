@@ -8,18 +8,14 @@ import rootReducer from '@client/reducers';
 import ReactApp from '@client/App';
 import Html from './template';
 
-
-function renderPage(req, res, preloadedState) {
+function renderPage(req, res, preloadedState, context = {}) {
   const middleware = [ thunk ];
-  const finalState = createStore(
+  const store = createStore(
     rootReducer,
     preloadedState,
-    applyMiddleware(...middleware))
-    .getState();
-  const store = createStore(rootReducer, applyMiddleware(...middleware));
-
-  const context = {};
-  let application = renderToString(
+    applyMiddleware(...middleware));
+  const finalState = store.getState();
+  const application = renderToString(
     <Provider store={store}>
       <StaticRouter location={req.url} context={context}>
         <ReactApp/>

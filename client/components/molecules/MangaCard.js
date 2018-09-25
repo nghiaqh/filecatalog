@@ -6,14 +6,15 @@ import {
   Card,
   CardPrimaryAction,
   CardMedia,
+  CardMediaContent,
   CardAction,
   CardActions,
   CardActionButtons,
   CardActionIcons
 } from '@rmwc/card';
 import { Typography } from '@rmwc/typography';
-import { Icon } from '@rmwc/icon';
 import { SimpleMenu, MenuItem } from '@rmwc/menu';
+import Picture from '@atom/Picture';
 
 export class MangaCard extends PureComponent {
   constructor(props) {
@@ -37,26 +38,19 @@ export class MangaCard extends PureComponent {
   }
 
   renderCardPrimaryAction() {
-    const { id, title, coverPicture, isNew, authorId } = this.props.manga;
+    const { id, title, coverPicture, authorId } = this.props.manga;
     const author = this.props.authors[authorId] || {};
-    const coverUrl = window.location.origin + encodeURI(coverPicture);
+    const coverPicUrl = `${encodeURI(coverPicture)}`;
     const mangaUrl = `/mangas/${id}`;
 
     return (
       <Link to={mangaUrl}>
         <CardPrimaryAction>
-            <CardMedia
-              style={{
-                backgroundImage: `url("${coverUrl}")`
-              }}
-              title={title}
-            />
-
-          {isNew &&
-            <div className="tag-groups">
-              <Icon icon="fiber_new" />
-            </div>
-          }
+          <CardMedia>
+            <CardMediaContent>
+              <Picture src={coverPicUrl} title={title} />
+            </CardMediaContent>
+          </CardMedia>
 
           <div style={{ padding: '0 8px' }}>
             <Typography className="card-title ellipsis" use="subtitle1" tag="h3">

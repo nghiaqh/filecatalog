@@ -31,7 +31,7 @@ class MangaList extends PureComponent {
         loadMore={loadMoreMangas}
         id={this.state.id}
         filter={this.state.filter}
-        pageSize={24}
+        pageSize={48}
       />
     );
   }

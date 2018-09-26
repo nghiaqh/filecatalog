@@ -7,6 +7,7 @@ import {
   CardMediaContent
 } from '@rmwc/card';
 import { Typography } from '@rmwc/typography';
+import LazyLoad from 'react-lazyload';
 import { StyledCard } from '@molecule/MangaCard';
 import Picture from '@atom/Picture';
 
@@ -21,21 +22,23 @@ export class PageCard extends PureComponent {
     const pageUrl = `/mangas/${mangaId}/${number}`;
 
     return (
-      <StyledCard theme={this.props.theme}>
-        <Link to={pageUrl}>
-          <CardPrimaryAction>
-            <CardMedia>
-              <CardMediaContent>
-                <Picture src={imageUrl} />
-              </CardMediaContent>
-            </CardMedia>
-            <Typography className="card-title ellipsis text-center" use="subtitle2"
-              style={{ padding: '5px 0' }}>
-              {number}
-            </Typography>
-          </CardPrimaryAction>
-        </Link>
-      </StyledCard>
+      <LazyLoad once={true} height='100%'>
+        <StyledCard theme={this.props.theme}>
+          <Link to={pageUrl}>
+            <CardPrimaryAction>
+              <CardMedia>
+                <CardMediaContent>
+                  <Picture src={imageUrl} />
+                </CardMediaContent>
+              </CardMedia>
+              <Typography className="card-title ellipsis text-center" use="subtitle2"
+                style={{ padding: '5px 0' }}>
+                {number}
+              </Typography>
+            </CardPrimaryAction>
+          </Link>
+        </StyledCard>
+      </LazyLoad>
     );
   }
 }

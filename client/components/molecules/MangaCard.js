@@ -14,6 +14,7 @@ import {
 } from '@rmwc/card';
 import { Typography } from '@rmwc/typography';
 import { SimpleMenu, MenuItem } from '@rmwc/menu';
+import LazyLoad from 'react-lazyload';
 import Picture from '@atom/Picture';
 
 export class MangaCard extends PureComponent {
@@ -30,10 +31,12 @@ export class MangaCard extends PureComponent {
 
   render() {
     return (
-      <StyledCard theme={this.props.theme}>
-        {this.renderCardPrimaryAction()}
-        {this.renderCardActions()}
-      </StyledCard>
+      <LazyLoad once={true} height='100%'>
+        <StyledCard theme={this.props.theme}>
+          {this.renderCardPrimaryAction()}
+          {this.renderCardActions()}
+        </StyledCard>
+      </LazyLoad>
     );
   }
 

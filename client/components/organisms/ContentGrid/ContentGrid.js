@@ -51,7 +51,7 @@ export default class ContentGrid extends PureComponent {
   }
 }
 
-const breakpoints = [400, 641, 1008, 1921];
+const breakpoints = [400, 641, 1008, 1400];
 const mq = breakpoints.map(
   bp => `@media (min-width: ${bp}px)`
 );
@@ -63,6 +63,7 @@ const Grid = styled('div')(props => {
     gridTemplateRows: 'auto',
     gridTemplateColumns: `repeat(${xsmall}, calc((100% - 10px) / ${xsmall}))`,
     padding: '10px',
+    overflowX: 'hidden',
 
     [mq[0]]: {
       gridTemplateColumns: `repeat(${small}, calc((100% - 10px * (${small} - 1)) / ${small}))`,

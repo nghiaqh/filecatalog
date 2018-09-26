@@ -7,15 +7,8 @@ class Picture extends PureComponent {
   }
 
   render() {
-    const { className, src, alt, title } = this.props;
-
     return (
-      <Image
-        className={className}
-        src={src}
-        alt={alt}
-        title={title}
-      />
+      <Image {...this.props} />
     );
   }
 }
@@ -24,7 +17,6 @@ const Image = styled('img')`
   display: block;
   margin: 0 auto;
   max-height: 100%;
-  max-width: 100%;
   object-fit: cover;
 `;
 

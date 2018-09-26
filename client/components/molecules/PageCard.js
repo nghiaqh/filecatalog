@@ -31,8 +31,11 @@ export class PageCard extends PureComponent {
                   <Picture src={imageUrl} />
                 </CardMediaContent>
               </CardMedia>
-              <Typography className="card-title ellipsis text-center" use="subtitle2"
-                style={{ padding: '5px 0' }}>
+              <Typography
+                className="card-title ellipsis text-center"
+                use="subtitle2"
+                style={{ padding: '5px 0' }}
+              >
                 {number}
               </Typography>
             </CardPrimaryAction>

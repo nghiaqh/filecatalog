@@ -1,7 +1,7 @@
 import equal from 'deep-equal';
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import { Button } from '@rmwc/button';
+import { Button, ButtonIcon } from '@rmwc/button';
 import styled from 'react-emotion';
 
 class WithLoadMore extends PureComponent {
@@ -34,15 +34,20 @@ class WithLoadMore extends PureComponent {
     const dom = render(contents, retrievingItems);
 
     const totalPages = 1 + Math.ceil((total - data.pageSize) / pageSize);
-    const showButton = totalPages > pageNumber && !retrievingItems;
+    const showButton = totalPages > pageNumber;
 
     return (
       <React.Fragment>
         {dom}
 
         {showButton &&
-          <StyledButton dense outlined onClick={this.handleClick}>
-            Load More
+          <StyledButton
+            dense
+            outlined={!retrievingItems}
+            disabled={retrievingItems}
+            onClick={this.handleClick}
+          >
+            {retrievingItems ? 'Loading...' : 'Load More'}
           </StyledButton>
         }
       </React.Fragment>

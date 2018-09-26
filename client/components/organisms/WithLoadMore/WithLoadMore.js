@@ -1,7 +1,7 @@
 import equal from 'deep-equal';
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import { Button, ButtonIcon } from '@rmwc/button';
+import { Button } from '@rmwc/button';
 import styled from 'react-emotion';
 
 class WithLoadMore extends PureComponent {

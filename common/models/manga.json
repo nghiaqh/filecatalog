@@ -24,6 +24,9 @@
     },
     "updated": {
       "type": "date"
+    },
+    "pageCount": {
+      "type": "number"
     }
   },
   "validations": [],

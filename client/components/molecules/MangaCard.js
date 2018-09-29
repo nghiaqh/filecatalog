@@ -41,7 +41,7 @@ export class MangaCard extends PureComponent {
   }
 
   renderCardPrimaryAction() {
-    const { id, title, coverPicture, authorId } = this.props.manga;
+    const { id, title, coverPicture, authorId, pageCount } = this.props.manga;
     const author = this.props.authors[authorId] || {};
     const coverPicUrl = `${encodeURI(coverPicture)}`;
     const mangaUrl = `/mangas/${id}`;
@@ -51,13 +51,13 @@ export class MangaCard extends PureComponent {
         <CardPrimaryAction>
           <CardMedia>
             <CardMediaContent>
-              <Picture src={coverPicUrl} title={title} />
+              <Picture src={coverPicUrl} title={`${title} - ${pageCount} pages`} />
             </CardMediaContent>
           </CardMedia>
 
           <div style={{ padding: '0 8px' }}>
             <Typography className="card-title ellipsis" use="subtitle1" tag="h3">
-              {title}
+              {title} - {pageCount} pages
             </Typography>
             <Typography className="ellipsis" use="subtitle2">
               {author.name}

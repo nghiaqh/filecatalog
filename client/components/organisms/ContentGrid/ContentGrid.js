@@ -63,7 +63,6 @@ const Grid = styled('div')(props => {
     gridTemplateRows: 'auto',
     gridTemplateColumns: `repeat(${xsmall}, calc((100% - 10px) / ${xsmall}))`,
     padding: '10px',
-    overflowX: 'hidden',
 
     [mq[0]]: {
       gridTemplateColumns: `repeat(${small}, calc((100% - 10px * (${small} - 1)) / ${small}))`,

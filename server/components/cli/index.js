@@ -1,5 +1,3 @@
-const manga = require('./manga');
-
 module.exports = {
-  manga,
+  importMangaCli: require('./import-manga')
 };

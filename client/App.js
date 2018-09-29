@@ -26,7 +26,7 @@ class App extends Component {
 
     return (
       <ThemeProvider options={theme}>
-        <TopAppBar onClickMenuIcon={this.openDrawer} />
+        <TopAppBar onClickMenuIcon={this.openDrawer} compact/>
 
         <React.Fragment>
           <NavigationDrawer

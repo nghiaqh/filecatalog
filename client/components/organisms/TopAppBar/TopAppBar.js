@@ -17,25 +17,7 @@ export class TopAppBar extends PureComponent {
   }
 
   render() {
-    const { breadcrumb } = this.props;
-    const keys = Object.keys(breadcrumb);
-    const links = keys.map((key, index) => {
-      const item = breadcrumb[key];
-      const uniqueKey = item.url.replace(/\//g,'-');
-      if (index + 1 === keys.length) {
-        return (
-          <StyledDiv key={uniqueKey} className={index === 0 ? 'first' : ''}>
-            {item.text}
-          </StyledDiv>
-        )
-      }
-      return (
-        <StyledNavLink to={item.url} exact key={uniqueKey}
-          className={index === 0 ? 'first' : ''}>
-          {item.text}
-        </StyledNavLink>
-      );
-    });
+    const breadcrumb = this.renderBreadcrumb(this.props);
 
     return (
       <StyledHeader>
@@ -47,7 +29,7 @@ export class TopAppBar extends PureComponent {
                 onClick={this.props.onClickMenuIcon}
               />
               <TopAppBarTitle>
-                {links}
+                {breadcrumb}
               </TopAppBarTitle>
             </TopAppBarSection>
           </TopAppBarRow>
@@ -55,6 +37,27 @@ export class TopAppBar extends PureComponent {
         <TopAppBarFixedAdjust/>
       </StyledHeader>
     )
+  }
+
+  renderBreadcrumb({ breadcrumb, compact }) {
+    const items = !compact ? breadcrumb :
+      breadcrumb.filter(item => item.visibleOnCompactMode)
+    return items.map((item, index) => {
+      const uniqueKey = item.url.replace(/\//g,'-');
+      const className = index === 0 ? 'first' : null;
+      if (index + 1 === breadcrumb.length) {
+        return (
+          <StyledDiv key={uniqueKey} className={className}>
+            {item.text}
+          </StyledDiv>
+        )
+      }
+      return (
+        <StyledNavLink to={item.url} exact key={uniqueKey} className={className}>
+          {item.text}
+        </StyledNavLink>
+      );
+    });
   }
 }
 

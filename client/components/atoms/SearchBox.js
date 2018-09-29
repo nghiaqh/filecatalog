@@ -53,7 +53,9 @@ class SearchBox extends PureComponent {
 }
 
 const StyledTextField = styled(TextField)(props => `
-  border-bottom: 1px solid ${props.theme.textPrimaryOnBackground};
+  &:not(:focus) {
+    border-bottom: 1px solid ${props.theme.textPrimaryOnBackground};
+  }
 
   .mdc-text-field__icon {
     cursor: pointer;

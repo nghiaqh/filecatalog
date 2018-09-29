@@ -31,6 +31,7 @@
     "normalizr": "^3.2.4",
     "prop-types": "^15.6.2",
     "react": "^16.5.0",
+    "react-addons-css-transition-group": "^15.6.2",
     "react-dom": "^16.5.0",
     "react-emotion": "^9.2.8",
     "react-head": "^3.0.1",

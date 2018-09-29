@@ -1,7 +1,9 @@
+import debounce from 'lodash/debounce';
+
 import React, { PureComponent } from 'react';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import styled from 'react-emotion';
 import { forceCheck } from 'react-lazyload';
-import debounce from 'lodash/debounce';
 
 import {
   Toolbar,
@@ -29,39 +31,23 @@ export default class Search extends PureComponent {
 
   render() {
     const style = { display: this.props.open ? 'block' : 'none' };
+    const searchBar = this.renderSearchBar.bind(this)();
+    const mangaList = this.renderMangaList();
+    const authorList = this.renderAuthorList();
+
     return (
-      <SearchPanel style={style}>
-        <div className='search-content'>
-
-          <Toolbar className='toolbar'>
-            <ToolbarRow>
-              <ToolbarSection>
-                <SearchBox
-                  onSearch={this.handleSearch}
-                  placeholder='Search mangas, authors' />
-                <ToolbarIcon icon="clear" label="Close search"
-                  onClick={this.closeSearch} />
-              </ToolbarSection>
-            </ToolbarRow>
-          </Toolbar>
-
-          <Typography use="headline6" tag="h3">Mangas</Typography>
-          <MangaList
-            uid='search'
-            searchText={this.state.searchText}
-            history={this.props.history}
-            pageSize={12}
-          />
-
-          <Typography use="headline6" tag="h3">Authors</Typography>
-          <AuthorList
-            uid='search'
-            searchText={this.state.searchText}
-            history={this.props.history}
-            pageSize={6}
-          />
-        </div>
-      </SearchPanel>
+      <ReactCSSTransitionGroup
+        transitionName="overlay"
+        transitionEnterTimeout={500}
+        transitionLeaveTimeout={300}>
+        <SearchPanel key='search-panel' style={style}>
+          <div className='search-content'>
+            {searchBar}
+            {mangaList}
+            {authorList}
+          </div>
+        </SearchPanel>
+      </ReactCSSTransitionGroup>
     );
   }
 
@@ -75,6 +61,48 @@ export default class Search extends PureComponent {
     if (this.props.location.pathname !== prevProps.location.pathname) {
       this.closeSearch();
     }
+  }
+
+  renderSearchBar() {
+    return (
+      <Toolbar className='toolbar'>
+        <ToolbarRow>
+          <ToolbarSection>
+            <SearchBox
+              onSearch={this.handleSearch}
+              placeholder='Search mangas, authors' />
+            <ToolbarIcon icon="clear" label="Close search"
+              onClick={this.closeSearch} />
+          </ToolbarSection>
+        </ToolbarRow>
+      </Toolbar>
+    );
+  }
+
+  renderMangaList() {
+    return (
+      <React.Fragment>
+        <Typography use="headline6" tag="h3">Mangas</Typography>
+        <MangaList
+          uid='search'
+          searchText={this.state.searchText}
+          history={this.props.history}
+          pageSize={12} />
+      </React.Fragment>
+    );
+  }
+
+  renderAuthorList() {
+    return (
+      <React.Fragment>
+        <Typography use="headline6" tag="h3">Authors</Typography>
+        <AuthorList
+          uid='search'
+          searchText={this.state.searchText}
+          history={this.props.history}
+          pageSize={6} />
+      </React.Fragment>
+    );
   }
 
   handleSearch(text) {

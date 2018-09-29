@@ -44,4 +44,23 @@ injectGlobal`
     overflow: hidden;
     max-height: 100vh;
   }
+
+  /* Animation */
+  .overlay-enter {
+    opacity: 0.01;
+  }
+
+  .overlay-enter.overlay-enter-active {
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+  }
+
+  .overlay-leave {
+    opacity: 1;
+  }
+
+  .overlay-leave.overlay-leave-active {
+    opacity: 0.01;
+    transition: opacity 300ms ease-in;
+  }
 `;

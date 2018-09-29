@@ -27,10 +27,9 @@ class App extends Component {
   }
   render() {
     const { theme, location } = this.props;
-    const className = this.state.isSearchOpen ? 'no-scroll' : null;
 
     return (
-      <ThemeProvider options={theme} className={className}>
+      <ThemeProvider options={theme}>
         <TopAppBar compact
           onClickMenuIcon={this.openDrawer}
           onClickSearchIcon={this.openSearch}
@@ -87,10 +86,12 @@ class App extends Component {
   openSearch(e) {
     e.preventDefault();
     this.setState({ isSearchOpen: true });
+    document.body.classList.toggle('no-scroll', true);
   }
 
   closeSearch(e) {
     this.setState({ isSearchOpen: false });
+    document.body.classList.toggle('no-scroll', false);
   }
 }
 

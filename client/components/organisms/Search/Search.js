@@ -1,7 +1,6 @@
 import debounce from 'lodash/debounce';
 
 import React, { PureComponent } from 'react';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import styled from 'react-emotion';
 import { forceCheck } from 'react-lazyload';
 
@@ -30,24 +29,18 @@ export default class Search extends PureComponent {
   }
 
   render() {
-    const style = { display: this.props.open ? 'block' : 'none' };
     const searchBar = this.renderSearchBar.bind(this)();
     const mangaList = this.renderMangaList();
     const authorList = this.renderAuthorList();
 
     return (
-      <ReactCSSTransitionGroup
-        transitionName="overlay"
-        transitionEnterTimeout={500}
-        transitionLeaveTimeout={300}>
-        <SearchPanel key='search-panel' style={style}>
-          <div className='search-content'>
-            {searchBar}
-            {mangaList}
-            {authorList}
-          </div>
-        </SearchPanel>
-      </ReactCSSTransitionGroup>
+      <SearchPanel aria-hidden={!this.props.open}>
+        <div key='search-panel' className='search-panel'>
+          {searchBar}
+          {mangaList}
+          {authorList}
+        </div>
+      </SearchPanel>
     );
   }
 
@@ -116,16 +109,30 @@ export default class Search extends PureComponent {
 }
 
 const SearchPanel = styled('section')(props => `
-  width: 100%;
   position: fixed;
-  top: 0;
-  bottom: 0;
-  background: #fff;
-  z-index: 99999;
+  overflow-y: scroll;
+  top: 0; left: 0; top: 0; bottom: 0;
 
-  .search-content {
-    height: 100%;
-    overflow: auto;
+  &[aria-hidden="true"] {
+    transition: opacity 1s, z-index 0s 1s;
+    width: 100vw;
+    z-index: -1;
+    opacity: 0;
+  }
+
+  &[aria-hidden="false"] {
+    transition: opacity 1s;
+    width: 100%;
+    z-index: 7;
+    opacity: 1;
+  }
+
+  .search-panel {
+    background: #fff;
+
+    > h1, h3 {
+      padding: 0 10px;
+    }
   }
 
   .toolbar {
@@ -139,10 +146,5 @@ const SearchPanel = styled('section')(props => `
       background-color: #fff !important;
       border-radius: 4px;
     }
-  }
-
-  .search-content > h1,
-  .search-content > h3 {
-    padding: 0 10px;
   }
 `);

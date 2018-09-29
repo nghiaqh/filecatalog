@@ -42,25 +42,27 @@ injectGlobal`
 
   .no-scroll {
     overflow: hidden;
-    max-height: 100vh;
+    @media (min-device-width: 1025px) {
+      padding-right: 15px;
+    }
   }
 
   /* Animation */
-  .overlay-enter {
+  .fade-enter {
     opacity: 0.01;
   }
 
-  .overlay-enter.overlay-enter-active {
+  .fade-enter.fade-enter-active {
     opacity: 1;
-    transition: opacity 500ms ease-in;
+    transition: opacity .5s ease-in;
   }
 
-  .overlay-leave {
+  .fade-leave {
     opacity: 1;
   }
 
-  .overlay-leave.overlay-leave-active {
+  .fade-leave.fade-leave-active {
     opacity: 0.01;
-    transition: opacity 300ms ease-in;
+    transition: opacity .3s ease-in;
   }
 `;

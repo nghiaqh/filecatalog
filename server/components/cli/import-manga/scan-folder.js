@@ -23,9 +23,9 @@ function isMangaFolder(folder) {
  */
 function scanFolder(folder, start = 0, limit = 0, newOnly = true) {
   logger.info(`Scanning ${folder}`);
+
   const { folders, files } = getFolderItems(folder);
   const toBeImported = folders.slice(Number(start) || 0, Number(limit) || folders.length);
-
   const images = filterImages(files);
 
   if (isMangaFolder(folder) && images.length) {
@@ -47,8 +47,8 @@ function importData(folder, images, newOnly) {
   const name = getItemName(folder);
 
   return createContent(name, mtime, images, newOnly)
-    .then(promises => Promise.all(promises))
-    .then(printResult);
+    // .then(promises => Promise.all(promises))
+    // .then(printResult);
 }
 
 /**

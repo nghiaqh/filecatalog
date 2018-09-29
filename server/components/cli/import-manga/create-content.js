@@ -12,7 +12,7 @@ function findOrCreateOne(Model, filter, data) {
   return new Promise((resolve, reject) => {
     const callback = (err, record, created) => {
       if (err && err.code === 'ER_DUP_ENTRY') {
-        resolve(findOne(Model, filter));
+        findOne(Model, filter).then(resolve);
       } else {
         reject(err);
       }
@@ -34,7 +34,10 @@ function findOne(Model, filter) {
   return new Promise((resolve, reject) =>
     Model.findOne(
       filter,
-      (err, item) => resolve([item, false]))
+      (err, item) => {
+        if (err) reject(err);
+        resolve([item, false]);
+      })
   )
 }
 
@@ -74,7 +77,7 @@ function createPages(images, manga) {
 function createAuthor(name) {
   const filter = { where: { name }};
   const data = { name };
-  return findOrCreate(Author, filter, data);
+  return findOrCreateOne(Author, filter, data);
 }
 
 /**
@@ -87,7 +90,7 @@ function createAuthor(name) {
 function createManga(title, authorId, createdTime) {
   const filter = { where: { title, authorId } };
   const data = { title, authorId, created: createdTime };
-  return findOrCreate(Manga, filter, data);
+  return findOrCreateOne(Manga, filter, data);
 }
 
 /**

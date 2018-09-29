@@ -15,16 +15,18 @@ async function main() {
   startTime = new Date();
 
   let promises = scanFolder(folder, start, limit, newOnly);
-  promises = Array.isArray(promises) ? flatten(promises) : [promises]
+  promises = Array.isArray(promises) ? flatten(promises) : [promises];
+
   Promise.all(promises)
     .then(printResult)
     .then(main)
-    .catch(handleError)
+    .catch(handleError);
 }
 
 function printResult(results) {
   const endTime = new Date();
-  const added = results.reduce((count, item) => count = item ? count + 1: count, 0);
+  const added = results.reduce((count, item) =>
+    count = item ? count + 1: count, 0);
   const skipped = results.length - added;
 
   const addedTxt = `${added} ${added > 1 ? 'mangas' : 'manga'} added.`;
@@ -33,9 +35,9 @@ function printResult(results) {
   const timeLapse = formatLapse(endTime - startTime);
   const text = `FINISHED: ${stats} Time taken: ${timeLapse}`;
 
+  console.log('---------------------------------------------------------------------------\-----');
   logger.info(text);
-
-  console.log('--------------------------------------------------------------');
+  console.log('---------------------------------------------------------------------------\-----');
 }
 
 module.exports = importMangaCli;

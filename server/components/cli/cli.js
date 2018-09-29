@@ -42,7 +42,7 @@ function askQuestions() {
       name: 'limit',
       type: 'input',
       message: 'Limit index',
-      default: '-1',
+      default: '5',
       validate: (value) => {
         const isValid = /^[+-]?([0-9]+)$/.test(value ? value.trim() : value);
         return isValid ? true : 'Enter an integer';
@@ -52,7 +52,7 @@ function askQuestions() {
       name: 'newOnly',
       type: 'confirm',
       message: 'Skip imported folder?',
-      default: true,
+      default: false,
     }
   ];
 
@@ -64,7 +64,11 @@ function askQuestions() {
  * @param {Error} err
  */
 function handleError(err) {
-  logger.error({ message: err.message, stack: err.stack });
+  const { message, stack } = err || {};
+  logger.error({
+    message,
+    stack
+  });
   process.exit(1);
 }
 

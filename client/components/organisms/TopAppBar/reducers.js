@@ -2,7 +2,8 @@ import { SET_BREADCRUMB } from './actions';
 const initialState = {
   breadcrumb: [{
     text: 'Home',
-    url: '/'
+    url: '/',
+    visibleOnCompactMode: false
   }]
 }
 
@@ -46,6 +47,8 @@ function createBreadcrumb(state, pathname) {
     });
 
     breadcrumb = breadcrumb.concat(trails);
+  } else {
+    breadcrumb[0].visibleOnCompactMode = true;
   }
 
   return breadcrumb;

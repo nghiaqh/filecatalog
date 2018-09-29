@@ -10,42 +10,55 @@ import { MangaHub } from '@template/MangaHub';
 import { MangaDetail, MangaEdit } from '@template/MangaDetail';
 import { PageViewer } from '@template/PageViewer';
 import { TopAppBar, setBreadcrumb } from '@organism/TopAppBar';
+import { Search } from '@organism/Search';
 import '@client/Style';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      drawOpen: false
+      isDrawOpen: false,
+      isSearchOpen: false
     };
     this.openDrawer = this.openDrawer.bind(this);
     this.closeDrawer = this.closeDrawer.bind(this);
+    this.openSearch = this.openSearch.bind(this);
+    this.closeSearch = this.closeSearch.bind(this);
   }
   render() {
     const { theme, location } = this.props;
+    const className = this.state.isSearchOpen ? 'no-scroll' : null;
 
     return (
-      <ThemeProvider options={theme}>
-        <TopAppBar onClickMenuIcon={this.openDrawer} compact/>
+      <ThemeProvider options={theme} className={className}>
+        <TopAppBar compact
+          onClickMenuIcon={this.openDrawer}
+          onClickSearchIcon={this.openSearch}
+        />
 
-        <React.Fragment>
-          <NavigationDrawer
-            open={this.state.drawOpen}
-            onClose={this.closeDrawer}
-            theme={theme}
-            location={location}
-          />
+        <Search
+          open={this.state.isSearchOpen}
+          onClose={this.closeSearch}
+          theme={theme}
+          location={location}
+        />
 
-          <Switch>
-            <Route exact path='/' component={MangaHub}/>
-            <Route exact path='/mangas' component={MangaHub}/>
-            <Route exact path='/mangas/:mangaId' component={MangaDetail}/>
-            <Route exact path='/mangas/:mangaId/edit' component={MangaEdit}/>
-            <Route exact path='/mangas/:mangaId/:pageNumber' component={PageViewer}/>
-            <Route exact path='/authors' component={AuthorHub}/>
-            <Route exact path='/authors/:authorId' component={AuthorDetail}/>
-          </Switch>
-        </React.Fragment>
+        <NavigationDrawer
+          open={this.state.isDrawOpen}
+          onClose={this.closeDrawer}
+          theme={theme}
+          location={location}
+        />
+
+        <Switch>
+          <Route exact path='/' component={MangaHub}/>
+          <Route exact path='/mangas' component={MangaHub}/>
+          <Route exact path='/mangas/:mangaId' component={MangaDetail}/>
+          <Route exact path='/mangas/:mangaId/edit' component={MangaEdit}/>
+          <Route exact path='/mangas/:mangaId/:pageNumber' component={PageViewer}/>
+          <Route exact path='/authors' component={AuthorHub}/>
+          <Route exact path='/authors/:authorId' component={AuthorDetail}/>
+        </Switch>
       </ThemeProvider>
     );
   }
@@ -64,11 +77,20 @@ class App extends Component {
 
   openDrawer(e) {
     e.preventDefault();
-    this.setState({ drawOpen: true });
+    this.setState({ isDrawOpen: true });
   }
 
   closeDrawer(e) {
-    this.setState({ drawOpen: false });
+    this.setState({ isDrawOpen: false });
+  }
+
+  openSearch(e) {
+    e.preventDefault();
+    this.setState({ isSearchOpen: true });
+  }
+
+  closeSearch(e) {
+    this.setState({ isSearchOpen: false });
   }
 }
 

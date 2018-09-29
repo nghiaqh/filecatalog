@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import styled from 'react-emotion';
-import { Typography } from '@rmwc/typography';
+import NotFoundMessage from '@atom/NotFoundMessage';
 
 export default class ContentGrid extends PureComponent {
   constructor(props) {
@@ -26,7 +26,7 @@ export default class ContentGrid extends PureComponent {
     ));
 
     const notFoundMessage = (list.length === 0 && !retrievingItems)
-      ? this.renderNoContent()
+      ? (<NotFoundMessage />)
       : '';
 
     return (
@@ -37,17 +37,6 @@ export default class ContentGrid extends PureComponent {
         {notFoundMessage}
       </React.Fragment>
     );
-  }
-
-  renderNoContent() {
-    return (
-      <div className='text-center'>
-        <br/><br/>
-        <Typography use='headline2'>( ˚ Δ ˚ ) b</Typography>
-        <br/><br/>
-        <Typography use='body1'>No contents found!</Typography>
-      </div>
-    )
   }
 }
 

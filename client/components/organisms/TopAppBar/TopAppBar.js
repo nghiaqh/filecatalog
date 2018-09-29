@@ -8,7 +8,8 @@ import {
   TopAppBarSection,
   TopAppBarNavigationIcon,
   TopAppBarTitle,
-  TopAppBarFixedAdjust
+  TopAppBarFixedAdjust,
+  TopAppBarActionItem
 } from '@rmwc/top-app-bar';
 
 export class TopAppBar extends PureComponent {
@@ -23,15 +24,22 @@ export class TopAppBar extends PureComponent {
       <StyledHeader>
         <RMWCTopAppBar fixed>
           <TopAppBarRow>
+
             <TopAppBarSection alignStart>
               <TopAppBarNavigationIcon
                 icon="menu"
-                onClick={this.props.onClickMenuIcon}
-              />
+                onClick={this.props.onClickMenuIcon} />
               <TopAppBarTitle>
                 {breadcrumb}
               </TopAppBarTitle>
             </TopAppBarSection>
+
+            <TopAppBarSection alignEnd>
+              <TopAppBarActionItem
+                aria-label="Search" alt="Search" icon="search"
+                onClick={this.props.onClickSearchIcon} />
+            </TopAppBarSection>
+
           </TopAppBarRow>
         </RMWCTopAppBar>
         <TopAppBarFixedAdjust/>

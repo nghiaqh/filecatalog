@@ -10,9 +10,13 @@ async function preloadAuthors(Author) {
 
   const { entities } = normalize(a.data, [author]);
 
+  const searchList = Object.assign({}, a.list);
+  searchList.items = searchList.items.slice(0, 6);
+
   return {
     withLoadMore: {
-      [`author-list-author-hub`]: a.list
+      [`author-list-author-hub`]: a.list,
+      [`author-list-search`]: searchList
     },
     entities
   };
@@ -23,7 +27,8 @@ async function preloadAuthor(Author, id, Manga) {
   m.data.forEach(manga => {
     manga.author = manga.author.__data
   });
-  const { entities } = normalize(m.result, [manga]);
+
+  const { entities } = normalize(m.data, [manga]);
 
   return {
     withLoadMore: {

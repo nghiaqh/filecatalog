@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { List } from '@rmwc/list';
-import { Typography } from '@rmwc/typography';
+import NotFoundMessage from '@atom/NotFoundMessage';
 
 export default class ContentList extends PureComponent {
   constructor(props) {
@@ -12,7 +12,7 @@ export default class ContentList extends PureComponent {
 
     const list = items.map(item => this.props.render(item));
     const notFoundMessage = (list.length === 0 && !retrievingItems)
-      ? this.renderNoContent()
+      ? (<NotFoundMessage />)
       : '';
 
     return (
@@ -26,16 +26,5 @@ export default class ContentList extends PureComponent {
         {notFoundMessage}
       </React.Fragment>
     );
-  }
-
-  renderNoContent() {
-    return (
-      <div className='text-center'>
-        <br/><br/>
-        <Typography use='headline2'>( ˚ Δ ˚ ) b</Typography>
-        <br/><br/>
-        <Typography use='body1'>No contents found!</Typography>
-      </div>
-    )
   }
 }

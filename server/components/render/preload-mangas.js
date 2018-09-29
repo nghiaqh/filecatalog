@@ -14,9 +14,13 @@ async function preloadMangas(Manga) {
 
   const { entities } = normalize(m.data, [manga]);
 
+  const searchList = Object.assign({}, m.list);
+  searchList.items = searchList.items.slice(0, 12);
+
   return {
     withLoadMore: {
-      [`manga-list-manga-hub`]: m.list
+      [`manga-list-manga-hub`]: m.list,
+      [`manga-list-search`]: searchList
     },
     entities
   };

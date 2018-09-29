@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import styled from 'react-emotion';
-import SearchBox from '@atom/SearchBox';
 import { MangaList } from '@organism/MangaList';
 
 export default class MangaHub extends PureComponent {
@@ -15,8 +14,6 @@ export default class MangaHub extends PureComponent {
   render() {
     return (
       <StyledMangaHub>
-        <SearchBox onSearch={this.handleSearch} placeholder='Search manga'/>
-        <br/>
         <MangaList
           uid='manga-hub'
           searchText={this.state.searchText}

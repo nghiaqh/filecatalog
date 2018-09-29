@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import styled from 'react-emotion';
 import { connect } from 'react-redux';
-import SearchBox from '@atom/SearchBox';
 import { AuthorList } from '@organism/AuthorList';
 import { MangaList } from '@organism/MangaList';
 import { fetchAuthorIfNeeded } from './actions';
@@ -39,8 +38,6 @@ export class AuthorDetail extends PureComponent {
       return (
         <React.Fragment>
           <StyledSection className='sidebar'>
-            <SearchBox onSearch={this.searchAuthor} placeholder='Search author'/>
-
             <AuthorList
               uid={'author-hub'}
               searchText={this.state.searchAuthor}
@@ -50,10 +47,6 @@ export class AuthorDetail extends PureComponent {
             />
           </StyledSection>
           <StyledSection className='main-content'>
-            <SearchBox
-              onSearch={this.searchManga}
-              placeholder={`Search manga by ${author.name}`}
-            />
             <MangaList
               uid={mangaListUid}
               authorId={authorId}

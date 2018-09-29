@@ -39,4 +39,9 @@ injectGlobal`
   .text-center {
     text-align: center;
   }
+
+  .no-scroll {
+    overflow: hidden;
+    max-height: 100vh;
+  }
 `;

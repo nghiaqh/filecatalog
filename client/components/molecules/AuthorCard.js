@@ -16,6 +16,7 @@ import { Typography } from '@rmwc/typography';
 import { SimpleMenu, MenuItem } from '@rmwc/menu';
 import LazyLoad from 'react-lazyload';
 import Picture from '@atom/Picture';
+import Avatar from '@atom/Avatar';
 
 export class AuthorCard extends PureComponent {
   constructor(props) {
@@ -38,7 +39,7 @@ export class AuthorCard extends PureComponent {
   }
 
   renderCardPrimaryAction() {
-    const { id, name, coverPicture, mangasCount } = this.props.author;
+    const { id, name, coverPicture, mangasCount, gender } = this.props.author;
     const coverPicUrl = `${encodeURI(coverPicture)}`;
     const authorUrl = `/authors/${id}`;
     const secondaryText = `${mangasCount} ${mangasCount > 1 ? 'mangas' : 'manga'}`
@@ -48,7 +49,9 @@ export class AuthorCard extends PureComponent {
         <CardPrimaryAction>
           <CardMedia>
             <CardMediaContent>
-              <Picture src={coverPicUrl} title={name} />
+              {coverPicture
+                ? <Picture src={coverPicUrl} title={name} />
+                : <Avatar seed={name} collection={gender} /> }
             </CardMediaContent>
           </CardMedia>
 

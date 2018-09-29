@@ -11,7 +11,7 @@ async function preloadAuthors(Author) {
   const { entities } = normalize(a.data, [author]);
 
   const searchList = Object.assign({}, a.list);
-  searchList.items = searchList.items.slice(0, 6);
+  searchList.items = searchList.items.slice(0, 12);
 
   return {
     withLoadMore: {

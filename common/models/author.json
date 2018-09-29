@@ -24,6 +24,10 @@
     },
     "updated": {
       "type": "date"
+    },
+    "gender": {
+      "type": "string",
+      "default": "male"
     }
   },
   "validations": [],

@@ -33,12 +33,14 @@ const logger = winston.createLogger({
     new winston.transports.File({
       filename: 'error.log',
       level: 'error',
-      maxsize: 1024
+      maxsize: 1024*100,
+      maxFiles: 1
     }),
     new winston.transports.File({
       filename: 'info.log',
       level: 'info',
-      maxsize: 1024
+      maxsize: 1024*1000,
+      maxFiles: 1
     }),
     new winston.transports.Console({
       format: winston.format.printf(formatMessage)

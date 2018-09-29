@@ -60,7 +60,7 @@ function printResult(result) {
   if (!result) return new Promise(resolve => resolve(false));
 
   const { msg, isNew } = result[result.length - 1];
-  logger.info(`${msg} (${result.length === 1 ? 0 : result.length - 2})p`);
+  logger.info(`${msg} (${result.length === 1 ? 0 : result.length - 2}p)`);
 
   return new Promise(resolve => resolve(isNew));
 }

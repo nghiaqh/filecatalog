@@ -41,8 +41,8 @@ function askQuestions() {
     {
       name: 'limit',
       type: 'input',
-      message: 'Limit index',
-      default: '5',
+      message: 'Max import',
+      default: '20',
       validate: (value) => {
         const isValid = /^[+-]?([0-9]+)$/.test(value ? value.trim() : value);
         return isValid ? true : 'Enter an integer';
@@ -52,7 +52,7 @@ function askQuestions() {
       name: 'newOnly',
       type: 'confirm',
       message: 'Skip imported folder?',
-      default: false,
+      default: true,
     }
   ];
 

@@ -36,10 +36,10 @@ function printResult(results) {
   const text = `FINISHED: ${stats} Time taken: ${timeLapse}`;
 
   console.log('----------------------------------------------------------------\
-    ----------------');
+----------------');
   logger.info(text);
   console.log('----------------------------------------------------------------\
-    ----------------');
+----------------');
 }
 
 module.exports = importMangaCli;

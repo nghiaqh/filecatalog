@@ -20,33 +20,25 @@ class MangaList extends PureComponent {
     };
     this.renderCard = this.renderCard.bind(this);
     this.renderGrid = this.renderGrid.bind(this);
-    this.id = 'manga-list-' + props.uid;
   }
 
   render() {
+    const { searchText, order, pageSize, display, uid, authorId } = this.props;
+    const filter = { title: searchText, authorId };
+    const id = 'manga-list-' + uid;
+    const renderFunc = this.getRenderFunc(display);
+
     return (
       <WithLoadMore
         entityType='mangas'
-        render={this.renderGrid}
+        render={renderFunc}
         loadMore={loadMoreMangas}
-        id={this.state.id}
-        filter={this.state.filter}
-        pageSize={this.props.pageSize || 48}
+        id={id}
+        filter={filter}
+        pageSize={pageSize || 48}
+        order={order}
       />
     );
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    const { uid, searchText, authorId } = this.props;
-    const id = `manga-list-${uid}`;
-    const filter = {
-      title: searchText,
-      authorId: authorId
-    };
-
-    if (!equal(filter, prevState.filter) || id !== prevState.id) {
-      this.setState({ id, filter })
-    }
   }
 
   renderCard(item) {
@@ -68,6 +60,17 @@ class MangaList extends PureComponent {
         retrievingItems={retrievingItems}
       />
     )
+  }
+
+  getRenderFunc(type) {
+    switch(type) {
+      case 'list':
+        return this.renderList;
+      case 'grid':
+        return this.renderGrid;
+      default:
+        return this.renderGrid;
+    }
   }
 }
 

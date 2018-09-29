@@ -13,6 +13,9 @@
     "posttest": "npm run lint && nsp check"
   },
   "dependencies": {
+    "@dicebear/avatars": "^2.0.4",
+    "@dicebear/avatars-female-sprites": "^1.0.4",
+    "@dicebear/avatars-male-sprites": "^1.0.4",
     "chalk": "^2.4.1",
     "compression": "^1.7.3",
     "cors": "^2.5.2",

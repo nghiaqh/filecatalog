@@ -32,22 +32,20 @@ class App extends Component {
       <ThemeProvider options={theme}>
         <TopAppBar compact
           onClickMenuIcon={this.openDrawer}
-          onClickSearchIcon={this.openSearch}
-        />
+          onClickSearchIcon={this.openSearch} />
 
         <Search
           open={this.state.isSearchOpen}
           onClose={this.closeSearch}
           theme={theme}
           location={location}
-        />
+          onClickMenuIcon={this.openDrawer} />
 
         <NavigationDrawer
           open={this.state.isDrawOpen}
           onClose={this.closeDrawer}
           theme={theme}
-          location={location}
-        />
+          location={location} />
 
         <Switch>
           <Route exact path='/' component={MangaHub}/>

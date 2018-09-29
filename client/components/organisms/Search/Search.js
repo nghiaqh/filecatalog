@@ -61,6 +61,9 @@ export default class Search extends PureComponent {
       <Toolbar className='toolbar'>
         <ToolbarRow>
           <ToolbarSection>
+            <ToolbarIcon
+              icon="menu"
+              onClick={this.props.onClickMenuIcon} />
             <SearchBox
               onSearch={this.handleSearch}
               placeholder='Search mangas, authors' />
@@ -93,7 +96,8 @@ export default class Search extends PureComponent {
           uid='search'
           searchText={this.state.searchText}
           history={this.props.history}
-          pageSize={6} />
+          pageSize={12}
+          display='grid' />
       </React.Fragment>
     );
   }
@@ -112,6 +116,7 @@ const SearchPanel = styled('section')(props => `
   position: fixed;
   overflow-y: scroll;
   top: 0; left: 0; top: 0; bottom: 0;
+  background: #fff;
 
   &[aria-hidden="true"] {
     transition: opacity 1s, z-index 0s 1s;
@@ -123,14 +128,13 @@ const SearchPanel = styled('section')(props => `
   &[aria-hidden="false"] {
     transition: opacity 1s;
     width: 100%;
-    z-index: 7;
+    z-index: 5;
     opacity: 1;
   }
 
   .search-panel {
-    background: #fff;
-
-    > h1, h3 {
+    > h1,
+    > h3 {
       padding: 0 10px;
     }
   }
@@ -140,7 +144,8 @@ const SearchPanel = styled('section')(props => `
   }
 
   .search-box {
-    width: 100%;
+    width: 90%;
+    margin: 0 auto;
 
     input {
       background-color: #fff !important;

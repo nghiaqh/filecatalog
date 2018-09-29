@@ -44,6 +44,7 @@ export class AuthorDetail extends PureComponent {
               location={this.props.location}
               pageSize={24}
               order={this.state.authorListOrder}
+              display='list'
             />
           </StyledSection>
           <StyledSection className='main-content'>

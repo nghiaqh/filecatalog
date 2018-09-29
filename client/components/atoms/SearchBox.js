@@ -21,7 +21,7 @@ class SearchBox extends PureComponent {
         outlined dense
         className='search-box'
         placeholder={this.props.placeholder || 'Search'}
-        withTrailingIcon='clear'
+        withTrailingIcon='delete'
         onChange={this.handleTextChange}
         iconvisibility={this.state.iconVisibility}
         theme={this.props.theme}

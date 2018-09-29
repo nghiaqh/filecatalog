@@ -1,5 +1,6 @@
 const {Author, Genre, Manga, Page, Series} = require('../models');
 const { getItemName } = require('../fs');
+const logger = require('../logger');
 
 /**
  * Async find or create wrapper for loopback findOrCreate
@@ -8,20 +9,27 @@ const { getItemName } = require('../fs');
  * @param {object} data
  * @returns {promise}
  */
-function findOrCreateOne(Model, filter, data) {
-  return new Promise((resolve, reject) => {
-    const callback = (err, record, created) => {
-      if (err && err.code === 'ER_DUP_ENTRY') {
-        findOne(Model, filter).then(resolve);
-      } else {
-        reject(err);
-      }
+async function findOrCreateOne(Model, filter, data) {
+  // return new Promise((resolve, reject) => {
+  //   const callback = (err, record, created) => {
+  //     if (err && err.code === 'ER_DUP_ENTRY') {
+  //       findOne(Model, filter).then(resolve);
+  //     } else {
+  //       reject(err);
+  //     }
 
-      resolve([record, created]);
-    };
+  //     resolve([record, created]);
+  //   };
 
-    Model.findOrCreate(filter, data, callback);
-  });
+  //   Model.findOrCreate(filter, data, callback);
+  // });
+  let instance, created = false;
+  try {
+    [ instance, created ] = await Model.findOrCreate(filter, data);
+  } catch (e) {
+    instance = await Model.findOne(filter);
+  }
+  return [ instance, created ];
 }
 
 /**
@@ -138,7 +146,6 @@ async function createContent(folderName, mtime, files, newOnly) {
     })
   );
 
-  promises.concat(createPages(files, manga));
   return promises;
 }
 

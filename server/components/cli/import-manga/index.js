@@ -35,9 +35,11 @@ function printResult(results) {
   const timeLapse = formatLapse(endTime - startTime);
   const text = `FINISHED: ${stats} Time taken: ${timeLapse}`;
 
-  console.log('---------------------------------------------------------------------------\-----');
+  console.log('----------------------------------------------------------------\
+    ----------------');
   logger.info(text);
-  console.log('---------------------------------------------------------------------------\-----');
+  console.log('----------------------------------------------------------------\
+    ----------------');
 }
 
 module.exports = importMangaCli;

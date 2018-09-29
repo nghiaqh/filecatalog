@@ -48,11 +48,13 @@ injectGlobal`
   }
 
   /* Animation */
-  .fade-enter {
+  .fade-enter,
+  .fade-appear {
     opacity: 0.01;
   }
 
-  .fade-enter.fade-enter-active {
+  .fade-enter.fade-enter-active,
+  .fade-appear.fade-appear-active {
     opacity: 1;
     transition: opacity .5s ease-in;
   }

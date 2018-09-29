@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import styled from 'react-emotion';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import NotFoundMessage from '@atom/NotFoundMessage';
 
 export default class ContentGrid extends PureComponent {
@@ -31,7 +32,12 @@ export default class ContentGrid extends PureComponent {
 
     return (
       <React.Fragment>
-        <Grid id={this.props.id} {...cols}>
+        <Grid id={this.props.id} {...cols}
+          transitionName='fade'
+          transitionAppear={true}
+          transitionAppearTimeout={500}
+          transitionEnterTimeout={500}
+          transitionLeaveTimeout={300}>
           {list}
         </Grid>
         {notFoundMessage}
@@ -44,7 +50,7 @@ const breakpoints = [400, 641, 1008, 1400];
 const mq = breakpoints.map(
   bp => `@media (min-width: ${bp}px)`
 );
-const Grid = styled('div')(props => {
+const Grid = styled(ReactCSSTransitionGroup)(props => {
   const { xsmall, small, medium, large, xlarge } = props;
   return {
     display: 'grid',

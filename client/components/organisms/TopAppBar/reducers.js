@@ -1,5 +1,11 @@
 import { SET_BREADCRUMB } from './actions';
-const initialState = {};
+const initialState = {
+  breadcrumb: [{
+    text: 'Home',
+    url: '/',
+    visibleOnCompactMode: false
+  }]
+};
 
 const breadcrumbReducer = (prevState = {}, action) => {
   const state = Object.assign({}, initialState, prevState);
@@ -16,11 +22,7 @@ const breadcrumbReducer = (prevState = {}, action) => {
 }
 
 function createBreadcrumb(state, pathname) {
-  let breadcrumb = [{
-    text: 'Home',
-    url: '/',
-    visibleOnCompactMode: false
-  }];
+  let breadcrumb = Object.assign([], initialState.breadcrumb);
   const parts = pathname.split('/').splice(1);
 
   if (pathname !== '/') {

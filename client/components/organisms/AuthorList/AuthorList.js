@@ -53,6 +53,7 @@ class AuthorList extends PureComponent {
     return (
       <StyledAuthorList
         twoLine
+        avatarList={true}
         items={items}
         render={this.renderListItem}
         retrievingItems={retrievingItems}

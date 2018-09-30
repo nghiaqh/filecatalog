@@ -47,7 +47,7 @@ export default class Search extends PureComponent {
   componentDidUpdate(prevProps) {
     const openChanged = prevProps.open !== this.props.open;
     if (openChanged && this.props.open && this.state.forceCheck) {
-      forceCheck();
+      // forceCheck();
       this.setState({ forceCheck: false });
     }
 
@@ -65,6 +65,7 @@ export default class Search extends PureComponent {
               icon="menu"
               onClick={this.props.onClickMenuIcon} />
             <SearchBox
+              type={{outlined: true, dense: true}}
               onSearch={this.handleSearch}
               placeholder='Search mangas, authors' />
             <ToolbarIcon icon="clear" label="Close search"

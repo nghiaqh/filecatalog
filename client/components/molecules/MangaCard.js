@@ -16,6 +16,7 @@ import { Typography } from '@rmwc/typography';
 import { SimpleMenu, MenuItem } from '@rmwc/menu';
 import LazyLoad from 'react-lazyload';
 import Picture from '@atom/Picture';
+import Placeholder from '@atom/Placeholder';
 
 export class MangaCard extends PureComponent {
   constructor(props) {
@@ -30,9 +31,11 @@ export class MangaCard extends PureComponent {
   }
 
   render() {
+    const {theme} = this.props;
     return (
-      <LazyLoad once={true} height='100%'>
-        <StyledCard theme={this.props.theme}>
+      <LazyLoad once={true} height='100%'
+        placeholder={<Placeholder theme={theme} />} >
+        <StyledCard theme={theme}>
           {this.renderCardPrimaryAction()}
           {this.renderCardActions()}
         </StyledCard>
@@ -109,8 +112,6 @@ export class MangaCard extends PureComponent {
 }
 
 export const StyledCard = styled(Card)(props => ({
-  margin: '5px auto',
-
   '& .mdc-card__media': {
     paddingTop: '140%',
     backgroundSize: 'contain'

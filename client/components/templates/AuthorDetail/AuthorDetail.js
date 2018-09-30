@@ -3,6 +3,7 @@ import styled from 'react-emotion';
 import { connect } from 'react-redux';
 import { AuthorList } from '@organism/AuthorList';
 import { MangaList } from '@organism/MangaList';
+import SearchBox from '@atom/SearchBox';
 import { fetchAuthorIfNeeded } from './actions';
 
 export class AuthorDetail extends PureComponent {
@@ -37,17 +38,11 @@ export class AuthorDetail extends PureComponent {
 
       return (
         <React.Fragment>
-          <StyledSection className='sidebar'>
-            <AuthorList
-              uid={'author-hub'}
-              searchText={this.state.searchAuthor}
-              location={this.props.location}
-              pageSize={24}
-              order={this.state.authorListOrder}
-              display='list'
-            />
-          </StyledSection>
           <StyledSection className='main-content'>
+            <SearchBox
+              type={{fullwidth: true, dense: true}}
+              onSearch={this.searchManga}
+              placeholder={`Search mangas by ${author.name}`} />
             <MangaList
               uid={mangaListUid}
               authorId={authorId}
@@ -57,7 +52,20 @@ export class AuthorDetail extends PureComponent {
               cols={cols}
             />
           </StyledSection>
-
+          <StyledSection className='sidebar'>
+            <SearchBox
+              type={{fullwidth: true, dense: true}}
+              onSearch={this.searchAuthor}
+              placeholder={`Search author`} />
+            <AuthorList
+              uid={'author-hub'}
+              searchText={this.state.searchAuthor}
+              location={this.props.location}
+              pageSize={24}
+              order={this.state.authorListOrder}
+              display='list'
+            />
+          </StyledSection>
         </React.Fragment>
       );
     }
@@ -74,16 +82,15 @@ export class AuthorDetail extends PureComponent {
 }
 
 const StyledSection = styled('section')`
-  .mdc-text-field {
+  .search-box {
     width: calc(100% - 20px);
     margin: 0 auto;
   }
 
   &.sidebar {
     height: calc(100vh - 64px);
-    position: fixed;
-    overflow-y: auto;
     width: 260px;
+    float: right;
 
     @media (max-width: 640px) {
       display: none;
@@ -91,11 +98,10 @@ const StyledSection = styled('section')`
   }
 
   &.main-content {
-    margin-left: 260px;
+    display: inline-block;
     max-width: calc(100% - 260px);
 
     @media (max-width: 640px) {
-      margin-left: 0;
       max-width: 100%;
     }
   }

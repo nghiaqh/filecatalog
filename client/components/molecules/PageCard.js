@@ -10,6 +10,7 @@ import { Typography } from '@rmwc/typography';
 import LazyLoad from 'react-lazyload';
 import { StyledCard } from '@molecule/MangaCard';
 import Picture from '@atom/Picture';
+import Placeholder from '@atom/Placeholder';
 
 export class PageCard extends PureComponent {
   constructor(props) {
@@ -20,10 +21,12 @@ export class PageCard extends PureComponent {
     const { uri, number, mangaId } = this.props.page;
     const imageUrl = `${encodeURI(uri)}`;
     const pageUrl = `/mangas/${mangaId}/${number}`;
+    const {theme} = this.props;
 
     return (
-      <LazyLoad once={true} height='100%'>
-        <StyledCard theme={this.props.theme}>
+      <LazyLoad once={true} height='100%'
+        placeholder={<Placeholder theme={theme} />} >
+        <StyledCard theme={theme}>
           <Link to={pageUrl}>
             <CardPrimaryAction>
               <CardMedia>

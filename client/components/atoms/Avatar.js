@@ -15,7 +15,7 @@ export default class Avatar extends PureComponent {
       female: FSpriteCollection
     }
     const avatars = new Avatars(collections[collection] || collections.male);
-    const svg = avatars.create(this.props.seed);
+    const svg = avatars.create(seed);
     return <span dangerouslySetInnerHTML={{__html: svg}} />;
   }
 }

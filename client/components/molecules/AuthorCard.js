@@ -17,6 +17,7 @@ import { SimpleMenu, MenuItem } from '@rmwc/menu';
 import LazyLoad from 'react-lazyload';
 import Picture from '@atom/Picture';
 import Avatar from '@atom/Avatar';
+import Placeholder from '@atom/Placeholder';
 
 export class AuthorCard extends PureComponent {
   constructor(props) {
@@ -29,9 +30,11 @@ export class AuthorCard extends PureComponent {
   }
 
   render() {
+    const {theme} = this.props;
     return (
-      <LazyLoad once={true} height='100%'>
-        <StyledCard theme={this.props.theme}>
+      <LazyLoad once={true} height='100%'
+        placeholder={<Placeholder theme={theme} />} >
+        <StyledCard theme={theme}>
           {this.renderCardPrimaryAction()}
         </StyledCard>
       </LazyLoad>
@@ -70,7 +73,8 @@ export class AuthorCard extends PureComponent {
 }
 
 export const StyledCard = styled(Card)(props => ({
-  margin: '5px auto',
+  textAlign: 'center',
+  padding: '0 0 5px 0',
 
   '& .mdc-card__media': {
     paddingTop: '100%',
@@ -84,12 +88,6 @@ export const StyledCard = styled(Card)(props => ({
   '& .card-title': {
     'marginBottom': 0,
     'fontWeight': 600
-  },
-
-  '& .tag-groups': {
-    position: 'absolute',
-    padding: '5px',
-    width: '100%'
   },
 
   'a, .mdc-button:not(:disabled)': {

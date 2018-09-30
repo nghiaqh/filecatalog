@@ -18,7 +18,7 @@ class SearchBox extends PureComponent {
   render() {
     return (
       <StyledTextField
-        outlined dense
+        {...this.props.type}
         className='search-box'
         placeholder={this.props.placeholder || 'Search'}
         withTrailingIcon='delete'
@@ -55,6 +55,7 @@ class SearchBox extends PureComponent {
 
 const StyledTextField = styled(TextField)(props => `
   overflow: hidden;
+  margin: 0 auto;
 
   .mdc-text-field__icon {
     cursor: pointer;

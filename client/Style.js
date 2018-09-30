@@ -67,4 +67,16 @@ injectGlobal`
     opacity: 0.01;
     transition: opacity .3s ease-in;
   }
+
+  .spin {
+    animation-name: spin;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+  }
+
+  @keyframes spin {
+    from {transform:rotate(0deg);}
+    to {transform:rotate(360deg);}
+  }
 `;

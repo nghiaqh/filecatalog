@@ -43,13 +43,14 @@ function createBreadcrumb(state, pathname) {
           text,
           url,
           visibleOnCompactMode,
-          prefix: (visibleOnCompactMode && index > 1)
+          prefix: (visibleOnCompactMode && index)
             ? `${type.slice(0, -1)} `
             : ''
       };
     });
 
     breadcrumb = breadcrumb.concat(trails);
+    breadcrumb[0].visibleOnCompactMode = false;
   } else {
     breadcrumb[0].visibleOnCompactMode = true;
   }

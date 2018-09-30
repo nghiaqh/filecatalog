@@ -42,7 +42,8 @@ function createBreadcrumb(state, pathname) {
       return {
           text,
           url,
-          visibleOnCompactMode
+          visibleOnCompactMode,
+          prefix: visibleOnCompactMode ? `${type.slice(0, -1)} ` : ''
       };
     });
 

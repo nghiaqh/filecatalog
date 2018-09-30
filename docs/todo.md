@@ -26,4 +26,7 @@
 18. Import without relative path - d
 19. Lazy load picture - d
 20. Remember scroll position for withLoadMore - leave this to browser back button?
-21. Universal search, convert current simpleton search box to filter - 60% d
+21. Universal search, convert current simpleton search box to filter - d
+22. Add edit for author
+23. Add new content types: series
+24. Add an alphabet search widget

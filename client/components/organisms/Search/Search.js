@@ -29,7 +29,7 @@ export default class Search extends PureComponent {
 
     return (
       <SearchPanel aria-hidden={!this.props.open}>
-        {this.props.open && <div key='search-panel' className='search-panel'>
+        <div key='search-panel' className='search-panel'>
           <IconButton icon='close' label='Close search'
             className='close-search-btn'
             onClick={this.closeSearch} />
@@ -39,7 +39,7 @@ export default class Search extends PureComponent {
             {mangaList}
             {authorList}
           </Grid>
-        </div>}
+        </div>
       </SearchPanel>
     );
   }
@@ -96,7 +96,7 @@ const SearchPanel = styled('section')(props => `
   background: #fff;
 
   &[aria-hidden="true"] {
-    transition: opacity .5s, z-index 0s .5s;
+    transition: opacity .3s, z-index 0s .3s;
     width: 100vw;
     z-index: -1;
     opacity: 0;

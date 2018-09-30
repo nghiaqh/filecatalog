@@ -96,14 +96,14 @@ const SearchPanel = styled('section')(props => `
   background: #fff;
 
   &[aria-hidden="true"] {
-    transition: opacity 1s, z-index 0s 1s;
+    transition: opacity .5s, z-index 0s .5s;
     width: 100vw;
     z-index: -1;
     opacity: 0;
   }
 
   &[aria-hidden="false"] {
-    transition: opacity 1s;
+    transition: opacity .3s;
     width: 100%;
     z-index: 5;
     opacity: 1;

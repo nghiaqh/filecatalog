@@ -25,5 +25,5 @@
 17. Slider component
 18. Import without relative path - d
 19. Lazy load picture - d
-20. Remember scroll position for withLoadMore
-21. Universal search, convert current simpleton search box to filter
+20. Remember scroll position for withLoadMore - leave this to browser back button?
+21. Universal search, convert current simpleton search box to filter - 60% d

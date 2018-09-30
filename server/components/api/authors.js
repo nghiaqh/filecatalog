@@ -27,18 +27,16 @@ function getAuthors(filter = {}, cb) {
   LIMIT ?
   OFFSET ?`;
 
-  connection.query(
-    sql,
+  return new Promise((resolve, reject) => connection.query(sql,
     flatten([
       (filter.order || 'name').replace(/\s(asc|desc)$/i, ''),
       parseInt(filter && filter.limit || 200),
       parseInt(filter && filter.skip || 0)
-    ]),
-    (err, results) => {
-      if (err) console.log(err);
-      cb(results);
+    ]), (err, result) => {
+      if (err) reject(err);
+      resolve(result);
     }
-  );
+  ));
 }
 
 function prepareWhereStatement(where) {
@@ -61,8 +59,11 @@ function setupAuthorsRoute(router) {
     const filter = JSON.parse(
       url.parse(req.url, true).query.filter
     );
-    getAuthors(filter, (r) => res.send(r));
+    getAuthors(filter).then(result => res.send(result));
   })
 }
 
-module.exports = { setupAuthorsRoute }
+module.exports = {
+  getAuthors,
+  setupAuthorsRoute
+}

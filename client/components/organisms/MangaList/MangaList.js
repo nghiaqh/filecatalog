@@ -1,7 +1,8 @@
-import equal from 'deep-equal';
 import React, { PureComponent } from 'react';
 
 import MangaCard from '@molecule/MangaCard';
+import MangaListItem from '@molecule/MangaListItem';
+import { ContentList } from '@organism/ContentList';
 import { ContentGrid } from '@organism/ContentGrid';
 import { WithLoadMore } from '@organism/WithLoadMore';
 import { loadMoreMangas } from './actions';
@@ -11,13 +12,9 @@ import { loadMoreMangas } from './actions';
 class MangaList extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      id: 'manga-list-' + props.uid,
-      filter: {
-        title: props.searchText,
-        authorId: props.authorId
-      }
-    };
+
+    this.renderListItem = this.renderListItem.bind(this);
+    this.renderList = this.renderList.bind(this);
     this.renderCard = this.renderCard.bind(this);
     this.renderGrid = this.renderGrid.bind(this);
   }
@@ -39,6 +36,28 @@ class MangaList extends PureComponent {
         order={order}
       />
     );
+  }
+
+  renderListItem(item) {
+    return (
+      <MangaListItem
+        key={'manga-' + item.id}
+        manga={item}
+        location={this.props.location}
+      />
+    );
+  }
+
+  renderList(items, retrievingItems) {
+    return (
+      <ContentList
+        twoLine
+        avatarList={true}
+        items={items}
+        render={this.renderListItem}
+        retrievingItems={retrievingItems}
+      />
+    )
   }
 
   renderCard(item) {

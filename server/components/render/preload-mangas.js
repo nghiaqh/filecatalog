@@ -15,7 +15,8 @@ async function preloadMangas(Manga) {
   const { entities } = normalize(m.data, [manga]);
 
   const searchList = Object.assign({}, m.list);
-  searchList.items = searchList.items.slice(0, 12);
+  searchList.items = searchList.items.slice(0, 10);
+  searchList.pageSize = 10;
 
   return {
     withLoadMore: {

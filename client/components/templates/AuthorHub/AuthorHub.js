@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import styled from 'react-emotion';
-import SearchBox from '@atom/SearchBox';
 import { AuthorList } from '@organism/AuthorList';
 
 export default class AuthorHub extends PureComponent {

@@ -3,7 +3,7 @@ import getFirstPage from './preload-state';
 import { author, manga } from './schemas';
 
 async function preloadAuthors(Author) {
-  const a = await getFirstPage(Author, 48, {}, 'name');
+  const a = await getFirstPage(Author, 48, {}, 'mangasCount');
 
   // initialise filter so loadMore action doesn't trigger
   a.list.filter = { name: '' };
@@ -11,7 +11,8 @@ async function preloadAuthors(Author) {
   const { entities } = normalize(a.data, [author]);
 
   const searchList = Object.assign({}, a.list);
-  searchList.items = searchList.items.slice(0, 12);
+  searchList.items = searchList.items.slice(0, 10);
+  searchList.pageSize = 10;
 
   return {
     withLoadMore: {

@@ -17,7 +17,6 @@ class AuthorList extends PureComponent {
     this.renderList = this.renderList.bind(this);
     this.renderCard = this.renderCard.bind(this);
     this.renderGrid = this.renderGrid.bind(this);
-    this.id = 'author-list-' + props.uid;
   }
 
   render() {
@@ -53,7 +52,6 @@ class AuthorList extends PureComponent {
     return (
       <StyledAuthorList
         twoLine
-        avatarList={true}
         items={items}
         render={this.renderListItem}
         retrievingItems={retrievingItems}

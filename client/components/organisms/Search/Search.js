@@ -1,17 +1,9 @@
-import debounce from 'lodash/debounce';
-
 import React, { PureComponent } from 'react';
 import styled from 'react-emotion';
 import { forceCheck } from 'react-lazyload';
 
-import {
-  Toolbar,
-  ToolbarRow,
-  ToolbarSection,
-  ToolbarIcon
-} from '@rmwc/toolbar';
+import { IconButton } from '@rmwc/icon-button';
 import { Typography } from '@rmwc/typography';
-
 import { AuthorList } from '@organism/AuthorList';
 import { MangaList } from '@organism/MangaList';
 import SearchBox from '@atom/SearchBox';
@@ -24,22 +16,30 @@ export default class Search extends PureComponent {
       type: ['manga', 'author'],
       forceCheck: true
     };
-    this.handleSearch = debounce(this.handleSearch.bind(this), 500);
+
+    this.renderList = this.renderList.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
     this.closeSearch = this.closeSearch.bind(this);
   }
 
   render() {
     const searchBar = this.renderSearchBar.bind(this)();
-    const mangaList = this.renderMangaList();
-    const authorList = this.renderAuthorList();
+    const mangaList = this.renderList(MangaList, ['Recent mangas', 'Mangas']);
+    const authorList = this.renderList(AuthorList, ['Highlight Authors', 'Authors']);
 
     return (
       <SearchPanel aria-hidden={!this.props.open}>
-        <div key='search-panel' className='search-panel'>
+        {this.props.open && <div key='search-panel' className='search-panel'>
+          <IconButton icon='close' label='Close search'
+            className='close-search-btn'
+            onClick={this.closeSearch} />
           {searchBar}
-          {mangaList}
-          {authorList}
-        </div>
+
+          <Grid>
+            {mangaList}
+            {authorList}
+          </Grid>
+        </div>}
       </SearchPanel>
     );
   }
@@ -47,7 +47,7 @@ export default class Search extends PureComponent {
   componentDidUpdate(prevProps) {
     const openChanged = prevProps.open !== this.props.open;
     if (openChanged && this.props.open && this.state.forceCheck) {
-      // forceCheck();
+      forceCheck();
       this.setState({ forceCheck: false });
     }
 
@@ -58,48 +58,24 @@ export default class Search extends PureComponent {
 
   renderSearchBar() {
     return (
-      <Toolbar className='toolbar'>
-        <ToolbarRow>
-          <ToolbarSection>
-            <ToolbarIcon
-              icon="menu"
-              onClick={this.props.onClickMenuIcon} />
-            <SearchBox
-              type={{outlined: true, dense: true}}
-              onSearch={this.handleSearch}
-              placeholder='Search mangas, authors' />
-            <ToolbarIcon icon="clear" label="Close search"
-              onClick={this.closeSearch} />
-          </ToolbarSection>
-        </ToolbarRow>
-      </Toolbar>
+      <SearchBox
+        outlined
+        onSearch={this.handleSearch}
+        label='Search mangas &amp; authors' />
     );
   }
 
-  renderMangaList() {
+  renderList(ListComponent, headlines) {
+    const headline = this.state.searchText === '' ? headlines[0] : headlines[1];
     return (
-      <React.Fragment>
-        <Typography use="headline6" tag="h3">Mangas</Typography>
-        <MangaList
+      <div className='content-list'>
+        <Typography use="overline" tag="h3">{headline}</Typography>
+        <ListComponent
           uid='search'
           searchText={this.state.searchText}
-          history={this.props.history}
-          pageSize={12} />
-      </React.Fragment>
-    );
-  }
-
-  renderAuthorList() {
-    return (
-      <React.Fragment>
-        <Typography use="headline6" tag="h3">Authors</Typography>
-        <AuthorList
-          uid='search'
-          searchText={this.state.searchText}
-          history={this.props.history}
-          pageSize={12}
-          display='grid' />
-      </React.Fragment>
+          pageSize={10}
+          display='list' />
+      </div>
     );
   }
 
@@ -134,23 +110,41 @@ const SearchPanel = styled('section')(props => `
   }
 
   .search-panel {
-    > h1,
-    > h3 {
-      padding: 0 10px;
-    }
+    overflow: auto;
   }
 
-  .toolbar {
-    height: 64px;
+  .close-search-btn {
+    float: right;
+    margin: 10px;
   }
 
   .search-box {
-    width: 90%;
-    margin: 0 auto;
+    display: flex;
+    width: 92%;
+    max-width: 960px;
+    margin: 40px auto;
+    clear: both;
+    overflow: hidden;
+  }
 
-    input {
-      background-color: #fff !important;
-      border-radius: 4px;
+  .content-list {
+    > h3 {
+      text-transform: uppercase;
+      font-weight: bold;
     }
   }
 `);
+
+const Grid = styled('section')`
+  display: grid;
+  grid-gap: 15px;
+  grid-template-rows: auto;
+  grid-template-columns: repeat(1, calc(100% - 15px));
+  padding: 15px;
+  max-width: 960px;
+  margin: 0 auto;
+
+  @media (min-width: 400px) {
+    grid-template-columns: repeat(2, calc((100% - 15px) / 2));
+  }
+`;

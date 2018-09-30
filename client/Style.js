@@ -42,9 +42,6 @@ injectGlobal`
 
   .no-scroll {
     overflow: hidden;
-    @media (min-device-width: 1025px) {
-      padding-right: 15px;
-    }
   }
 
   /* Animation */

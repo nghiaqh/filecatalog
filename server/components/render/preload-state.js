@@ -1,3 +1,4 @@
+import { getAuthors } from '../api/authors';
 async function getFirstPage(Model, pageSize, filter, order, include) {
   const list = {
     items: [],
@@ -13,19 +14,27 @@ async function getFirstPage(Model, pageSize, filter, order, include) {
   };
 
   list.total = await Model.count(filter);
+  let data = [];
+  let items;
 
-  const result = await Model.find({
+  const conditions = {
     where: filter,
     limit: pageSize,
     include: include,
     order: order
-  });
+  };
 
-  result.forEach(item => {
-    list.items.push(item.id);
-  });
+  switch (Model.name) {
+    case 'Author':
+      data = await getAuthors(conditions);
+      break;
+    default:
+      const items = await Model.find(conditions);
+      data = items.map(item => item.__data);
+      break;
+  }
 
-  const data = result.map(item => item.__data);
+  list.items = data.map(item => item.id);
 
   return { list, data };
 }

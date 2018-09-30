@@ -40,7 +40,7 @@ export class AuthorDetail extends PureComponent {
         <React.Fragment>
           <StyledSection className='main-content'>
             <SearchBox
-              type={{fullwidth: true, dense: true}}
+              fullwidth
               onSearch={this.searchManga}
               placeholder={`Search mangas by ${author.name}`} />
             <MangaList
@@ -54,7 +54,7 @@ export class AuthorDetail extends PureComponent {
           </StyledSection>
           <StyledSection className='sidebar'>
             <SearchBox
-              type={{fullwidth: true, dense: true}}
+              fullwidth
               onSearch={this.searchAuthor}
               placeholder={`Search author`} />
             <AuthorList

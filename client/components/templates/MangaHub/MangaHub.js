@@ -12,6 +12,7 @@ export default class MangaHub extends PureComponent {
       <StyledMangaHub>
         <MangaList
           uid='manga-hub'
+          searchText=''
           history={this.props.history}
         />
       </StyledMangaHub>

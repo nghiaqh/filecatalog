@@ -55,7 +55,6 @@ class SearchBox extends PureComponent {
 
 const StyledTextField = styled(TextField)(props => `
   overflow: hidden;
-  margin: 0 auto;
 
   .mdc-text-field__icon {
     cursor: pointer;

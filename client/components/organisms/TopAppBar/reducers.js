@@ -1,11 +1,5 @@
 import { SET_BREADCRUMB } from './actions';
-const initialState = {
-  breadcrumb: [{
-    text: 'Home',
-    url: '/',
-    visibleOnCompactMode: false
-  }]
-}
+const initialState = {};
 
 const breadcrumbReducer = (prevState = {}, action) => {
   const state = Object.assign({}, initialState, prevState);
@@ -22,7 +16,11 @@ const breadcrumbReducer = (prevState = {}, action) => {
 }
 
 function createBreadcrumb(state, pathname) {
-  let { breadcrumb } = initialState;
+  let breadcrumb = [{
+    text: 'Home',
+    url: '/',
+    visibleOnCompactMode: false
+  }];
   const parts = pathname.split('/').splice(1);
 
   if (pathname !== '/') {
@@ -43,7 +41,9 @@ function createBreadcrumb(state, pathname) {
           text,
           url,
           visibleOnCompactMode,
-          prefix: visibleOnCompactMode ? `${type.slice(0, -1)} ` : ''
+          prefix: (visibleOnCompactMode && index > 1)
+            ? `${type.slice(0, -1)} `
+            : ''
       };
     });
 

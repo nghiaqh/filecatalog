@@ -16,6 +16,7 @@ export default class AuthorHub extends PureComponent {
       <StyledAuthorHub>
         <AuthorList
           uid={'author-hub'}
+          searchText=''
           order={this.state.authorListOrder}
         />
       </StyledAuthorHub>

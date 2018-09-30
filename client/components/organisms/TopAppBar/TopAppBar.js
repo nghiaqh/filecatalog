@@ -56,7 +56,7 @@ export class TopAppBar extends PureComponent {
       if (index + 1 === breadcrumb.length) {
         return (
           <StyledDiv key={uniqueKey} className={className}>
-            {item.prefix}{item.text}
+            {item.text}
           </StyledDiv>
         )
       }

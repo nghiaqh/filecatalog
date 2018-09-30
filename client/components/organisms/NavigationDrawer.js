@@ -30,8 +30,13 @@ export default class NavigationDrawer extends PureComponent {
         onClose={onClose}
       >
         <DrawerHeader>
-          <DrawerTitle>File Catalog</DrawerTitle>
+          <DrawerTitle>
+            <NavLink to='/' onClick={onClose}>
+              File Catalog
+            </NavLink>
+          </DrawerTitle>
         </DrawerHeader>
+        <ListDivider/>
 
         <DrawerContent location={location}>
           <NavLink to='/mangas' onClick={onClose}>
@@ -75,6 +80,10 @@ const StyledDrawer = styled(Drawer)(props => (
 
     '.mdc-drawer__title, .mdc-list-item, .mdc-list-item__graphic': {
       color: props.theme.onSecondary
+    },
+
+    '.mdc-drawer__header a': {
+      textTransform: 'none'
     }
   }
 ));

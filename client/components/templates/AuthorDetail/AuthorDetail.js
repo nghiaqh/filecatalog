@@ -99,10 +99,10 @@ const StyledSection = styled('section')`
 
   &.main-content {
     display: inline-block;
-    max-width: calc(100% - 260px);
+    width: calc(100% - 260px);
 
     @media (max-width: 640px) {
-      max-width: 100%;
+      width: 100%;
     }
   }
 `

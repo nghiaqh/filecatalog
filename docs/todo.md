@@ -30,3 +30,4 @@
 22. Add edit for author
 23. Add new content types: series
 24. Add an alphabet search widget
+25. Fix issue with lazy load doesn't trigger/work in search overlay when item is out of viewport

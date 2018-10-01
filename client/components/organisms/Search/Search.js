@@ -122,7 +122,7 @@ const SearchPanel = styled('section')(props => `
     display: flex;
     width: 92%;
     max-width: 960px;
-    margin: 40px auto;
+    margin: 40px auto 5px;
     clear: both;
     overflow: hidden;
   }

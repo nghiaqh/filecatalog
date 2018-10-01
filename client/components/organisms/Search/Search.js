@@ -91,26 +91,24 @@ export default class Search extends PureComponent {
 
 const SearchPanel = styled('section')(props => `
   position: fixed;
-  overflow-y: scroll;
+  overflow-y: auto;
   top: 0; left: 0; top: 0; bottom: 0;
   background: #fff;
 
   &[aria-hidden="true"] {
-    transition: opacity .3s, z-index 0s .3s;
+    transition: opacity .2s, z-index 0s .2s;
     width: 100vw;
-    z-index: -1;
-    opacity: 0;
+    // z-index: -1;
+    // opacity: 0;
+    display: none;
   }
 
   &[aria-hidden="false"] {
-    transition: opacity .3s;
+    transition: opacity .1s;
     width: 100%;
     z-index: 5;
-    opacity: 1;
-  }
-
-  .search-panel {
-    overflow: auto;
+    // opacity: 1;
+    display: block;
   }
 
   .close-search-btn {

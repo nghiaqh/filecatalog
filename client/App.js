@@ -34,13 +34,6 @@ class App extends Component {
           onClickMenuIcon={this.openDrawer}
           onClickSearchIcon={this.openSearch} />
 
-        <Search
-          open={this.state.isSearchOpen}
-          onClose={this.closeSearch}
-          theme={theme}
-          location={location}
-          onClickMenuIcon={this.openDrawer} />
-
         <NavigationDrawer
           open={this.state.isDrawOpen}
           onClose={this.closeDrawer}
@@ -56,6 +49,13 @@ class App extends Component {
           <Route exact path='/authors' component={AuthorHub}/>
           <Route exact path='/authors/:authorId' component={AuthorDetail}/>
         </Switch>
+
+        <Search
+          open={this.state.isSearchOpen}
+          onClose={this.closeSearch}
+          theme={theme}
+          location={location}
+          onClickMenuIcon={this.openDrawer} />
       </ThemeProvider>
     );
   }
